@@ -12,6 +12,14 @@ var c = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+c.fillStyle = "black";
+c.lineCap = "round";
+c.lineWidth = 2;
+
+var width = canvas.width; 
+var height = canvas.height; 
+
+
 var random = function(min, max, r){
 	if(r === undefined) r = true; 
 	if(r){
@@ -21,13 +29,32 @@ var random = function(min, max, r){
 	}
 }
 
+// map from: 
+// http://stackoverflow.com/questions/10756313/javascript-jquery-map-a-range-of-numbers-to-another-range-of-numbers
+var map = function(num, minIN, maxIN, minOUT, maxOUT) {
+  return (num - minIN) * (maxOUT - minOUT) / (maxIN - minIN) + minOUT;
+}
+
 var deg = function(d){
 	return d * Math.PI/180;
 }
 
+var getLength = function(a, b){
+	var a2 = (a[1]-a[0])*(a[1]-a[0]) ;
+	var b2 = (b[1]-b[0])*(b[1]-b[0]) ;
+	return Math.sqrt( a2 + b2 );
+}
+
+var blendMode = function(m){
+	if(m=="multiply"){
+		c.globalCompositeOperation = "multiply";
+	}else if(m=="normal"){
+		c.globalCompositeOperation = "source-over";
+	}
+}
+
 var fill = function(cl){
 	c.fillStyle = cl;
-	// c.strokeStyle = "rgba(255,255,255,0)";
 }
 
 var noFill = function(){
@@ -40,6 +67,16 @@ var stroke = function(cl){
 
 var strokeWidth = function(){
 	c.lineWidth = random(2,3,false);
+}
+
+var pPoint = function(x, y){
+
+	x += random(-1, 1);
+	y += random(-1, 1);
+	c.save();
+	c.fillStyle = "black";
+	c.fillRect(x, y, random(2,3,false), random(2,3,false));
+	c.restore();
 }
 
 var pLine = function(x1, y1, x2, y2){
@@ -61,7 +98,7 @@ var pRect = function(x, y, w, h){
 	pLine(x, y+h, x, y);
 }
 
-var pEllipse = function(x, y, d, a){
+var pCircle = function(x, y, d, a){
 	if(a===undefined) a = 360;
 	var r = d/2;
 	var lastx = x; 
@@ -78,7 +115,6 @@ var pEllipse = function(x, y, d, a){
 		inc = 10; 
 		offset = 2; 
 	}
-
 	for(i=0; i<a; i+=inc){
 		strokeWidth();
 		centx = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
@@ -95,3 +131,50 @@ var pEllipse = function(x, y, d, a){
 	c.closePath();
 }
 
+
+var pEllipse = function(x, y, w, h, a){
+	if(a===undefined) a = 360;
+
+	if(w > h) var r = h/2; 
+	else var r = w/2; 
+
+	var lastx = x; 
+	var lasty = y;
+
+	c.beginPath();
+
+	inc = 10; 
+	offset = 1; 
+
+	for(i=0; i<a; i+=inc){
+		strokeWidth();
+		if(w>h){
+		//stretch width
+			var ratio = w/h;
+		
+			centx = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
+			centy = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
+
+			centx = (centx*ratio)-(x*ratio/(ratio/2)) ;//+ map(centx, 0, h, 0, h);
+
+			c.lineTo(centx, centy);	
+		}else{
+		//stretch height
+			var ratio = h/w;
+			centx = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
+			centy = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
+
+			centy = (centy*ratio)-(x*ratio/(ratio/2)) 
+
+			c.lineTo(centx, centy);	
+		}
+		x = lastx; 
+		y = lasty;
+	}
+	if(a==360){
+		c.lineTo(x+(w/2), y);
+	}
+	c.fill();
+	c.stroke();
+	c.closePath();
+}
