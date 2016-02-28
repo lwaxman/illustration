@@ -1,7 +1,11 @@
 
 
 var drawCup = function(x, y){
-	
+
+
+
 }
 
-drawCup(width/2, height-100);
+// pEllipse(width/2, height/2, 300, 100, -30, 180);
+// drawCup(width/2, height-100);
+

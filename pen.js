@@ -98,8 +98,10 @@ var pRect = function(x, y, w, h){
 	pLine(x, y+h, x, y);
 }
 
-var pCircle = function(x, y, d, a){
-	if(a===undefined) a = 360;
+var pCircle = function(x, y, d, sA, eA){
+	if(eA===undefined) eA = 360;
+	if(sA===undefined) sA = 0;
+
 	var r = d/2;
 	var lastx = x; 
 	var lasty = y;
@@ -115,11 +117,11 @@ var pCircle = function(x, y, d, a){
 		inc = 10; 
 		offset = 2; 
 	}
-	for(i=0; i<a; i+=inc){
+	for(i=sA; i<eA; i+=inc){
 		strokeWidth();
-		centx = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
-		centy = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
-		c.lineTo(centx, centy);
+		px = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
+		py = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
+		c.lineTo(centx, py);
 		x = lastx; 
 		y = lasty;
 	}
@@ -132,49 +134,61 @@ var pCircle = function(x, y, d, a){
 }
 
 
-var pEllipse = function(x, y, w, h, a){
-	if(a===undefined) a = 360;
+var pEllipse = function(x, y, w, h, sA, eA){
+	if(sA===undefined) sA = 0;
+	if(eA===undefined) eA = 360; 
 
 	if(w > h) var r = h/2; 
 	else var r = w/2; 
 
 	var lastx = x; 
 	var lasty = y;
-
+	var inc = 10; 
+	var offset = 1; 
+	
 	c.beginPath();
+	c.moveTo(x+(w/2), y);
 
-	inc = 10; 
-	offset = 1; 
-
-	for(i=0; i<a; i+=inc){
+	for(i=sA; i<eA; i+=inc){
 		strokeWidth();
 		if(w>h){
 		//stretch width
 			var ratio = w/h;
 		
-			centx = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
-			centy = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
+			px = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
+			py = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
 
-			centx = (centx*ratio)-(x*ratio/(ratio/2)) ;//+ map(centx, 0, h, 0, h);
+			// px = (px*ratio)-(x*ratio/(ratio/2));
+			px = map(px, x+(r/2), x-(r/2), x+(w/4), x-(w/4));
 
-			c.lineTo(centx, centy);	
+			c.lineTo(px, py);	
 		}else{
 		//stretch height
 			var ratio = h/w;
-			centx = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
-			centy = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
+			px = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
+			py = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
 
-			centy = (centy*ratio)-(x*ratio/(ratio/2)) 
+			py = map(py, y+(r/2), y-(r/2), y+(h/4), y-(h/4));
 
-			c.lineTo(centx, centy);	
+			c.lineTo(px, py);	
 		}
 		x = lastx; 
 		y = lasty;
 	}
-	if(a==360){
+	if(eA==360){
 		c.lineTo(x+(w/2), y);
 	}
-	c.fill();
 	c.stroke();
 	c.closePath();
 }
+
+pEllipse(width/2, height/2, 100, 300);
+pEllipse(width/2, height/2, 400, 200);
+
+
+pEllipse(200, 400, 100, 300);
+
+pEllipse(400, 200, 300, 200);
+
+
+
