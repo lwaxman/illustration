@@ -12,12 +12,19 @@ var c = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-c.fillStyle = "black";
+// c.fillStyle = "blue";
+c.strokeStyle = "black";
 c.lineCap = "round";
 c.lineWidth = 2;
 
 var width = canvas.width; 
 var height = canvas.height; 
+var fillShape = false;
+
+var background = function(){
+	// c.fillStyle = color;
+	c.clearRect(0, 0, width, height);
+}
 
 
 var random = function(min, max, r){
@@ -54,10 +61,12 @@ var blendMode = function(m){
 }
 
 var fill = function(cl){
+	fillShape = true;
 	c.fillStyle = cl;
 }
 
 var noFill = function(){
+	fillShape = false;
 	c.fillStyle = "rgba(255,255,255,0)";
 }
 
@@ -92,48 +101,40 @@ var pLine = function(x1, y1, x2, y2){
 }
 
 var pRect = function(x, y, w, h){
+	if( fillShape ) fRect(x, y, w, h);
 	pLine(x, y, x+w, y);
 	pLine(x+w, y, x+w, y+h);
 	pLine(x+w, y+h, x, y+h);
 	pLine(x, y+h, x, y);
 }
-
-var pCircle = function(x, y, d, sA, eA){
-	if(eA===undefined) eA = 360;
-	if(sA===undefined) sA = 0;
-
-	var r = d/2;
-	var lastx = x; 
-	var lasty = y;
+var fRect = function(x, y, w, h){
 	c.beginPath();
-	c.moveTo(x+r, y);
-	if(r>25 && r<=100){
-		inc = 15;
-		offset = 1;
-	}else if(r<=25){
-		inc = 20;
-		offset = 0.6;
-	}else{
-		inc = 10; 
-		offset = 2; 
-	}
-	for(i=sA; i<eA; i+=inc){
-		strokeWidth();
-		px = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
-		py = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
-		c.lineTo(centx, py);
-		x = lastx; 
-		y = lasty;
-	}
-	if(a===360){
-		c.lineTo(x+r, y);	
-	}
+	c.moveTo(x, y);
+	c.lineTo(x+w, y+h);
+	c.lineTo(x, y+h);
+	c.lineTo(x, y);
 	c.fill();
-	c.stroke();
+	c.closePath();
+}
+
+var pQuad = function(p1, p2, p3, p4){
+	if( fillShape )fQuad(p1, p2, p3, p4);
+	pLine(p1[0], p1[1], p2[0], p2[1]);
+	pLine(p2[0], p2[1], p3[0], p3[1]);
+	pLine(p3[0], p3[1], p4[0], p4[1]);
+}
+var fQuad = function(p1, p2, p3, p4){
+	c.beginPath();
+	c.moveTo(p1[0], p1[1]);
+	c.lineTo(p2[0], p2[1]);
+	c.lineTo(p3[0], p3[1]);
+	c.lineTo(p4[0], p4[1]);
+	c.fill();
 	c.closePath();
 }
 
 
+// there is definitely a better way to do this...
 var pEllipse = function(x, y, w, h, sA, eA){
 	if(sA===undefined) sA = 0;
 	if(eA===undefined) eA = 360; 
@@ -147,48 +148,41 @@ var pEllipse = function(x, y, w, h, sA, eA){
 	var offset = 1; 
 	
 	c.beginPath();
-	c.moveTo(x+(w/2), y);
 
+	if(r>25 && r<=100){
+		inc = 15;
+		offset = 1;
+	}else if(r<=25){
+		inc = 20;
+		offset = 0.6;
+	}else{
+		inc = 10; 
+		offset = 2; 
+	}
+
+	if(eA==360) c.moveTo(x+(w/2), y);
 	for(i=sA; i<eA; i+=inc){
 		strokeWidth();
 		if(w>h){
 		//stretch width
-			var ratio = w/h;
-		
 			px = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
 			py = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
-
-			// px = (px*ratio)-(x*ratio/(ratio/2));
-			px = map(px, x+(r/2), x-(r/2), x+(w/4), x-(w/4));
-
+			px = map(px, x+(r/2), x-(r/2), x+(w/4), x-(w/4)); //from circle to ellipse
 			c.lineTo(px, py);	
 		}else{
 		//stretch height
-			var ratio = h/w;
 			px = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
 			py = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
-
-			py = map(py, y+(r/2), y-(r/2), y+(h/4), y-(h/4));
-
+			py = map(py, y+(r/2), y-(r/2), y+(h/4), y-(h/4)); //from circle to ellipse
 			c.lineTo(px, py);	
 		}
 		x = lastx; 
 		y = lasty;
 	}
-	if(eA==360){
-		c.lineTo(x+(w/2), y);
-	}
+	if(eA==360) c.lineTo(x+(w/2), y);
+	c.fill();
 	c.stroke();
 	c.closePath();
 }
-
-pEllipse(width/2, height/2, 100, 300);
-pEllipse(width/2, height/2, 400, 200);
-
-
-pEllipse(200, 400, 100, 300);
-
-pEllipse(400, 200, 300, 200);
-
 
 
