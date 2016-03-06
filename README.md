@@ -1,4 +1,4 @@
-# flindall
+# Flindall
 
-a digital [terrarium/ecosystem] ruined by human contact.
-
+A digital ecosystem (to be) ruined by human contact.
+[Visit it here.](http://lwaxman.github.io/illustration/flindall.html)
