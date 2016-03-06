@@ -11,9 +11,12 @@ var canvas = document.getElementById("main");
 var c = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+var w = window.innerWidth;
+var h = window.innerHeight;
 
 // c.fillStyle = "blue";
 c.strokeStyle = "black";
+c.fillStyle = "white";
 c.lineCap = "round";
 c.lineWidth = 2;
 
@@ -22,10 +25,8 @@ var height = canvas.height;
 var fillShape = false;
 
 var background = function(){
-	// c.fillStyle = color;
 	c.clearRect(0, 0, width, height);
 }
-
 
 var random = function(min, max, r){
 	if(r === undefined) r = true; 
@@ -79,7 +80,6 @@ var strokeWidth = function(){
 }
 
 var pPoint = function(x, y){
-
 	x += random(-1, 1);
 	y += random(-1, 1);
 	c.save();
@@ -133,7 +133,14 @@ var fQuad = function(p1, p2, p3, p4){
 	c.closePath();
 }
 
-
+var ellipse = function(x, y, r, sA, eA){
+	if(sA===undefined) sA = 0;
+	if(eA===undefined) eA = 360; 
+	c.beginPath();
+	c.arc(x, y, r, sA, eA);
+	c.fill();
+	c.closePath();
+}
 // there is definitely a better way to do this...
 var pEllipse = function(x, y, w, h, sA, eA){
 	if(sA===undefined) sA = 0;

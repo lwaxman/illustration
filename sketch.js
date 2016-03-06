@@ -86,29 +86,32 @@ cup.drawLid = function(x, y, w){
 	pEllipse(x, y-this.lidHeight, this.lipWidth, this.lipSize, this.lipAngle, this.lipAngle+this.lipLength); //inner lip
 }
 
-var activeCups = 10; 
+var activeObjects = 20; 
 
-var cups = [];
-for(var cupCount=activeCups; cupCount>0; cupCount--){
+var objects = [];
+for(var oCount=activeObjects; oCount>0; oCount--){
 	var tempCup = Object.create(cup);
 	// tempCup.fill = "red";
-	tempCup.setup(random(0, width), 100+(cupCount*(height/activeCups)));
-	cups.push( tempCup );
+	tempCup.setup(100+(oCount*(width/activeObjects)), random(0, height));
+	objects.push( tempCup );
 }
 
 var count = 0; 
 setInterval(function(){
 	background();
-	for(var i=cups.length-1; i>0; i--){
-		cups[i].update(cups[i].xPos, cups[i].count+cups[i].yPos);
-		if(cups[i].count+cups[i].yPos > height+cups[i].bodyHeight){
-			cups.splice(i, 1);
+	objects.sort(function(obj1, obj2){
+		return obj1.yPos - obj2.yPos;
+	});
+	for(var i=0; i<objects.length; i++){
+		if(objects[i].count+objects[i].xPos > width+objects[i].bodyWidth){
+			objects.splice(i, 1);
 			var tempCup = Object.create(cup);
 			// tempCup.fill = "blue";
 			tempCup.count = 0; 
-			tempCup.setup(random(0, width), 0);
-			cups.push( tempCup );
+			tempCup.setup(0, random(0, width));
+			objects.push( tempCup );
 		}
-		cups[i].count+=5;
+		objects[i].update(objects[i].count+objects[i].xPos, objects[i].yPos);
+		objects[i].count+=3;
 	}
 }, 33);
