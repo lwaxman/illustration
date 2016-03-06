@@ -93,8 +93,13 @@ var pLine = function(x1, y1, x2, y2){
 	var offset = 2; 
 	c.beginPath();
 	c.moveTo(x1, y1);
-	c.lineTo(x1+((x2-x1)*0.33)+random(-offset, offset), y1+((y2-y1)*0.33)+random(-offset, offset));
-	c.lineTo(x1+(2*(x2-x1)*0.33)+random(-offset, offset), y1+(2*(y2-y1)*0.33)+random(-offset, offset));
+	if( getLength([x1, x2],[y1,y2]) < 30){
+		offset = 1;
+		c.lineTo(x1+((x2-x1)*0.5)+random(-offset, offset), y1+((y2-y1)*0.5)+random(-offset, offset));
+	}else{
+		c.lineTo(x1+((x2-x1)*0.33)+random(-offset, offset), y1+((y2-y1)*0.33)+random(-offset, offset));
+		c.lineTo(x1+(2*(x2-x1)*0.33)+random(-offset, offset), y1+(2*(y2-y1)*0.33)+random(-offset, offset));
+	}
 	c.lineTo(x2, y2);
 	c.stroke();
 	c.closePath();
@@ -110,9 +115,9 @@ var pRect = function(x, y, w, h){
 var fRect = function(x, y, w, h){
 	c.beginPath();
 	c.moveTo(x, y);
+	c.lineTo(x+w, y);
 	c.lineTo(x+w, y+h);
 	c.lineTo(x, y+h);
-	c.lineTo(x, y);
 	c.fill();
 	c.closePath();
 }
@@ -192,4 +197,53 @@ var pEllipse = function(x, y, w, h, sA, eA){
 	c.closePath();
 }
 
+var fEllipse = function(x, y, w, h, sA, eA){
+	if(sA===undefined) sA = 0;
+	if(eA===undefined) eA = 360; 
+
+	if(w > h) var r = h/2; 
+	else var r = w/2; 
+
+	var lastx = x; 
+	var lasty = y;
+	var inc = 10; 
+	var offset = 1; 
+	
+	c.beginPath();
+
+	if(r>25 && r<=100){
+		inc = 15;
+		offset = 1;
+	}else if(r<=25){
+		inc = 20;
+		offset = 0.6;
+	}else{
+		inc = 10; 
+		offset = 2; 
+	}
+
+	if(eA==360) c.moveTo(x+(w/2), y);
+	for(i=sA; i<eA; i+=inc){
+		strokeWidth();
+		if(w>h){
+		//stretch width
+			px = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
+			py = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
+			px = map(px, x+(r/2), x-(r/2), x+(w/4), x-(w/4)); //from circle to ellipse
+			c.lineTo(px, py);	
+		}else{
+		//stretch height
+			px = x + (r * Math.cos( deg(i) )) + random(-offset, offset);
+			py = y + (r * Math.sin( deg(i) )) + random(-offset, offset);
+			py = map(py, y+(r/2), y-(r/2), y+(h/4), y-(h/4)); //from circle to ellipse
+			c.lineTo(px, py);	
+		}
+		x = lastx; 
+		y = lasty;
+	}
+	if(eA==360) c.lineTo(x+(w/2), y);
+	c.fill();
+	// c.stroke();
+	c.closePath();
+}
 
