@@ -37,6 +37,10 @@ var random = function(min, max, r){
 	}
 }
 
+var randomColour = function(){
+	return "rgba("+random(0,255)+", "+random(0,255)+", "+random(0,255)+", 1)";
+}
+
 // map from: 
 // http://stackoverflow.com/questions/10756313/javascript-jquery-map-a-range-of-numbers-to-another-range-of-numbers
 var map = function(num, minIN, maxIN, minOUT, maxOUT) {

@@ -11,7 +11,8 @@
 var scale = 1.5;
 var points = 100;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////// DEEBS
+/////////////////////////////////////////////////////////////////////////////////////////////////// FAUNA
+//////////////////////////////////////////////////////////////////////////////////////////// DEEBS
 
 var deeb = {};
 deeb.count = 0; 
@@ -23,11 +24,14 @@ deeb.startHeight = 130;
 deeb.slugPeriod = 60;
 deeb.speed = 3;
 deeb.eyeSize = 20;
-deeb.direction = 1;
 deeb.mouthWidth = 10;
 deeb.fill = "#DEEBEE";
 deeb.setup = function(x, y){
 	this.count=random(0,10,false);
+	this.speed = random(3, 5, false);
+	if(random(0,1)<1){
+		this.speed=-this.speed;
+	}
 	this.xPos = x; 
 	this.yPos = y;
 	this.eyeSize = random(20,30, false);
@@ -35,7 +39,7 @@ deeb.setup = function(x, y){
 	this.bodyWidth += random(-20, 20); 
 	this.bodyHeight += random(-20, 20); 
 	this.slugPeriod = random(40,70);
-	this.update();
+	// this.update();
 	this.drawBody(x, y);
 }
 deeb.update = function(){
@@ -62,46 +66,112 @@ deeb.drawBody = function(x, y){
 	this.face();
 }
 deeb.face = function(){
+	//eyes
 	fill("white");
 	pEllipse(this.xPos-20, this.yPos-(this.bodyHeight*0.95), this.eyeSize, this.eyeSize);
 	pEllipse(this.xPos+20, this.yPos-(this.bodyHeight*0.95), this.eyeSize, this.eyeSize);
 	fill("black");
 	ellipse(this.xPos-20, this.yPos-(this.bodyHeight*0.95), 2);
 	ellipse(this.xPos+20, this.yPos-(this.bodyHeight*0.95), 2);
-
-
+	//mouth
 	pLine(this.xPos-this.mouthWidth, this.yPos-(this.bodyHeight*0.8), this.xPos+this.mouthWidth, this.yPos-(this.bodyHeight*0.8))
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////// MUNCH
+//////////////////////////////////////////////////////////////////////////////////////////// ???
 
+/////////////////////////////////////////////////////////////////////////////////////////////////// FLORA
+
+//////////////////////////////////////////////////////////////////////////////////////////// FLOWER
+
+var flower = {};
+flower.xPos = 0;
+flower.yPos = 0;
+flower.flowerCount = 3;
+flower.stemLean = 0;
+flower.stemHeight = 0;
+//why won't my array work? this sucks.
+flower.xPosition1 = 30;
+flower.yPosition1 = 100;
+flower.xPosition2 = 30;
+flower.yPosition2 = 100;
+flower.xPosition3 = 30;
+flower.yPosition3 = 100;
+flower.hue = 360;
+flower.brightness = 0;
+flower.fill = "hsla(340, 100%, 60%, 1.0)";
+flower.setup = function(x, y){
+	this.xPos = x; 
+	this.yPos = y;
+	this.flowerCount = random(2,5);
+	this.hue += random(-20,20);
+	this.brightness = random(30, 50);
+	this.fill = "hsla("+ this.hue +", 100%, "+this.brightness+"%, 1.0)";
+	this.xPosition1 = random(-30, 30);
+	this.yPosition1 = random(30, 100);
+	this.xPosition2 = random(-30, 30);
+	this.yPosition2 = random(30, 100);
+	this.xPosition3 = random(-30, 30);
+	this.yPosition3 = random(30, 100);
+}
+flower.update = function(){
+	fill(this.fill);
+	this.drawStem(this.xPos, this.yPos, this.xPos+this.xPosition1, this.yPos-this.yPosition1, 30);
+	this.drawStem(this.xPos, this.yPos, this.xPos+this.xPosition2, this.yPos-this.yPosition2, 20);
+	this.drawStem(this.xPos, this.yPos, this.xPos+this.xPosition3, this.yPos-this.yPosition3, 15);
+}
+flower.drawStem = function(x1, y1, x2, y2, r){
+	pLine(x1, y1, x2, y2);
+	pEllipse(x2, y2, r, r);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////// PLANT 
+
+var plant = {};
+plant.xPos = 0;
+plant.yPos = 0;
+plant.fill = "yellow";
+plant.setup = function(x, y){
+	this.xPos = x; 
+	this.yPos = y;
+	this.fill = "yellow";
+	this.drawStem(x, y);
+}
+plant.update = function(){
+	fill(this.fill);
+	this.drawStem(this.xPos, this.yPos);
+}
+plant.drawStem = function(x, y){
+	pLine(x, y, x, y-100);
+	pEllipse(x, y-100, 30, 30);
+	pEllipse(x, y-115, 20, 20);
+	pEllipse(x, y-125, 10, 10);
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////// OBJECTS
 
-var activeDeebs = 40; 
+var activeDeebs = 100; 
 
 var objects = [];
 for(var oCount=activeDeebs; oCount>0; oCount--){
-	var tempDeeb = Object.create(deeb);
-	tempDeeb.speed = random(1, 3, false);
-	if(random(0,1)<1){
-		tempDeeb.speed=-tempDeeb.speed;
+	var chooseLife = random(0,1,false);
+	if(chooseLife<0.30){
+		var tempDeeb = Object.create(deeb);
+		tempDeeb.setup(random(-100,w), random(0,h,false));
+		objects.push( tempDeeb );
+	}else if(chooseLife>=0.30 && chooseLife <0.60){
+		var tempFlower = Object.create(flower);
+		tempFlower.setup(random(-100,w), random(0,h,false));
+		objects.push( tempFlower );
+	}else{
+		var tempPlant = Object.create(plant);
+		tempPlant.setup(random(-100,w), random(0,h,false));
+		objects.push( tempPlant );
+		// objects.push(  );
 	}
-	tempDeeb.setup(random(-100,w), random(0,h,false));
-	// tempDeeb.update();
-	objects.push( tempDeeb );
 }
 
 var jsonString = JSON.stringify(objects);
-console.log(jsonString);
-
-// var arr = Object.keys(objects).map(function(k) { return objects[k] });
-// var jsonParsed = JSON.parse(jsonString);
-// var jsonArray = [];
-// for(var i in jsonParsed){
-// 	jsonArray.push(jsonParsed[i]);
-// }
-// console.log(jsonArray);
+// console.log(jsonString);
 
 setInterval(function(){
 	background();
