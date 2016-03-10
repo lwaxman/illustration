@@ -15,7 +15,10 @@ var points = 100;
 //////////////////////////////////////////////////////////////////////////////////////////// DEEBS
 
 var deeb = {};
+deeb.type = "deeb";
+deeb.scared = false;
 deeb.count = 0; 
+deeb.scaredCount = 0; 
 deeb.xPos = 0;
 deeb.yPos = 0;
 deeb.bodyWidth = 100; 
@@ -24,6 +27,7 @@ deeb.startHeight = 130;
 deeb.slugPeriod = 60;
 deeb.speed = 3;
 deeb.eyeSize = 20;
+deeb.pupilSize = 2;
 deeb.mouthWidth = 10;
 deeb.fill = "#DEEBEE";
 deeb.setup = function(x, y){
@@ -51,11 +55,11 @@ deeb.update = function(){
 	this.bodyHeight = this.startHeight+y;
 }
 deeb.drawBody = function(x, y){
-	fill("#DEEBEE");
+	fill(this.fill);
 	pEllipse(x, y-(this.bodyHeight/2), this.bodyWidth, this.bodyHeight);
 	fill("#d3e4e8");
 	fEllipse(x, y-(this.bodyHeight/2), this.bodyWidth*0.8, this.bodyHeight*0.9);
-	fill("#DEEBEE");
+	fill(this.fill);
 	fRect(x-(this.bodyWidth/2), y-(this.bodyHeight/2), this.bodyWidth, this.bodyHeight/2);
 	fill("#d3e4e8");
 	fRect(x-(this.bodyWidth*0.8/2), y-(this.bodyHeight/2), this.bodyWidth*0.8, this.bodyHeight/2);
@@ -66,13 +70,24 @@ deeb.drawBody = function(x, y){
 	this.face();
 }
 deeb.face = function(){
+	if(this.scared == true){
+		this.pupilSize = 5;
+		this.mouthSize = 3;
+		this.scaredCount++;
+		if(this.scaredCount>5){
+			this.scared = false;
+			// this.pupilSize = 2;
+			this.scaredCount = 0;
+		}
+	}
+
 	//eyes
 	fill("white");
 	pEllipse(this.xPos-20, this.yPos-(this.bodyHeight*0.95), this.eyeSize, this.eyeSize);
 	pEllipse(this.xPos+20, this.yPos-(this.bodyHeight*0.95), this.eyeSize, this.eyeSize);
 	fill("black");
-	ellipse(this.xPos-20, this.yPos-(this.bodyHeight*0.95), 2);
-	ellipse(this.xPos+20, this.yPos-(this.bodyHeight*0.95), 2);
+	ellipse(this.xPos-20, this.yPos-(this.bodyHeight*0.95), this.pupilSize);
+	ellipse(this.xPos+20, this.yPos-(this.bodyHeight*0.95), this.pupilSize);
 	//mouth
 	pLine(this.xPos-this.mouthWidth, this.yPos-(this.bodyHeight*0.8), this.xPos+this.mouthWidth, this.yPos-(this.bodyHeight*0.8))
 }
@@ -84,6 +99,7 @@ deeb.face = function(){
 //////////////////////////////////////////////////////////////////////////////////////////// FLOWER
 
 var flower = {};
+flower.type = "flower";
 flower.xPos = 0;
 flower.yPos = 0;
 flower.flowerCount = 3;
@@ -127,6 +143,7 @@ flower.drawStem = function(x1, y1, x2, y2, r){
 //////////////////////////////////////////////////////////////////////////////////////////// PLANT 
 
 var plant = {};
+plant.type = "plant";
 plant.xPos = 0;
 plant.yPos = 0;
 plant.fill = "yellow";
@@ -173,12 +190,34 @@ for(var oCount=activeDeebs; oCount>0; oCount--){
 var jsonString = JSON.stringify(objects);
 // console.log(jsonString);
 
+var cursorX = 0;
+var cursorY = 0;
+document.onmousemove = function(e){
+	cursorX = e.clientX;
+	cursorY = e.clientY;
+}
+
 setInterval(function(){
+	
 	background();
 	objects.sort(function(obj1, obj2){
 		return obj1.yPos - obj2.yPos;
 	});
+
 	for(var i=0; i<objects.length; i++){
+		if(objects[i].type == "deeb"){
+			if( cursorX > objects[i].xPos-150 && cursorX < objects[i].xPos+150){
+				if(cursorY < objects[i].yPos && cursorY > objects[i].yPos-200){		
+					console.log("---------------------------gotcha");
+					// objects[i].fill = "blue";
+					objects[i].scared = true;
+					objects[i].speed=-objects[i].speed;
+				}
+			}
+			// objects[i].scared = false;
+			// objects[i].fill = "#DEEBEE";
+		}
+
 		if(objects[i].speed>0){
 			if(objects[i].xPos > width+objects[i].bodyWidth){
 				objects[i].xPos = -100; 
@@ -188,6 +227,7 @@ setInterval(function(){
 				objects[i].xPos = w+100; 
 			}
 		}
+		objects[i].pupilSize = 2;
 		objects[i].update();
 	}
 }, 33);
