@@ -109,6 +109,11 @@ var pLine = function(x1, y1, x2, y2){
 	c.closePath();
 }
 
+var pEx = function(x, y, w, h){
+	pLine((x-w/2), (y-h/2), (x-w/2)+w, (y-h/2)+h);
+	pLine((x-w/2)+w, (y-h/2), (x-w/2), (y-h/2)+h);
+}
+
 var pRect = function(x, y, w, h){
 	if( fillShape ) fRect(x, y, w, h);
 	pLine(x, y, x+w, y);

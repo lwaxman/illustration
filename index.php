@@ -5,7 +5,7 @@
         <title>FLINDALL</title>
         <style>
 			*{ margin: 0; }
-			body{  background:#1295B5; overflow: hidden;}
+			body{  background:#8F6191; overflow: hidden;}
             p{
                 position: absolute;
                 top: 50px;
@@ -17,10 +17,11 @@
                 font-family: "monaco", "menlo", monospace;
             }
         </style>
+        
     </head>
     <body>
     	<canvas id="main"></canvas>
-        <p>Flindall: Day 3</p>
+        <p>Flindall: Day 4</p>
         <script src="pen.js"></script>
         <script src="flindall.js"></script>
     </body>
