@@ -17,11 +17,12 @@
                 font-family: "monaco", "menlo", monospace;
             }
         </style>
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
     </head>
     <body>
     	<canvas id="main"></canvas>
-        <p>Flindall: Day 4</p>
+        <p>Flindall: Day 5</p>
+        <script src="assets/creatures.json"></script>
         <script src="pen.js"></script>
         <script src="flindall.js"></script>
     </body>

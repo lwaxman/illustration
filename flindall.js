@@ -9,17 +9,18 @@
 * TO DO:
 * - new fauna
 * - new fauna
-* - new flora
-* - new flora
-* - new flora
-* - flies
+* - new flora : bush
+* - new flora : spidly thing
+* - new flora : 
+* - flies?
+* - rocks? 
 * + grass bits
 * - save & read from json
 *
 */
 
 var scale = 1.5;
-var points = 0;
+var points = 100;
 if(points>200){ points=200; }
 else if(points<0){ points=0; }
 
@@ -44,8 +45,9 @@ setBackgroundColour();
 //////////////////////////////////////////////////////////////////////////////////////////// DEEBS
 
 var deeb = {};
-deeb.setup = function(x, y){
+deeb.setup = function(x, y, n){
 	this.type = "deeb";
+	this.name = n;
 	this.xPos = x; 
 	this.yPos = y;
 	this.bodyWidth = 40+(points*0.75)+random(-20, 20); 
@@ -222,71 +224,119 @@ plant.drawStem = function(x, y){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////// OBJECTS
 
-var activeDeebs = 100; 
+var active = 100; 
 
-var objects = [];
-for(var oCount=activeDeebs; oCount>0; oCount--){
-	var chooseLife = random(0,1,false);
-	if(chooseLife<0.30){
-		var tempDeeb = Object.create(deeb);
-		tempDeeb.setup(random(-100,w), random(0,h,false));
-		objects.push( tempDeeb );
-	}else if(chooseLife>=0.30){
-		var tempFlora; 
-		var chooseFlora = random(0,1,false);
-		if(chooseFlora<0.3){
-			tempFlora = Object.create(flower);
-		}else if(chooseFlora>=0.3 && chooseFlora<0.5){
-			tempFlora = Object.create(plant);
-		}else{
-			tempFlora = Object.create(grass);
+var newCreatures = function(){	
+	var objects = [];
+	for(var oCount=0; oCount<active; oCount++){
+		var chooseLife = random(0,1,false);
+		if(chooseLife<0.30){
+			var tempDeeb = Object.create(deeb);
+			tempDeeb.setup(random(-100,w, false), random(100,h,false), "deeb_"+oCount);
+			objects.push( tempDeeb );
+		}else if(chooseLife>=0.30){
+			var tempFlora; 
+			var chooseFlora = random(0,1,false);
+			if(chooseFlora<0.3){
+				tempFlora = Object.create(flower);
+			}else if(chooseFlora>=0.3 && chooseFlora<0.5){
+				tempFlora = Object.create(plant);
+			}else{
+				tempFlora = Object.create(grass);
+			}
+			tempFlora.setup(random(-100,w), random(0,h,false));
+			objects.push( tempFlora );
 		}
-		tempFlora.setup(random(-100,w), random(0,h,false));
-		objects.push( tempFlora );
+		console.log(oCount);
+	}
+
+	var jsonObject = JSON.stringify(objects);
+
+	$.ajax({
+	    dataType : 'json', 
+	    url : 'save.php',
+	    type : 'POST',
+	    success: function(r){
+	    	console.log(r);
+	    },
+	    data : { json:jsonObject }
+	});
+
+}
+// newCreatures();
+
+//save mouse position to variables
+var mouseX = w+200;
+var mouseY = h+200;
+document.onmousemove = function(e){
+	mouseX = e.clientX;
+	mouseY = e.clientY;
+}
+document.onmouseleave = function(e){
+	mouseX = w+200;
+	mouseY = h+200;
+}
+//
+var jsonObjects = [];
+var myData; 
+var client = new XMLHttpRequest();
+client.open('GET', 'assets/creatures.json');
+client.onreadystatechange = function() {
+	if(client.readyState==4){ //4 == ready
+		myData = JSON.parse(client.responseText);
+		for(var i=0; i<myData.length; i++){
+			if(myData[i].type=="deeb"){
+				var tempDeeb = Object.create(deeb);
+				tempDeeb.setup(myData[i].xPos, myData[i].yPos, myData[i].name);
+				jsonObjects.push( tempDeeb );
+			}else if(myData[i].type=="flower"){
+				var tempFlower = Object.create(flower);
+				tempFlower.setup(random(0, w, false), myData[i].yPos);
+				jsonObjects.push( tempFlower );
+			}else if(myData[i].type=="plant"){
+				var tempPlant = Object.create(plant);
+				tempPlant.setup(random(0, w, false), myData[i].yPos);
+				jsonObjects.push( tempPlant );
+			}else if(myData[i].type=="grass"){
+				var tempGrass = Object.create(plant);
+				tempGrass.setup(random(0, w, false), myData[i].yPos);
+				jsonObjects.push( tempGrass );
+			}
+		}
+		console.log(jsonObjects.length);
 	}
 }
-
-var jsonString = JSON.stringify(objects);
-console.log(jsonString);
-
-var cursorX = 0;
-var cursorY = 0;
-document.onmousemove = function(e){
-	cursorX = e.clientX;
-	cursorY = e.clientY;
-}
+client.send();
 
 setInterval(function(){
-	if(points<=0) points = 0;
+
+	console.log(mouseX, mouseY);
+
 	background();
-	objects.sort(function(obj1, obj2){
+	jsonObjects.sort(function(obj1, obj2){
 		return obj1.yPos - obj2.yPos;
 	});
 
-	for(var i=0; i<objects.length; i++){
-		if(objects[i].type == "deeb"){
+	for(var i=0; i<jsonObjects.length; i++){
+		if(jsonObjects[i].type == "deeb"){
 			//hover over deeb
-			if( cursorX > objects[i].xPos-objects[i].bodyWidth/2 && cursorX < objects[i].xPos+objects[i].bodyWidth/2){
-				if(cursorY < objects[i].yPos && cursorY > objects[i].yPos-objects[i].bodyHeight){		
-					objects[i].scared = true;
+			if( mouseX > jsonObjects[i].xPos-jsonObjects[i].bodyWidth/2 && mouseX < jsonObjects[i].xPos+jsonObjects[i].bodyWidth/2){
+				if(mouseY < jsonObjects[i].yPos && mouseY > jsonObjects[i].yPos-jsonObjects[i].bodyHeight){		
+					jsonObjects[i].scared = true;
 				}
 			}
-		}
 
-		if(objects[i].speed != undefined){	
-			// console.log(objects[i].speed);
-			if(objects[i].speed>0){
-				if(objects[i].xPos > width+objects[i].bodyWidth){
-					objects[i].xPos = -100; 
+			if(jsonObjects[i].speed>0){
+				if(jsonObjects[i].xPos > width+jsonObjects[i].bodyWidth){
+					jsonObjects[i].xPos = -100; 
 				}
 			}else{
-				if(objects[i].xPos < -100){
-					objects[i].xPos = w+100; 
+				if(jsonObjects[i].xPos < -100){
+					jsonObjects[i].xPos = w+100; 
 				}
 			}
-			objects[i].pupilSize = 2;
+			jsonObjects[i].pupilSize = 2;
 		}
-		objects[i].update();
+		jsonObjects[i].update();
 	}
 }, 33);
-
