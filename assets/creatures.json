@@ -1,1 +1,1593 @@
-[{"type":"grass","xPos":232,"yPos":31.26593438582495,"bladeCount":2,"bladeLengths":[20,17]},{"type":"flower","xPos":649,"yPos":888.4973668945022,"hue":351,"brightness":32,"fill":"hsla(351, 100%, 32%, 1.0)","flowerCount":3,"stemLengths":[73,93,42],"stemOffsets":[0,-39,35],"flowerSizes":[17,26,19]},{"type":"grass","xPos":-1,"yPos":1260.6972547718324,"bladeCount":4,"bladeLengths":[18,7,16,20]},{"type":"grass","xPos":-94,"yPos":577.4949172753841,"bladeCount":2,"bladeLengths":[19,12]},{"type":"flower","xPos":670,"yPos":766.1181972515769,"hue":361,"brightness":34,"fill":"hsla(361, 100%, 34%, 1.0)","flowerCount":4,"stemLengths":[92,62,37,69],"stemOffsets":[22,-17,-41,18],"flowerSizes":[25,22,16,20]},{"type":"deeb","name":"deeb_5","xPos":402.1049384903163,"yPos":821.6119310827926,"bodyWidth":128,"bodyHeight":130,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":4.197295222897083,"eyeSize":29.256793246604502,"mouthWidth":13,"startHeight":130,"slugCount":8.385505699552596,"slugPeriod":61},{"type":"grass","xPos":819,"yPos":74.2458607815206,"bladeCount":3,"bladeLengths":[9,6,17]},{"type":"grass","xPos":286,"yPos":105.8895358638838,"bladeCount":2,"bladeLengths":[12,7]},{"type":"grass","xPos":-64,"yPos":963.6095712804236,"bladeCount":2,"bladeLengths":[18,7]},{"type":"grass","xPos":651,"yPos":1002.8427180130966,"bladeCount":4,"bladeLengths":[8,13,16,16]},{"type":"flower","xPos":125,"yPos":1141.2965961601585,"hue":346,"brightness":49,"fill":"hsla(346, 100%, 49%, 1.0)","flowerCount":3,"stemLengths":[52,100,50],"stemOffsets":[12,-33,44],"flowerSizes":[25,21,22]},{"type":"grass","xPos":44,"yPos":1016.6881678090431,"bladeCount":5,"bladeLengths":[7,9,20,14,7]},{"type":"grass","xPos":348,"yPos":223.33148075686768,"bladeCount":2,"bladeLengths":[10,19]},{"type":"plant","xPos":-90,"yPos":863.8217234197073,"fill":"yellow"},{"type":"grass","xPos":23,"yPos":1116.3003763672896,"bladeCount":3,"bladeLengths":[8,15,9]},{"type":"grass","xPos":697,"yPos":1234.541437982116,"bladeCount":4,"bladeLengths":[17,14,14,19]},{"type":"grass","xPos":601,"yPos":949.4774610749446,"bladeCount":4,"bladeLengths":[11,17,9,14]},{"type":"grass","xPos":-15,"yPos":452.27460851334035,"bladeCount":3,"bladeLengths":[17,9,10]},{"type":"plant","xPos":8,"yPos":10.456729479599744,"fill":"yellow"},{"type":"plant","xPos":461,"yPos":722.3549472992308,"fill":"yellow"},{"type":"grass","xPos":-98,"yPos":630.9956337232143,"bladeCount":5,"bladeLengths":[13,8,9,18,16]},{"type":"flower","xPos":-49,"yPos":1013.9750864552334,"hue":366,"brightness":49,"fill":"hsla(366, 100%, 49%, 1.0)","flowerCount":5,"stemLengths":[61,94,59,66,79],"stemOffsets":[38,-23,-14,-13,27],"flowerSizes":[19,26,23,25,25]},{"type":"flower","xPos":320,"yPos":1063.4738244842738,"hue":344,"brightness":42,"fill":"hsla(344, 100%, 42%, 1.0)","flowerCount":5,"stemLengths":[72,72,83,96,38],"stemOffsets":[-26,25,25,-10,-32],"flowerSizes":[25,20,19,20,21]},{"type":"plant","xPos":781,"yPos":774.2157046990469,"fill":"yellow"},{"type":"flower","xPos":340,"yPos":81.62465899949893,"hue":367,"brightness":39,"fill":"hsla(367, 100%, 39%, 1.0)","flowerCount":4,"stemLengths":[76,41,68,75],"stemOffsets":[-36,27,14,45],"flowerSizes":[18,25,20,30]},{"type":"plant","xPos":287,"yPos":551.5345788435079,"fill":"yellow"},{"type":"deeb","name":"deeb_26","xPos":678.2473958712071,"yPos":376.98515309020877,"bodyWidth":127,"bodyHeight":131,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":-4.492495080921799,"eyeSize":26.23887285357341,"mouthWidth":13,"startHeight":131,"slugCount":4.850302257109433,"slugPeriod":69},{"type":"grass","xPos":283,"yPos":120.77295094449073,"bladeCount":5,"bladeLengths":[18,8,10,14,17]},{"type":"grass","xPos":611,"yPos":653.8535203649662,"bladeCount":4,"bladeLengths":[17,17,9,6]},{"type":"deeb","name":"deeb_29","xPos":768.8148806001991,"yPos":643.2969025624916,"bodyWidth":110,"bodyHeight":144,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":3.669797976501286,"eyeSize":28.128962870687246,"mouthWidth":6,"startHeight":144,"slugCount":3.5083392704837024,"slugPeriod":45},{"type":"grass","xPos":609,"yPos":654.7752894214354,"bladeCount":4,"bladeLengths":[10,20,9,9]},{"type":"flower","xPos":799,"yPos":332.74495512759313,"hue":374,"brightness":39,"fill":"hsla(374, 100%, 39%, 1.0)","flowerCount":3,"stemLengths":[93,46,46],"stemOffsets":[-31,-16,30],"flowerSizes":[17,25,24]},{"type":"deeb","name":"deeb_32","xPos":538.7481253528967,"yPos":1206.9167796690017,"bodyWidth":131,"bodyHeight":149,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":4.671232319902629,"eyeSize":29.02739092707634,"mouthWidth":6,"startHeight":149,"slugCount":5.8920119144022465,"slugPeriod":53},{"type":"deeb","name":"deeb_33","xPos":293.4897284246981,"yPos":1173.8923467500135,"bodyWidth":108,"bodyHeight":130,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":4.833075327333063,"eyeSize":26.42179503571242,"mouthWidth":13,"startHeight":130,"slugCount":6.427005005534738,"slugPeriod":44},{"type":"deeb","name":"deeb_34","xPos":87.65808224212378,"yPos":773.9211367350072,"bodyWidth":131,"bodyHeight":138,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":3.2310360088013113,"eyeSize":29.202426820993423,"mouthWidth":12,"startHeight":138,"slugCount":8.05083556799218,"slugPeriod":45},{"type":"grass","xPos":70,"yPos":1048.5962641462684,"bladeCount":3,"bladeLengths":[15,17,19]},{"type":"deeb","name":"deeb_36","xPos":725.0571600142866,"yPos":175.3632058557123,"bodyWidth":120,"bodyHeight":142,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":-3.311167056206614,"eyeSize":27.69018502905965,"mouthWidth":14,"startHeight":142,"slugCount":7.688734536059201,"slugPeriod":49},{"type":"grass","xPos":533,"yPos":431.0106749497354,"bladeCount":3,"bladeLengths":[10,15,7]},{"type":"plant","xPos":151,"yPos":870.3086095070466,"fill":"yellow"},{"type":"deeb","name":"deeb_39","xPos":504.2249943660572,"yPos":1080.252143025864,"bodyWidth":134,"bodyHeight":131,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":3.8625401007011533,"eyeSize":29.213642454706132,"mouthWidth":15,"startHeight":131,"slugCount":5.580171220935881,"slugPeriod":41},{"type":"grass","xPos":824,"yPos":22.118072249460965,"bladeCount":2,"bladeLengths":[7,19]},{"type":"grass","xPos":648,"yPos":54.565941873472184,"bladeCount":4,"bladeLengths":[6,6,14,7]},{"type":"deeb","name":"deeb_42","xPos":769.6035892767832,"yPos":496.0989222866483,"bodyWidth":101,"bodyHeight":135,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":-4.517868997529149,"eyeSize":25.937132271938026,"mouthWidth":13,"startHeight":135,"slugCount":2.2639302629977465,"slugPeriod":47},{"type":"deeb","name":"deeb_43","xPos":561.5063821300864,"yPos":414.90544778853655,"bodyWidth":107,"bodyHeight":136,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":-4.223099808674306,"eyeSize":28.546783078927547,"mouthWidth":10,"startHeight":136,"slugCount":3.469629331957549,"slugPeriod":51},{"type":"flower","xPos":717,"yPos":609.7480726693757,"hue":348,"brightness":31,"fill":"hsla(348, 100%, 31%, 1.0)","flowerCount":5,"stemLengths":[70,74,49,32,56],"stemOffsets":[44,11,-20,-32,30],"flowerSizes":[16,18,28,19,21]},{"type":"grass","xPos":414,"yPos":572.8122071963735,"bladeCount":2,"bladeLengths":[15,6]},{"type":"deeb","name":"deeb_46","xPos":651.3408472202718,"yPos":881.6999832168221,"bodyWidth":121,"bodyHeight":131,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":-4.20125098945573,"eyeSize":28.341909032315016,"mouthWidth":6,"startHeight":131,"slugCount":7.550730295479298,"slugPeriod":54},{"type":"grass","xPos":711,"yPos":1111.7335587101988,"bladeCount":5,"bladeLengths":[16,10,9,8,15]},{"type":"grass","xPos":36,"yPos":729.8543685092591,"bladeCount":5,"bladeLengths":[13,10,14,20,16]},{"type":"grass","xPos":14,"yPos":1149.56471180683,"bladeCount":4,"bladeLengths":[12,10,14,6]},{"type":"grass","xPos":462,"yPos":1259.7024350361899,"bladeCount":4,"bladeLengths":[10,12,11,18]},{"type":"flower","xPos":544,"yPos":1110.1572650782764,"hue":369,"brightness":41,"fill":"hsla(369, 100%, 41%, 1.0)","flowerCount":4,"stemLengths":[36,53,99,78],"stemOffsets":[-22,-3,-22,-24],"flowerSizes":[23,29,23,28]},{"type":"grass","xPos":695,"yPos":509.5213640034199,"bladeCount":2,"bladeLengths":[19,10]},{"type":"deeb","name":"deeb_53","xPos":336.72780863847584,"yPos":679.6005783872679,"bodyWidth":95,"bodyHeight":146,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":3.07718104775995,"eyeSize":23.828740667086095,"mouthWidth":15,"startHeight":146,"slugCount":8.550598281435668,"slugPeriod":51},{"type":"plant","xPos":387,"yPos":1157.84203120647,"fill":"yellow"},{"type":"grass","xPos":779,"yPos":1244.0299487770535,"bladeCount":4,"bladeLengths":[9,10,5,5]},{"type":"flower","xPos":481,"yPos":181.3121386114508,"hue":348,"brightness":42,"fill":"hsla(348, 100%, 42%, 1.0)","flowerCount":3,"stemLengths":[97,89,33],"stemOffsets":[29,21,12],"flowerSizes":[21,28,24]},{"type":"flower","xPos":249,"yPos":1029.4061202253215,"hue":354,"brightness":49,"fill":"hsla(354, 100%, 49%, 1.0)","flowerCount":3,"stemLengths":[60,39,58],"stemOffsets":[7,-38,-13],"flowerSizes":[19,17,18]},{"type":"plant","xPos":597,"yPos":1154.0011596763507,"fill":"yellow"},{"type":"deeb","name":"deeb_59","xPos":854.7018783371896,"yPos":572.3961183824576,"bodyWidth":98,"bodyHeight":138,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":-3.42640589363873,"eyeSize":27.438928114715964,"mouthWidth":13,"startHeight":138,"slugCount":6.452239502687007,"slugPeriod":59},{"type":"flower","xPos":74,"yPos":374.86502348352224,"hue":344,"brightness":41,"fill":"hsla(344, 100%, 41%, 1.0)","flowerCount":4,"stemLengths":[38,56,97,60],"stemOffsets":[18,-26,39,-29],"flowerSizes":[17,23,28,21]},{"type":"grass","xPos":585,"yPos":813.511254013516,"bladeCount":3,"bladeLengths":[15,8,7]},{"type":"grass","xPos":294,"yPos":922.9111808859743,"bladeCount":4,"bladeLengths":[14,19,11,8]},{"type":"deeb","name":"deeb_63","xPos":-84.67666859459132,"yPos":1272.843788090162,"bodyWidth":133,"bodyHeight":145,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":3.8172819702886045,"eyeSize":27.358474854845554,"mouthWidth":12,"startHeight":145,"slugCount":5.703936913050711,"slugPeriod":50},{"type":"grass","xPos":-19,"yPos":635.2479648753069,"bladeCount":5,"bladeLengths":[17,9,12,6,6]},{"type":"deeb","name":"deeb_65","xPos":240.64344428945333,"yPos":216.68529506539926,"bodyWidth":98,"bodyHeight":123,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":4.8228673678822815,"eyeSize":20.14738321537152,"mouthWidth":12,"startHeight":123,"slugCount":0.8070681639946997,"slugPeriod":48},{"type":"flower","xPos":-40,"yPos":409.61957480572164,"hue":361,"brightness":45,"fill":"hsla(361, 100%, 45%, 1.0)","flowerCount":5,"stemLengths":[51,63,66,79,46],"stemOffsets":[21,-29,23,-24,1],"flowerSizes":[15,21,16,20,27]},{"type":"flower","xPos":644,"yPos":623.509164896328,"hue":354,"brightness":43,"fill":"hsla(354, 100%, 43%, 1.0)","flowerCount":5,"stemLengths":[38,57,89,31,32],"stemOffsets":[-22,6,-29,20,28],"flowerSizes":[16,24,28,22,24]},{"type":"deeb","name":"deeb_68","xPos":341.462245603092,"yPos":1036.5251160026528,"bodyWidth":118,"bodyHeight":124,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":4.858017466031015,"eyeSize":24.78241180535406,"mouthWidth":11,"startHeight":124,"slugCount":6.71000822680071,"slugPeriod":52},{"type":"grass","xPos":58,"yPos":680.1930173551664,"bladeCount":2,"bladeLengths":[11,18]},{"type":"plant","xPos":767,"yPos":52.41099429829046,"fill":"yellow"},{"type":"flower","xPos":218,"yPos":690.3442668020725,"hue":355,"brightness":46,"fill":"hsla(355, 100%, 46%, 1.0)","flowerCount":4,"stemLengths":[87,86,73,62],"stemOffsets":[-13,-17,30,31],"flowerSizes":[21,22,28,28]},{"type":"deeb","name":"deeb_72","xPos":41.95373718533665,"yPos":657.6455778740346,"bodyWidth":134,"bodyHeight":120,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":-3.2472809781320393,"eyeSize":22.62126491870731,"mouthWidth":11,"startHeight":120,"slugCount":3.8322285865433514,"slugPeriod":48},{"type":"grass","xPos":265,"yPos":164.36193125182763,"bladeCount":2,"bladeLengths":[11,6]},{"type":"flower","xPos":178,"yPos":369.0373604055494,"hue":375,"brightness":41,"fill":"hsla(375, 100%, 41%, 1.0)","flowerCount":4,"stemLengths":[70,93,39,70],"stemOffsets":[15,37,-37,33],"flowerSizes":[23,23,25,25]},{"type":"flower","xPos":458,"yPos":1203.3651291243732,"hue":377,"brightness":45,"fill":"hsla(377, 100%, 45%, 1.0)","flowerCount":3,"stemLengths":[54,73,52],"stemOffsets":[32,37,-25],"flowerSizes":[27,17,28]},{"type":"deeb","name":"deeb_76","xPos":558.9589857682586,"yPos":369.4512753030285,"bodyWidth":114,"bodyHeight":149,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":4.2456462271511555,"eyeSize":25.374558272305876,"mouthWidth":8,"startHeight":149,"slugCount":6.073773019015789,"slugPeriod":44},{"type":"flower","xPos":475,"yPos":603.71466222452,"hue":343,"brightness":34,"fill":"hsla(343, 100%, 34%, 1.0)","flowerCount":5,"stemLengths":[88,67,83,37,97],"stemOffsets":[-17,28,-9,20,-35],"flowerSizes":[15,22,16,28,23]},{"type":"flower","xPos":489,"yPos":638.4192542270757,"hue":368,"brightness":43,"fill":"hsla(368, 100%, 43%, 1.0)","flowerCount":3,"stemLengths":[54,45,85],"stemOffsets":[12,1,30],"flowerSizes":[17,25,30]},{"type":"grass","xPos":122,"yPos":536.2983845751733,"bladeCount":5,"bladeLengths":[6,8,13,6,18]},{"type":"grass","xPos":432,"yPos":701.8533678157255,"bladeCount":4,"bladeLengths":[8,20,12,11]},{"type":"grass","xPos":438,"yPos":1046.410637493711,"bladeCount":3,"bladeLengths":[19,15,17]},{"type":"deeb","name":"deeb_82","xPos":-86.77715414576232,"yPos":559.8890545265749,"bodyWidth":120,"bodyHeight":146,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":3.577303539495915,"eyeSize":29.631753091234714,"mouthWidth":14,"startHeight":146,"slugCount":0.8661690354347229,"slugPeriod":65},{"type":"deeb","name":"deeb_83","xPos":-98.87356923148036,"yPos":387.89701452245936,"bodyWidth":127,"bodyHeight":131,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":-3.9847586108371615,"eyeSize":22.928746598772705,"mouthWidth":5,"startHeight":131,"slugCount":2.4413706362247467,"slugPeriod":45},{"type":"deeb","name":"deeb_84","xPos":-19.127010034397244,"yPos":547.7188584492542,"bodyWidth":109,"bodyHeight":133,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":4.35234910575673,"eyeSize":28.600831220392138,"mouthWidth":14,"startHeight":133,"slugCount":7.275201790034771,"slugPeriod":57},{"type":"grass","xPos":557,"yPos":1189.9059337419458,"bladeCount":5,"bladeLengths":[6,17,6,11,14]},{"type":"flower","xPos":732,"yPos":248.22880580602214,"hue":356,"brightness":33,"fill":"hsla(356, 100%, 33%, 1.0)","flowerCount":3,"stemLengths":[33,32,76],"stemOffsets":[20,-30,-37],"flowerSizes":[17,29,30]},{"type":"grass","xPos":362,"yPos":734.0434216652066,"bladeCount":2,"bladeLengths":[11,12]},{"type":"grass","xPos":758,"yPos":499.49672916764393,"bladeCount":4,"bladeLengths":[8,9,5,17]},{"type":"deeb","name":"deeb_89","xPos":242.43939021602273,"yPos":1254.7644239226356,"bodyWidth":105,"bodyHeight":140,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":-3.856491587590426,"eyeSize":24.007454575039446,"mouthWidth":7,"startHeight":140,"slugCount":2.6947710826061666,"slugPeriod":45},{"type":"flower","xPos":62,"yPos":230.98375907214358,"hue":379,"brightness":40,"fill":"hsla(379, 100%, 40%, 1.0)","flowerCount":5,"stemLengths":[94,56,34,95,90],"stemOffsets":[-16,-31,33,23,32],"flowerSizes":[19,16,22,29,30]},{"type":"grass","xPos":764,"yPos":229.32152694789693,"bladeCount":4,"bladeLengths":[6,11,18,16]},{"type":"plant","xPos":585,"yPos":111.22654288681224,"fill":"yellow"},{"type":"plant","xPos":384,"yPos":906.1040505096316,"fill":"yellow"},{"type":"grass","xPos":645,"yPos":45.64895256701857,"bladeCount":2,"bladeLengths":[14,6]},{"type":"deeb","name":"deeb_95","xPos":732.1605304870754,"yPos":144.23314410913736,"bodyWidth":96,"bodyHeight":131,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":4.845393095165491,"eyeSize":23.416667461860925,"mouthWidth":14,"startHeight":131,"slugCount":8.888249201700091,"slugPeriod":48},{"type":"deeb","name":"deeb_96","xPos":616.6111939540133,"yPos":730.6671819319017,"bodyWidth":125,"bodyHeight":141,"scared":false,"scaredCount":0,"fill":"#DEEBEE","bFill":"#d3e4e8","speed":4.383839053567499,"eyeSize":22.96261965064332,"mouthWidth":6,"startHeight":141,"slugCount":3.9036306808702648,"slugPeriod":40},{"type":"grass","xPos":776,"yPos":16.27889309870079,"bladeCount":4,"bladeLengths":[19,16,9,6]},{"type":"flower","xPos":50,"yPos":969.591060906183,"hue":359,"brightness":32,"fill":"hsla(359, 100%, 32%, 1.0)","flowerCount":3,"stemLengths":[47,47,77],"stemOffsets":[-37,16,36],"flowerSizes":[16,27,25]},{"type":"flower","xPos":-3,"yPos":365.91057108482346,"hue":371,"brightness":46,"fill":"hsla(371, 100%, 46%, 1.0)","flowerCount":3,"stemLengths":[64,80,34],"stemOffsets":[25,36,39],"flowerSizes":[19,22,17]}]
+[
+  {
+    "type": "grass",
+    "xPos": 232,
+    "yPos": 31.26593438582495,
+    "bladeCount": 2,
+    "bladeLengths": [
+      20,
+      17
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 649,
+    "yPos": 888.4973668945022,
+    "hue": 351,
+    "brightness": 32,
+    "fill": "hsla(351, 100%, 32%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      73,
+      93,
+      42
+    ],
+    "stemOffsets": [
+      0,
+      -39,
+      35
+    ],
+    "flowerSizes": [
+      17,
+      26,
+      19
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": -1,
+    "yPos": 1260.6972547718324,
+    "bladeCount": 4,
+    "bladeLengths": [
+      18,
+      7,
+      16,
+      20
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": -94,
+    "yPos": 577.4949172753841,
+    "bladeCount": 2,
+    "bladeLengths": [
+      19,
+      12
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 670,
+    "yPos": 766.1181972515769,
+    "hue": 361,
+    "brightness": 34,
+    "fill": "hsla(361, 100%, 34%, 1.0)",
+    "flowerCount": 4,
+    "stemLengths": [
+      92,
+      62,
+      37,
+      69
+    ],
+    "stemOffsets": [
+      22,
+      -17,
+      -41,
+      18
+    ],
+    "flowerSizes": [
+      25,
+      22,
+      16,
+      20
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_5",
+    "xPos": 402.1049384903163,
+    "yPos": 821.6119310827926,
+    "bodyWidth": 128,
+    "bodyHeight": 130,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 4.197295222897083,
+    "eyeSize": 29.256793246604502,
+    "mouthWidth": 13,
+    "startHeight": 130,
+    "slugCount": 8.385505699552596,
+    "slugPeriod": 61
+  },
+  {
+    "type": "grass",
+    "xPos": 819,
+    "yPos": 74.2458607815206,
+    "bladeCount": 3,
+    "bladeLengths": [
+      9,
+      6,
+      17
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 286,
+    "yPos": 105.8895358638838,
+    "bladeCount": 2,
+    "bladeLengths": [
+      12,
+      7
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": -64,
+    "yPos": 963.6095712804236,
+    "bladeCount": 2,
+    "bladeLengths": [
+      18,
+      7
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 651,
+    "yPos": 1002.8427180130966,
+    "bladeCount": 4,
+    "bladeLengths": [
+      8,
+      13,
+      16,
+      16
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 125,
+    "yPos": 1141.2965961601585,
+    "hue": 346,
+    "brightness": 49,
+    "fill": "hsla(346, 100%, 49%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      52,
+      100,
+      50
+    ],
+    "stemOffsets": [
+      12,
+      -33,
+      44
+    ],
+    "flowerSizes": [
+      25,
+      21,
+      22
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 44,
+    "yPos": 1016.6881678090431,
+    "bladeCount": 5,
+    "bladeLengths": [
+      7,
+      9,
+      20,
+      14,
+      7
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 348,
+    "yPos": 223.33148075686768,
+    "bladeCount": 2,
+    "bladeLengths": [
+      10,
+      19
+    ]
+  },
+  {
+    "type": "plant",
+    "xPos": -90,
+    "yPos": 863.8217234197073,
+    "fill": "yellow"
+  },
+  {
+    "type": "grass",
+    "xPos": 23,
+    "yPos": 1116.3003763672896,
+    "bladeCount": 3,
+    "bladeLengths": [
+      8,
+      15,
+      9
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 697,
+    "yPos": 1234.541437982116,
+    "bladeCount": 4,
+    "bladeLengths": [
+      17,
+      14,
+      14,
+      19
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 601,
+    "yPos": 949.4774610749446,
+    "bladeCount": 4,
+    "bladeLengths": [
+      11,
+      17,
+      9,
+      14
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": -15,
+    "yPos": 452.27460851334035,
+    "bladeCount": 3,
+    "bladeLengths": [
+      17,
+      9,
+      10
+    ]
+  },
+  {
+    "type": "plant",
+    "xPos": 8,
+    "yPos": 10.456729479599744,
+    "fill": "yellow"
+  },
+  {
+    "type": "plant",
+    "xPos": 461,
+    "yPos": 722.3549472992308,
+    "fill": "yellow"
+  },
+  {
+    "type": "grass",
+    "xPos": -98,
+    "yPos": 630.9956337232143,
+    "bladeCount": 5,
+    "bladeLengths": [
+      13,
+      8,
+      9,
+      18,
+      16
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": -49,
+    "yPos": 1013.9750864552334,
+    "hue": 366,
+    "brightness": 49,
+    "fill": "hsla(366, 100%, 49%, 1.0)",
+    "flowerCount": 5,
+    "stemLengths": [
+      61,
+      94,
+      59,
+      66,
+      79
+    ],
+    "stemOffsets": [
+      38,
+      -23,
+      -14,
+      -13,
+      27
+    ],
+    "flowerSizes": [
+      19,
+      26,
+      23,
+      25,
+      25
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 320,
+    "yPos": 1063.4738244842738,
+    "hue": 344,
+    "brightness": 42,
+    "fill": "hsla(344, 100%, 42%, 1.0)",
+    "flowerCount": 5,
+    "stemLengths": [
+      72,
+      72,
+      83,
+      96,
+      38
+    ],
+    "stemOffsets": [
+      -26,
+      25,
+      25,
+      -10,
+      -32
+    ],
+    "flowerSizes": [
+      25,
+      20,
+      19,
+      20,
+      21
+    ]
+  },
+  {
+    "type": "plant",
+    "xPos": 781,
+    "yPos": 774.2157046990469,
+    "fill": "yellow"
+  },
+  {
+    "type": "flower",
+    "xPos": 340,
+    "yPos": 81.62465899949893,
+    "hue": 367,
+    "brightness": 39,
+    "fill": "hsla(367, 100%, 39%, 1.0)",
+    "flowerCount": 4,
+    "stemLengths": [
+      76,
+      41,
+      68,
+      75
+    ],
+    "stemOffsets": [
+      -36,
+      27,
+      14,
+      45
+    ],
+    "flowerSizes": [
+      18,
+      25,
+      20,
+      30
+    ]
+  },
+  {
+    "type": "plant",
+    "xPos": 287,
+    "yPos": 551.5345788435079,
+    "fill": "yellow"
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_26",
+    "xPos": 678.2473958712071,
+    "yPos": 376.98515309020877,
+    "bodyWidth": 127,
+    "bodyHeight": 131,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": -4.492495080921799,
+    "eyeSize": 26.23887285357341,
+    "mouthWidth": 13,
+    "startHeight": 131,
+    "slugCount": 4.850302257109433,
+    "slugPeriod": 69
+  },
+  {
+    "type": "grass",
+    "xPos": 283,
+    "yPos": 120.77295094449073,
+    "bladeCount": 5,
+    "bladeLengths": [
+      18,
+      8,
+      10,
+      14,
+      17
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 611,
+    "yPos": 653.8535203649662,
+    "bladeCount": 4,
+    "bladeLengths": [
+      17,
+      17,
+      9,
+      6
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_29",
+    "xPos": 768.8148806001991,
+    "yPos": 643.2969025624916,
+    "bodyWidth": 110,
+    "bodyHeight": 144,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 3.669797976501286,
+    "eyeSize": 28.128962870687246,
+    "mouthWidth": 6,
+    "startHeight": 144,
+    "slugCount": 3.5083392704837024,
+    "slugPeriod": 45
+  },
+  {
+    "type": "grass",
+    "xPos": 609,
+    "yPos": 654.7752894214354,
+    "bladeCount": 4,
+    "bladeLengths": [
+      10,
+      20,
+      9,
+      9
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 799,
+    "yPos": 332.74495512759313,
+    "hue": 374,
+    "brightness": 39,
+    "fill": "hsla(374, 100%, 39%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      93,
+      46,
+      46
+    ],
+    "stemOffsets": [
+      -31,
+      -16,
+      30
+    ],
+    "flowerSizes": [
+      17,
+      25,
+      24
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_32",
+    "xPos": 538.7481253528967,
+    "yPos": 1206.9167796690017,
+    "bodyWidth": 131,
+    "bodyHeight": 149,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 4.671232319902629,
+    "eyeSize": 29.02739092707634,
+    "mouthWidth": 6,
+    "startHeight": 149,
+    "slugCount": 5.8920119144022465,
+    "slugPeriod": 53
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_33",
+    "xPos": 293.4897284246981,
+    "yPos": 1173.8923467500135,
+    "bodyWidth": 108,
+    "bodyHeight": 130,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 4.833075327333063,
+    "eyeSize": 26.42179503571242,
+    "mouthWidth": 13,
+    "startHeight": 130,
+    "slugCount": 6.427005005534738,
+    "slugPeriod": 44
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_34",
+    "xPos": 87.65808224212378,
+    "yPos": 773.9211367350072,
+    "bodyWidth": 131,
+    "bodyHeight": 138,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 3.2310360088013113,
+    "eyeSize": 29.202426820993423,
+    "mouthWidth": 12,
+    "startHeight": 138,
+    "slugCount": 8.05083556799218,
+    "slugPeriod": 45
+  },
+  {
+    "type": "grass",
+    "xPos": 70,
+    "yPos": 1048.5962641462684,
+    "bladeCount": 3,
+    "bladeLengths": [
+      15,
+      17,
+      19
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_36",
+    "xPos": 725.0571600142866,
+    "yPos": 175.3632058557123,
+    "bodyWidth": 120,
+    "bodyHeight": 142,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": -3.311167056206614,
+    "eyeSize": 27.69018502905965,
+    "mouthWidth": 14,
+    "startHeight": 142,
+    "slugCount": 7.688734536059201,
+    "slugPeriod": 49
+  },
+  {
+    "type": "grass",
+    "xPos": 533,
+    "yPos": 431.0106749497354,
+    "bladeCount": 3,
+    "bladeLengths": [
+      10,
+      15,
+      7
+    ]
+  },
+  {
+    "type": "plant",
+    "xPos": 151,
+    "yPos": 870.3086095070466,
+    "fill": "yellow"
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_39",
+    "xPos": 504.2249943660572,
+    "yPos": 1080.252143025864,
+    "bodyWidth": 134,
+    "bodyHeight": 131,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 3.8625401007011533,
+    "eyeSize": 29.213642454706132,
+    "mouthWidth": 15,
+    "startHeight": 131,
+    "slugCount": 5.580171220935881,
+    "slugPeriod": 41
+  },
+  {
+    "type": "grass",
+    "xPos": 824,
+    "yPos": 22.118072249460965,
+    "bladeCount": 2,
+    "bladeLengths": [
+      7,
+      19
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 648,
+    "yPos": 54.565941873472184,
+    "bladeCount": 4,
+    "bladeLengths": [
+      6,
+      6,
+      14,
+      7
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_42",
+    "xPos": 769.6035892767832,
+    "yPos": 496.0989222866483,
+    "bodyWidth": 101,
+    "bodyHeight": 135,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": -4.517868997529149,
+    "eyeSize": 25.937132271938026,
+    "mouthWidth": 13,
+    "startHeight": 135,
+    "slugCount": 2.2639302629977465,
+    "slugPeriod": 47
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_43",
+    "xPos": 561.5063821300864,
+    "yPos": 414.90544778853655,
+    "bodyWidth": 107,
+    "bodyHeight": 136,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": -4.223099808674306,
+    "eyeSize": 28.546783078927547,
+    "mouthWidth": 10,
+    "startHeight": 136,
+    "slugCount": 3.469629331957549,
+    "slugPeriod": 51
+  },
+  {
+    "type": "flower",
+    "xPos": 717,
+    "yPos": 609.7480726693757,
+    "hue": 348,
+    "brightness": 31,
+    "fill": "hsla(348, 100%, 31%, 1.0)",
+    "flowerCount": 5,
+    "stemLengths": [
+      70,
+      74,
+      49,
+      32,
+      56
+    ],
+    "stemOffsets": [
+      44,
+      11,
+      -20,
+      -32,
+      30
+    ],
+    "flowerSizes": [
+      16,
+      18,
+      28,
+      19,
+      21
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 414,
+    "yPos": 572.8122071963735,
+    "bladeCount": 2,
+    "bladeLengths": [
+      15,
+      6
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_46",
+    "xPos": 651.3408472202718,
+    "yPos": 881.6999832168221,
+    "bodyWidth": 121,
+    "bodyHeight": 131,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": -4.20125098945573,
+    "eyeSize": 28.341909032315016,
+    "mouthWidth": 6,
+    "startHeight": 131,
+    "slugCount": 7.550730295479298,
+    "slugPeriod": 54
+  },
+  {
+    "type": "grass",
+    "xPos": 711,
+    "yPos": 1111.7335587101988,
+    "bladeCount": 5,
+    "bladeLengths": [
+      16,
+      10,
+      9,
+      8,
+      15
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 36,
+    "yPos": 729.8543685092591,
+    "bladeCount": 5,
+    "bladeLengths": [
+      13,
+      10,
+      14,
+      20,
+      16
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 14,
+    "yPos": 1149.56471180683,
+    "bladeCount": 4,
+    "bladeLengths": [
+      12,
+      10,
+      14,
+      6
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 462,
+    "yPos": 1259.7024350361899,
+    "bladeCount": 4,
+    "bladeLengths": [
+      10,
+      12,
+      11,
+      18
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 544,
+    "yPos": 1110.1572650782764,
+    "hue": 369,
+    "brightness": 41,
+    "fill": "hsla(369, 100%, 41%, 1.0)",
+    "flowerCount": 4,
+    "stemLengths": [
+      36,
+      53,
+      99,
+      78
+    ],
+    "stemOffsets": [
+      -22,
+      -3,
+      -22,
+      -24
+    ],
+    "flowerSizes": [
+      23,
+      29,
+      23,
+      28
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 695,
+    "yPos": 509.5213640034199,
+    "bladeCount": 2,
+    "bladeLengths": [
+      19,
+      10
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_53",
+    "xPos": 336.72780863847584,
+    "yPos": 679.6005783872679,
+    "bodyWidth": 95,
+    "bodyHeight": 146,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 3.07718104775995,
+    "eyeSize": 23.828740667086095,
+    "mouthWidth": 15,
+    "startHeight": 146,
+    "slugCount": 8.550598281435668,
+    "slugPeriod": 51
+  },
+  {
+    "type": "plant",
+    "xPos": 387,
+    "yPos": 1157.84203120647,
+    "fill": "yellow"
+  },
+  {
+    "type": "grass",
+    "xPos": 779,
+    "yPos": 1244.0299487770535,
+    "bladeCount": 4,
+    "bladeLengths": [
+      9,
+      10,
+      5,
+      5
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 481,
+    "yPos": 181.3121386114508,
+    "hue": 348,
+    "brightness": 42,
+    "fill": "hsla(348, 100%, 42%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      97,
+      89,
+      33
+    ],
+    "stemOffsets": [
+      29,
+      21,
+      12
+    ],
+    "flowerSizes": [
+      21,
+      28,
+      24
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 249,
+    "yPos": 1029.4061202253215,
+    "hue": 354,
+    "brightness": 49,
+    "fill": "hsla(354, 100%, 49%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      60,
+      39,
+      58
+    ],
+    "stemOffsets": [
+      7,
+      -38,
+      -13
+    ],
+    "flowerSizes": [
+      19,
+      17,
+      18
+    ]
+  },
+  {
+    "type": "plant",
+    "xPos": 597,
+    "yPos": 1154.0011596763507,
+    "fill": "yellow"
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_59",
+    "xPos": 854.7018783371896,
+    "yPos": 572.3961183824576,
+    "bodyWidth": 98,
+    "bodyHeight": 138,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": -3.42640589363873,
+    "eyeSize": 27.438928114715964,
+    "mouthWidth": 13,
+    "startHeight": 138,
+    "slugCount": 6.452239502687007,
+    "slugPeriod": 59
+  },
+  {
+    "type": "flower",
+    "xPos": 74,
+    "yPos": 374.86502348352224,
+    "hue": 344,
+    "brightness": 41,
+    "fill": "hsla(344, 100%, 41%, 1.0)",
+    "flowerCount": 4,
+    "stemLengths": [
+      38,
+      56,
+      97,
+      60
+    ],
+    "stemOffsets": [
+      18,
+      -26,
+      39,
+      -29
+    ],
+    "flowerSizes": [
+      17,
+      23,
+      28,
+      21
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 585,
+    "yPos": 813.511254013516,
+    "bladeCount": 3,
+    "bladeLengths": [
+      15,
+      8,
+      7
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 294,
+    "yPos": 922.9111808859743,
+    "bladeCount": 4,
+    "bladeLengths": [
+      14,
+      19,
+      11,
+      8
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_63",
+    "xPos": -84.67666859459132,
+    "yPos": 1272.843788090162,
+    "bodyWidth": 133,
+    "bodyHeight": 145,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 3.8172819702886045,
+    "eyeSize": 27.358474854845554,
+    "mouthWidth": 12,
+    "startHeight": 145,
+    "slugCount": 5.703936913050711,
+    "slugPeriod": 50
+  },
+  {
+    "type": "grass",
+    "xPos": -19,
+    "yPos": 635.2479648753069,
+    "bladeCount": 5,
+    "bladeLengths": [
+      17,
+      9,
+      12,
+      6,
+      6
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_65",
+    "xPos": 240.64344428945333,
+    "yPos": 216.68529506539926,
+    "bodyWidth": 98,
+    "bodyHeight": 123,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 4.8228673678822815,
+    "eyeSize": 20.14738321537152,
+    "mouthWidth": 12,
+    "startHeight": 123,
+    "slugCount": 0.8070681639946997,
+    "slugPeriod": 48
+  },
+  {
+    "type": "flower",
+    "xPos": -40,
+    "yPos": 409.61957480572164,
+    "hue": 361,
+    "brightness": 45,
+    "fill": "hsla(361, 100%, 45%, 1.0)",
+    "flowerCount": 5,
+    "stemLengths": [
+      51,
+      63,
+      66,
+      79,
+      46
+    ],
+    "stemOffsets": [
+      21,
+      -29,
+      23,
+      -24,
+      1
+    ],
+    "flowerSizes": [
+      15,
+      21,
+      16,
+      20,
+      27
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 644,
+    "yPos": 623.509164896328,
+    "hue": 354,
+    "brightness": 43,
+    "fill": "hsla(354, 100%, 43%, 1.0)",
+    "flowerCount": 5,
+    "stemLengths": [
+      38,
+      57,
+      89,
+      31,
+      32
+    ],
+    "stemOffsets": [
+      -22,
+      6,
+      -29,
+      20,
+      28
+    ],
+    "flowerSizes": [
+      16,
+      24,
+      28,
+      22,
+      24
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_68",
+    "xPos": 341.462245603092,
+    "yPos": 1036.5251160026528,
+    "bodyWidth": 118,
+    "bodyHeight": 124,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 4.858017466031015,
+    "eyeSize": 24.78241180535406,
+    "mouthWidth": 11,
+    "startHeight": 124,
+    "slugCount": 6.71000822680071,
+    "slugPeriod": 52
+  },
+  {
+    "type": "grass",
+    "xPos": 58,
+    "yPos": 680.1930173551664,
+    "bladeCount": 2,
+    "bladeLengths": [
+      11,
+      18
+    ]
+  },
+  {
+    "type": "plant",
+    "xPos": 767,
+    "yPos": 52.41099429829046,
+    "fill": "yellow"
+  },
+  {
+    "type": "flower",
+    "xPos": 218,
+    "yPos": 690.3442668020725,
+    "hue": 355,
+    "brightness": 46,
+    "fill": "hsla(355, 100%, 46%, 1.0)",
+    "flowerCount": 4,
+    "stemLengths": [
+      87,
+      86,
+      73,
+      62
+    ],
+    "stemOffsets": [
+      -13,
+      -17,
+      30,
+      31
+    ],
+    "flowerSizes": [
+      21,
+      22,
+      28,
+      28
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_72",
+    "xPos": 41.95373718533665,
+    "yPos": 657.6455778740346,
+    "bodyWidth": 134,
+    "bodyHeight": 120,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": -3.2472809781320393,
+    "eyeSize": 22.62126491870731,
+    "mouthWidth": 11,
+    "startHeight": 120,
+    "slugCount": 3.8322285865433514,
+    "slugPeriod": 48
+  },
+  {
+    "type": "grass",
+    "xPos": 265,
+    "yPos": 164.36193125182763,
+    "bladeCount": 2,
+    "bladeLengths": [
+      11,
+      6
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 178,
+    "yPos": 369.0373604055494,
+    "hue": 375,
+    "brightness": 41,
+    "fill": "hsla(375, 100%, 41%, 1.0)",
+    "flowerCount": 4,
+    "stemLengths": [
+      70,
+      93,
+      39,
+      70
+    ],
+    "stemOffsets": [
+      15,
+      37,
+      -37,
+      33
+    ],
+    "flowerSizes": [
+      23,
+      23,
+      25,
+      25
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 458,
+    "yPos": 1203.3651291243732,
+    "hue": 377,
+    "brightness": 45,
+    "fill": "hsla(377, 100%, 45%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      54,
+      73,
+      52
+    ],
+    "stemOffsets": [
+      32,
+      37,
+      -25
+    ],
+    "flowerSizes": [
+      27,
+      17,
+      28
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_76",
+    "xPos": 558.9589857682586,
+    "yPos": 369.4512753030285,
+    "bodyWidth": 114,
+    "bodyHeight": 149,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 4.2456462271511555,
+    "eyeSize": 25.374558272305876,
+    "mouthWidth": 8,
+    "startHeight": 149,
+    "slugCount": 6.073773019015789,
+    "slugPeriod": 44
+  },
+  {
+    "type": "flower",
+    "xPos": 475,
+    "yPos": 603.71466222452,
+    "hue": 343,
+    "brightness": 34,
+    "fill": "hsla(343, 100%, 34%, 1.0)",
+    "flowerCount": 5,
+    "stemLengths": [
+      88,
+      67,
+      83,
+      37,
+      97
+    ],
+    "stemOffsets": [
+      -17,
+      28,
+      -9,
+      20,
+      -35
+    ],
+    "flowerSizes": [
+      15,
+      22,
+      16,
+      28,
+      23
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 489,
+    "yPos": 638.4192542270757,
+    "hue": 368,
+    "brightness": 43,
+    "fill": "hsla(368, 100%, 43%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      54,
+      45,
+      85
+    ],
+    "stemOffsets": [
+      12,
+      1,
+      30
+    ],
+    "flowerSizes": [
+      17,
+      25,
+      30
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 122,
+    "yPos": 536.2983845751733,
+    "bladeCount": 5,
+    "bladeLengths": [
+      6,
+      8,
+      13,
+      6,
+      18
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 432,
+    "yPos": 701.8533678157255,
+    "bladeCount": 4,
+    "bladeLengths": [
+      8,
+      20,
+      12,
+      11
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 438,
+    "yPos": 1046.410637493711,
+    "bladeCount": 3,
+    "bladeLengths": [
+      19,
+      15,
+      17
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_82",
+    "xPos": -86.77715414576232,
+    "yPos": 559.8890545265749,
+    "bodyWidth": 120,
+    "bodyHeight": 146,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 3.577303539495915,
+    "eyeSize": 29.631753091234714,
+    "mouthWidth": 14,
+    "startHeight": 146,
+    "slugCount": 0.8661690354347229,
+    "slugPeriod": 65
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_83",
+    "xPos": -98.87356923148036,
+    "yPos": 387.89701452245936,
+    "bodyWidth": 127,
+    "bodyHeight": 131,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": -3.9847586108371615,
+    "eyeSize": 22.928746598772705,
+    "mouthWidth": 5,
+    "startHeight": 131,
+    "slugCount": 2.4413706362247467,
+    "slugPeriod": 45
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_84",
+    "xPos": -19.127010034397244,
+    "yPos": 547.7188584492542,
+    "bodyWidth": 109,
+    "bodyHeight": 133,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 4.35234910575673,
+    "eyeSize": 28.600831220392138,
+    "mouthWidth": 14,
+    "startHeight": 133,
+    "slugCount": 7.275201790034771,
+    "slugPeriod": 57
+  },
+  {
+    "type": "grass",
+    "xPos": 557,
+    "yPos": 1189.9059337419458,
+    "bladeCount": 5,
+    "bladeLengths": [
+      6,
+      17,
+      6,
+      11,
+      14
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 732,
+    "yPos": 248.22880580602214,
+    "hue": 356,
+    "brightness": 33,
+    "fill": "hsla(356, 100%, 33%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      33,
+      32,
+      76
+    ],
+    "stemOffsets": [
+      20,
+      -30,
+      -37
+    ],
+    "flowerSizes": [
+      17,
+      29,
+      30
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 362,
+    "yPos": 734.0434216652066,
+    "bladeCount": 2,
+    "bladeLengths": [
+      11,
+      12
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 758,
+    "yPos": 499.49672916764393,
+    "bladeCount": 4,
+    "bladeLengths": [
+      8,
+      9,
+      5,
+      17
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_89",
+    "xPos": 242.43939021602273,
+    "yPos": 1254.7644239226356,
+    "bodyWidth": 105,
+    "bodyHeight": 140,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": -3.856491587590426,
+    "eyeSize": 24.007454575039446,
+    "mouthWidth": 7,
+    "startHeight": 140,
+    "slugCount": 2.6947710826061666,
+    "slugPeriod": 45
+  },
+  {
+    "type": "flower",
+    "xPos": 62,
+    "yPos": 230.98375907214358,
+    "hue": 379,
+    "brightness": 40,
+    "fill": "hsla(379, 100%, 40%, 1.0)",
+    "flowerCount": 5,
+    "stemLengths": [
+      94,
+      56,
+      34,
+      95,
+      90
+    ],
+    "stemOffsets": [
+      -16,
+      -31,
+      33,
+      23,
+      32
+    ],
+    "flowerSizes": [
+      19,
+      16,
+      22,
+      29,
+      30
+    ]
+  },
+  {
+    "type": "grass",
+    "xPos": 764,
+    "yPos": 229.32152694789693,
+    "bladeCount": 4,
+    "bladeLengths": [
+      6,
+      11,
+      18,
+      16
+    ]
+  },
+  {
+    "type": "plant",
+    "xPos": 585,
+    "yPos": 111.22654288681224,
+    "fill": "yellow"
+  },
+  {
+    "type": "plant",
+    "xPos": 384,
+    "yPos": 906.1040505096316,
+    "fill": "yellow"
+  },
+  {
+    "type": "grass",
+    "xPos": 645,
+    "yPos": 45.64895256701857,
+    "bladeCount": 2,
+    "bladeLengths": [
+      14,
+      6
+    ]
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_95",
+    "xPos": 732.1605304870754,
+    "yPos": 144.23314410913736,
+    "bodyWidth": 96,
+    "bodyHeight": 131,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 4.845393095165491,
+    "eyeSize": 23.416667461860925,
+    "mouthWidth": 14,
+    "startHeight": 131,
+    "slugCount": 8.888249201700091,
+    "slugPeriod": 48
+  },
+  {
+    "type": "deeb",
+    "name": "deeb_96",
+    "xPos": 616.6111939540133,
+    "yPos": 730.6671819319017,
+    "bodyWidth": 125,
+    "bodyHeight": 141,
+    "scared": false,
+    "scaredCount": 0,
+    "fill": "#DEEBEE",
+    "bFill": "#d3e4e8",
+    "speed": 4.383839053567499,
+    "eyeSize": 22.96261965064332,
+    "mouthWidth": 6,
+    "startHeight": 141,
+    "slugCount": 3.9036306808702648,
+    "slugPeriod": 40
+  },
+  {
+    "type": "grass",
+    "xPos": 776,
+    "yPos": 16.27889309870079,
+    "bladeCount": 4,
+    "bladeLengths": [
+      19,
+      16,
+      9,
+      6
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": 50,
+    "yPos": 969.591060906183,
+    "hue": 359,
+    "brightness": 32,
+    "fill": "hsla(359, 100%, 32%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      47,
+      47,
+      77
+    ],
+    "stemOffsets": [
+      -37,
+      16,
+      36
+    ],
+    "flowerSizes": [
+      16,
+      27,
+      25
+    ]
+  },
+  {
+    "type": "flower",
+    "xPos": -3,
+    "yPos": 365.91057108482346,
+    "hue": 371,
+    "brightness": 46,
+    "fill": "hsla(371, 100%, 46%, 1.0)",
+    "flowerCount": 3,
+    "stemLengths": [
+      64,
+      80,
+      34
+    ],
+    "stemOffsets": [
+      25,
+      36,
+      39
+    ],
+    "flowerSizes": [
+      19,
+      22,
+      17
+    ]
+  }
+]

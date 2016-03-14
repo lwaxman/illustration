@@ -280,7 +280,7 @@ document.onmouseleave = function(e){
 var jsonObjects = [];
 var myData; 
 var client = new XMLHttpRequest();
-client.open('GET', '../assets/creatures.json');
+client.open('GET', 'assets/creatures.json');
 client.onreadystatechange = function() {
 	if(client.readyState==4){ //4 == ready
 		myData = JSON.parse(client.responseText);
