@@ -5,10 +5,7 @@
         <title>FLINDALL</title>
         <style>
 			*{ margin: 0; }
-			body{  
-                background: black; 
-                overflow: hidden;
-            }
+			body{  background:#8F6191; overflow: hidden;}
             p{
                 position: absolute;
                 top: 50px;
@@ -27,7 +24,6 @@
         <p>Flindall</p>
         <script src="assets/creatures.json"></script>
         <script src="js/pen.js"></script>
-        <script src="js/flindall_noLines.js"></script>
-        <!-- <script src="js/flindall.js"></script> -->
+        <script src="js/flindall.js"></script>
     </body>
 </html>
