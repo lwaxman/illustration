@@ -14,11 +14,10 @@ canvas.height = window.innerHeight;
 var w = window.innerWidth;
 var h = window.innerHeight;
 
-// c.fillStyle = "blue";
 c.strokeStyle = "black";
 c.fillStyle = "white";
 c.lineCap = "round";
-c.lineWidth = 2;
+c.lineWidth = 1;
 
 var width = canvas.width; 
 var height = canvas.height; 
@@ -80,7 +79,7 @@ var stroke = function(cl){
 }
 
 var strokeWidth = function(){
-	c.lineWidth = random(2,3,false);
+	c.lineWidth = random(1,2,false);
 }
 
 var pPoint = function(x, y){

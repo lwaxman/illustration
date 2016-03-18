@@ -4,19 +4,19 @@
 * Thesis 
 * 06.03.16
 * 
-* The land of Flindall. 
+* The land of Flandill. 
 * 
 * TO DO:
-* - new fauna
-* - new fauna
-* - new flora : bush
-* - new flora : spindly thing
-* - new flora : 
+* - new creature
+* - new creature
+* - new plant : bush
+* - new plant : spindly thing
+* - new plant : 
 * - flies?
 * - rocks? 
 * + grass bits
-* - save & read from json
-* - lemming sounds? on death
+* ~ save & read from json
+* - lemming sounds on death?
 *
 */
 
@@ -62,19 +62,76 @@ var lifeObject = JSON.stringify(life);
 
 ////////////////////////////////////////////////////////////////////////////////////// BACKGROUND
 
-var setBackgroundColour = function(p){
-	var saturation = map(p, 0, 200, 10, 60);
-	// var bgColour = "hsla(160,"+saturation+"%,30%,1)";
-	var bgColour = "hsla(290,"+saturation+"%,50%,1)";
-	// console.log()
-	document.body.style.background = bgColour; //"hsla(305,100%,50%,1)";
-	// document.body.style.background = "#f00";
+var textureMarker = document.createElement("canvas");
+var txMarker = textureMarker.getContext("2d");
+textureMarker.width = window.innerWidth;
+textureMarker.height = window.innerHeight;
+
+var saturation = map(points, 0, 200, 10, 60);
+txMarker.fillStyle = "hsla(290,"+saturation+"%,50%,1)";
+txMarker.fillRect(0, 0, textureMarker.width, textureMarker.height);
+for(var i=0; i<10000; i++){
+	txMarker.fillStyle = "hsla(290,"+saturation+"%,"+random(40,60)+"%,0.2)";
+	txMarker.beginPath();
+	txMarker.ellipse(random(0,w), random(0,h), random(5,10), random(5,10), deg(random(0,360)) ,0, 2*Math.PI);
+	txMarker.fill();
+	txMarker.closePath();
 }
-setBackgroundColour(points);
+var bgPattern = c.createPattern(textureMarker, "repeat");
+
+var textureDeeb_back = document.createElement("canvas");
+var txDeeb_back = textureDeeb_back.getContext("2d");
+textureDeeb_back.width = window.innerWidth;
+textureDeeb_back.height = window.innerHeight;
+
+var textureDeeb_front = document.createElement("canvas");
+var txDeeb_front = textureDeeb_front.getContext("2d");
+textureDeeb_front.width = window.innerWidth;
+textureDeeb_front.height = window.innerHeight;
+
+// var saturation = map(points, 0, 200, 10, 60);
+txDeeb_front.fillStyle = "hsla(180,"+saturation+"%,65%,1)";
+txDeeb_front.fillRect(0, 0, textureDeeb_front.width, textureDeeb_front.height);
+
+txDeeb_back.fillStyle = "hsla(180,"+saturation+"%,70%,1)";
+txDeeb_back.fillRect(0, 0, textureDeeb_front.width, textureDeeb_front.height);
+
+for(var i=0; i<10000; i++){
+	txDeeb_front.fillStyle = "hsla(180,"+saturation+"%,"+random(60,75)+"%,0.2)";
+	txDeeb_front.beginPath();
+	txDeeb_front.arc(random(0,w), random(0,h), random(2,3) ,0, 2*Math.PI);
+	txDeeb_front.fill();
+	txDeeb_front.closePath();
+
+	txDeeb_back.fillStyle = "hsla(180,"+saturation+"%,"+random(60,75)+"%,0.2)";
+	txDeeb_back.beginPath();
+	txDeeb_back.arc(random(0,w), random(0,h), random(2,3), 0, 2*Math.PI);
+	txDeeb_back.fill();
+	txDeeb_back.closePath();
+}
+// var deebFill = c.createPattern(textureDeeb_front, "repeat");
+var deeb_frontFill = c.createPattern(textureDeeb_front, "repeat");//'#eee';//c.createPattern(textureMarker, "repeat");
+var deeb_backFill = c.createPattern(textureDeeb_back, "repeat");//'#bbb';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////// FAUNA
 
-//////////////////////////////////////////////////////////////////////////////////////////// DEEBS
+//////////////////////////////////////////////////////////////////////////////////////////// DEEBS\
+// var patternObj_1 = new Image();
+// var pattern_1 = '#deebee'; 
+// patternObj_1.onload = function() {
+// 	console.log(patternObj_1.src);
+// 	pattern_1 = c.createPattern(patternObj_1, 'repeat');
+// }
+// patternObj_1.src = '../assets/images/deebFill_1.jpg';
+
+// var patternObj_2 = new Image();
+// var pattern_2 = '#c8dde2'; 
+// patternObj_2.onload = function() {
+// 	console.log(patternObj_2.src);
+// 	pattern_2 = c.createPattern(patternObj_2, 'repeat');
+// }
+// patternObj_2.src = '../assets/images/deebFill_2.jpg';
+
 var deeb = {};
 deeb.setup = function(x, y, n){
 	this.type = "deeb";
@@ -87,8 +144,8 @@ deeb.setup = function(x, y, n){
 	this.scared = false;
 	this.scaredCount = 0;
 
-	this.fill = "#d3e4e8";
-	this.bFill = "#bcd7dd";
+	// this.fill = deebFill;
+	// this.bFill = pattern_2;
 
 	this.speed = random(3, 5, false);
 	if(random(0,1)<1){
@@ -103,16 +160,16 @@ deeb.setup = function(x, y, n){
 	this.drawBody(x, y);
 }
 deeb.update = function(){
-	// this.bodyWidth = 40+(points*0.75)+random(-20, 20); 
-	// this.bodyHeight = 130+random(-10, 20);
+	this.fill = deeb_frontFill;
+	this.bFill = deeb_backFill;
 	if(points==0){
 		this.speed=0;
-		this.bFill="#eee"
-		this.fill="#fff";
+		this.bFill="#fff";
+		this.fill="#eee";
 	}else{
 		if(points>0 && points<=20){
-			this.fill = "#fff";
-			this.bFill = "#f4f9fa";
+			this.bFill = "#fff";
+			this.fill = "#f4f9fa";
 		}
 		this.slugCount++;
 		this.xPos+=this.speed;
@@ -123,20 +180,21 @@ deeb.update = function(){
 	this.drawBody(this.xPos, this.yPos);
 }
 deeb.drawBody = function(x, y){
-	fill(this.fill);
-	fEllipse(x, y-this.bodyHeight+(this.bodyWidth/2), this.bodyWidth, this.bodyWidth, 179, 360);
 	fill(this.bFill);
+	stroke('#79aeba');
+	pEllipse(x, y-this.bodyHeight+(this.bodyWidth/2), this.bodyWidth, this.bodyWidth, 179, 360);
+	fill(this.fill);
 	fEllipse(x, y-this.bodyHeight+(this.bodyWidth/2), this.bodyWidth*0.8, this.bodyWidth*0.9, 179, 360);
 	
 	// y-2 to cover up gap at 360˚
-	fill(this.fill);
-	fRect(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, this.bodyWidth, this.bodyHeight-(this.bodyWidth/2));
 	fill(this.bFill);
+	fRect(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, this.bodyWidth, this.bodyHeight-(this.bodyWidth/2));
+	fill(this.fill);
 	fRect(x-(this.bodyWidth*0.8/2), y-this.bodyHeight+(this.bodyWidth/2)-2, this.bodyWidth*0.8, this.bodyHeight-(this.bodyWidth/2));
 
-	// pLine(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x-(this.bodyWidth/2), y);
-	// pLine(x+(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x+(this.bodyWidth/2), y);
-	// pLine(x-(this.bodyWidth/2), y, x+(this.bodyWidth/2), y);
+	pLine(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x-(this.bodyWidth/2), y);
+	pLine(x+(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x+(this.bodyWidth/2), y);
+	pLine(x-(this.bodyWidth/2), y, x+(this.bodyWidth/2), y);
 	this.face();
 }
 deeb.face = function(){
@@ -191,7 +249,7 @@ flower.setup = function(x, y){
 	this.xPos = x; 
 	this.yPos = y;
 	this.hue = 360+random(-20,20);
-	this.brightness = random(30, 50);
+	this.brightness = random(50, 80);
 	this.fill = "hsla("+ this.hue +", 100%, "+this.brightness+"%, 1.0)";
 	this.flowerCount = random(3,5);
 	this.stemLengths = [];
@@ -204,7 +262,7 @@ flower.setup = function(x, y){
 	}
 }
 flower.update = function(){
-	stroke('#B60013');
+	stroke('#FF707A');
 	fill(this.fill);
 	for(var i=0; i<this.flowerCount; i++){
 		this.drawStem(this.xPos, this.yPos, this.xPos+this.stemOffsets[i], this.yPos-this.stemLengths[i], this.flowerSizes[i]);
@@ -212,7 +270,8 @@ flower.update = function(){
 }
 flower.drawStem = function(x1, y1, x2, y2, r){
 	pLine(x1, y1, x2, y2);
-	fEllipse(x2, y2, r, r);
+	// stroke
+	pEllipse(x2, y2, r, r);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////// GRASS 
@@ -352,13 +411,29 @@ xmlObjects.send();
 
 ///////////////////////////////////////////////////////////////////////////////////////// DRAW LOOP
 
+// var backgroundPattern = new Image();
+// var bgPattern = '#990080'; 
+// backgroundPattern.onload = function() {
+// 	console.log(backgroundPattern.src);
+// 	bgPattern = c.createPattern(backgroundPattern, 'repeat');
+// }
+// backgroundPattern.src = '../assets/images/background.jpg';
+
+var bgPattern = c.createPattern(textureMarker, "repeat");
+
 var lastPoints = points; 
 setInterval(function(){
-	if(points!=lastPoints){
-		setBackgroundColour(points);
-		lastPoints = points;
-	}
-	background();
+	// if(points!=lastPoints){
+	// 	// markerTexture(points);
+	// 	// setBackgroundColour(points);
+	// 	lastPoints = points;
+	// }
+	// background();
+
+	fill(bgPattern);
+	// fill('#33FF00');
+	fRect(0, 0, w, h);
+
 	jsonObjects.sort(function(obj1, obj2){
 		return obj1.yPos - obj2.yPos;
 	});
