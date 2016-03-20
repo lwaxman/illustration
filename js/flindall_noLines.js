@@ -21,7 +21,6 @@
 */
 
 var wind = 5;
-var scale = 1.5;
 var points = 100;
 if(points>200){ points=200; }
 else if(points<0){ points=0; }
@@ -73,7 +72,7 @@ txMarker.fillRect(0, 0, textureMarker.width, textureMarker.height);
 for(var i=0; i<10000; i++){
 	txMarker.fillStyle = "hsla(290,"+saturation+"%,"+random(40,60)+"%,0.2)";
 	txMarker.beginPath();
-	txMarker.ellipse(random(0,w), random(0,h), random(5,10), random(5,10), deg(random(0,360)) ,0, 2*Math.PI);
+	txMarker.ellipse(random(0,w), random(0,h), random(5,10), random(5,10), deg(random(0,360)), 0, 2*Math.PI);
 	txMarker.fill();
 	txMarker.closePath();
 }
@@ -115,22 +114,7 @@ var deeb_backFill = c.createPattern(textureDeeb_back, "repeat");//'#bbb';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////// FAUNA
 
-//////////////////////////////////////////////////////////////////////////////////////////// DEEBS\
-// var patternObj_1 = new Image();
-// var pattern_1 = '#deebee'; 
-// patternObj_1.onload = function() {
-// 	console.log(patternObj_1.src);
-// 	pattern_1 = c.createPattern(patternObj_1, 'repeat');
-// }
-// patternObj_1.src = '../assets/images/deebFill_1.jpg';
-
-// var patternObj_2 = new Image();
-// var pattern_2 = '#c8dde2'; 
-// patternObj_2.onload = function() {
-// 	console.log(patternObj_2.src);
-// 	pattern_2 = c.createPattern(patternObj_2, 'repeat');
-// }
-// patternObj_2.src = '../assets/images/deebFill_2.jpg';
+//////////////////////////////////////////////////////////////////////////////////////////// DEEBS
 
 var deeb = {};
 deeb.setup = function(x, y, n){
@@ -143,9 +127,6 @@ deeb.setup = function(x, y, n){
 
 	this.scared = false;
 	this.scaredCount = 0;
-
-	// this.fill = deebFill;
-	// this.bFill = pattern_2;
 
 	this.speed = random(3, 5, false);
 	if(random(0,1)<1){
@@ -186,15 +167,14 @@ deeb.drawBody = function(x, y){
 	fill(this.fill);
 	fEllipse(x, y-this.bodyHeight+(this.bodyWidth/2), this.bodyWidth*0.8, this.bodyWidth*0.9, 179, 360);
 	
-	// y-2 to cover up gap at 360˚
 	fill(this.bFill);
 	fRect(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, this.bodyWidth, this.bodyHeight-(this.bodyWidth/2));
 	fill(this.fill);
 	fRect(x-(this.bodyWidth*0.8/2), y-this.bodyHeight+(this.bodyWidth/2)-2, this.bodyWidth*0.8, this.bodyHeight-(this.bodyWidth/2));
 
-	pLine(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x-(this.bodyWidth/2), y);
-	pLine(x+(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x+(this.bodyWidth/2), y);
-	pLine(x-(this.bodyWidth/2), y, x+(this.bodyWidth/2), y);
+	pLine(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x-(this.bodyWidth/2), y-2);
+	pLine(x+(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x+(this.bodyWidth/2), y-2);
+	pLine(x-(this.bodyWidth/2), y-2, x+(this.bodyWidth/2), y-2);
 	this.face();
 }
 deeb.face = function(){
@@ -314,32 +294,82 @@ plant.drawStem = function(x, y){
 	pEllipse(x, y-125, 10, 10);
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////// ROCK 
+var bush = {};
+bush.setup = function(x, y){
+	this.type = "bush";
+	this.xPos = x; 
+	this.yPos = y;
+	this.fill = "#FF3047";
+	this.stroke = "#CF1734";
+	this.width = random(100,150);
+	this.height = random(100, 150);
+}
+bush.update = function(){
+	stroke(this.stroke);
+	fill(this.fill);
+	pEllipse(this.xPos, this.yPos, this.width, this.height, 180, 360);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////// ROCK 
+var rock = {};
+rock.setup = function(x, y){
+	this.type = "rock";
+	this.xPos = x; 
+	this.yPos = y;
+	this.fill = "#8B408F";
+
+	this.sectionCount = random(2,5);
+	this.sectionXOffsets = [];
+	this.sectionYPoss = [];
+	this.sectionHeights = [];
+	this.sectionWidths = [];
+	for(var i=0; i<this.sectionCount; i++){
+		this.sectionXOffsets[i] = random(10,100);
+		this.sectionHeights[i] = random(30,100);
+		this.sectionWidths[i] = random(40,100);
+	}
+}
+rock.update = function(){
+	stroke('purple');
+	fill(this.fill);
+	for(var i=0; i<this.sectionCount; i++){
+		// console.log(this.sectionXOffsets[i], this.sectionYPoss[i], this.sectionWidths[i], this.sectionHeights[i]);
+		pEllipse(this.xPos+this.sectionXOffsets[i], this.yPos, this.sectionWidths[i], this.sectionHeights[i], 180, 360);
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////// READ/WRITE OBJECTS
 
-var active = 100; 
+var active = 200; 
 
 ///////////////////////////////////////////////////////////////////////////////////////// NEW CREATURES
 var newCreatures = function(){	
 	var objects = [];
 	for(var oCount=0; oCount<active; oCount++){
 		var chooseLife = random(0,1,false);
-		if(chooseLife<0.30){
+		if(chooseLife<0.12){
 			var tempDeeb = Object.create(deeb);
 			tempDeeb.setup(random(-100,w, false), random(100,h,false), "deeb_"+oCount);
 			objects.push( tempDeeb );
-		}else if(chooseLife>=0.30){
+		}else if(chooseLife>=0.12 && chooseLife<0.95){
 			var tempFlora; 
 			var chooseFlora = random(0,1,false);
-			if(chooseFlora<0.3){
+			if(chooseFlora<0.25){
 				tempFlora = Object.create(flower);
-			}else if(chooseFlora>=0.3 && chooseFlora<0.5){
+			}else if(chooseFlora>=0.25 && chooseFlora<0.4){
 				tempFlora = Object.create(plant);
+			}else if(chooseFlora>=0.4 && chooseFlora<0.45){
+				tempFlora = Object.create(bush);
 			}else{
-				// console.log("grass");
 				tempFlora = Object.create(grass);
 			}
 			tempFlora.setup(random(-100,w), random(0,h,false));
 			objects.push( tempFlora );
+		}else if(chooseLife>=0.95){
+			var tempRock = Object.create(rock);
+			tempRock.setup(random(-100,w), random(0,h,false));
+			objects.push( tempRock );
 		}
 	}
 
@@ -356,7 +386,7 @@ var newCreatures = function(){
 	});
 
 }
-// newCreatures();
+newCreatures();
 
 ///////////////////////////////////////////////////////////////////////////////////////// MOUSE POSITIONS
 
@@ -381,28 +411,32 @@ var xmlObjects = new XMLHttpRequest();
 xmlObjects.open('GET', 'assets/creatures.json');
 xmlObjects.onreadystatechange = function() {
 	if(xmlObjects.readyState==4){ //4 == ready
-		// console.log("input :", xmlObjects.responseText);
 		myData = JSON.parse(xmlObjects.responseText);
 		for(var i=0; i<myData.length; i++){
 			if(myData[i].type=="deeb"){
 				var tempDeeb = Object.create(deeb);
-				tempDeeb.setup(random(0, w, false), random(0, h, false), myData[i].name);
+				tempDeeb.setup(random(0, w, false), random(50, h, false), myData[i].name);
 				jsonObjects.push( tempDeeb );
 			}else if(myData[i].type=="flower"){
-				// var xPos = map(myData[i].xPos, 0)
 				var tempFlower = Object.create(flower);
 				tempFlower.setup(random(0, w, false), myData[i].yPos);
 				jsonObjects.push( tempFlower );
 			}else if(myData[i].type=="plant"){
-				// var xPos = map(myData[i].xPos, 0)
 				var tempPlant = Object.create(plant);
 				tempPlant.setup(random(0, w, false), myData[i].yPos);
 				jsonObjects.push( tempPlant );
 			}else if(myData[i].type=="grass"){
 				var tempGrass = Object.create(grass);
-				// var xPos = map(myData[i].xPos, 0)
 				tempGrass.setup(random(0, w, false), myData[i].yPos);
 				jsonObjects.push( tempGrass );
+			}else if(myData[i].type=="bush"){
+				var tempBush = Object.create(bush);
+				tempBush.setup(random(0, w, false), myData[i].yPos);
+				jsonObjects.push( tempBush );
+			}else if(myData[i].type=="rock"){
+				var tempRock = Object.create(rock);
+				tempRock.setup(random(0, w, false), myData[i].yPos);
+				jsonObjects.push( tempRock );
 			}
 		}
 	}
@@ -411,29 +445,13 @@ xmlObjects.send();
 
 ///////////////////////////////////////////////////////////////////////////////////////// DRAW LOOP
 
-// var backgroundPattern = new Image();
-// var bgPattern = '#990080'; 
-// backgroundPattern.onload = function() {
-// 	console.log(backgroundPattern.src);
-// 	bgPattern = c.createPattern(backgroundPattern, 'repeat');
-// }
-// backgroundPattern.src = '../assets/images/background.jpg';
 
 var bgPattern = c.createPattern(textureMarker, "repeat");
 
 var lastPoints = points; 
 setInterval(function(){
-	// if(points!=lastPoints){
-	// 	// markerTexture(points);
-	// 	// setBackgroundColour(points);
-	// 	lastPoints = points;
-	// }
-	// background();
-
 	fill(bgPattern);
-	// fill('#33FF00');
 	fRect(0, 0, w, h);
-
 	jsonObjects.sort(function(obj1, obj2){
 		return obj1.yPos - obj2.yPos;
 	});
