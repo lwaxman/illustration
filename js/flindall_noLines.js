@@ -7,13 +7,13 @@
 * The land of Flandill. 
 * 
 * TO DO:
-* - new creature
-* - new creature
-* - new plant : bush
+* - new creature?
+* - new creature?
+* + new plant : bush
 * - new plant : spindly thing
 * - new plant : 
 * - flies?
-* - rocks? 
+* + rocks? 
 * + grass bits
 * ~ save & read from json
 * - lemming sounds on death?
@@ -33,31 +33,19 @@ life[1] = points;
 
 var lifeObject = JSON.stringify(life);
 
-// $.ajax({
-//     dataType : 'json', 
-//     url : 'save.php',
-//     type : 'POST',
-//     success: function(r){
-//     	console.log(r);
-//     },
-//     data : { life:lifeObject }
-// });
-
-// var lifeData = [];
-// var xmlLife = new XMLHttpRequest();
-// xmlLife.open('GET', '../assets/life.json');
-// xmlLife.onreadystatechange = function() {
-// 	if(xmlLife.readyState==4){
-
-// 	}
-// }
-// xmlLife.send();
-
 // get days ellapsed
 // add days to realcount
 // compare realcount to cappedcount
 
+// deeb.death = random_whatever. stage at which it dies, so they don't all die at once
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////// SETUP
+
+////////////////////////////////////////////////////////////////////////////////////// TEMP CANVAS 
+var tempCanvas = document.createElement("canvas");
+tempCanvas.width = 100;
+tempCanvas.height = 100;
+var tempC = tempCanvas.getContext("2d");
 
 ////////////////////////////////////////////////////////////////////////////////////// BACKGROUND
 
@@ -76,6 +64,7 @@ for(var i=0; i<10000; i++){
 	txMarker.fill();
 	txMarker.closePath();
 }
+c = canvas.getContext("2d");
 var bgPattern = c.createPattern(textureMarker, "repeat");
 
 var textureDeeb_back = document.createElement("canvas");
@@ -250,7 +239,6 @@ flower.update = function(){
 }
 flower.drawStem = function(x1, y1, x2, y2, r){
 	pLine(x1, y1, x2, y2);
-	// stroke
 	pEllipse(x2, y2, r, r);
 }
 
@@ -280,35 +268,68 @@ plant.setup = function(x, y){
 	this.xPos = x; 
 	this.yPos = y;
 	this.fill = "yellow";
-	this.drawStem(x, y);
+	this.width = 30; 
+	this.height = 135;
+	this.loop = 0; 
+
+	this.images = [];
+	tempCanvas.width = this.width;
+	tempCanvas.height = this.height;
+	setCanvas(tempC);
+	for(var i=0; i<1; i++){
+		this.draw();
+		this.images[i] = new Image;
+		this.images[i].src = tempCanvas.toDataURL();
+	}
+	resetCanvas();
 }
-plant.update = function(){
+plant.draw = function(){
 	stroke('#FFE305');
 	fill(this.fill);
-	this.drawStem(this.xPos, this.yPos);
+	pLine(this.width/2, this.height, this.width/2, this.height-100);
+	pEllipse(this.width/2, this.height-100, 30, 30);
+	pEllipse(this.width/2, this.height-115, 20, 20);
+	pEllipse(this.width/2, this.height-125, 10, 10);
 }
-plant.drawStem = function(x, y){
-	pLine(x, y, x, y-100);
-	pEllipse(x, y-100, 30, 30);
-	pEllipse(x, y-115, 20, 20);
-	pEllipse(x, y-125, 10, 10);
+plant.update = function(){
+	this.loop++;
+	if(this.loop>=1) this.loop = 0; 
+	c.drawImage(this.images[this.loop], this.xPos, this.yPos-this.height);
 }
-
 //////////////////////////////////////////////////////////////////////////////////////////// ROCK 
+
 var bush = {};
 bush.setup = function(x, y){
 	this.type = "bush";
 	this.xPos = x; 
 	this.yPos = y;
+	this.loop = 0; 
 	this.fill = "#FF3047";
-	this.stroke = "#CF1734";
+	this.stroke = "#FF8C8F";//"#CF1734";
 	this.width = random(100,150);
 	this.height = random(100, 150);
+	this.images = [];
+
+	tempCanvas.width = this.width;
+	tempCanvas.height = this.height;
+	setCanvas(tempC);
+	for(var i=0; i<3; i++){
+		this.draw();
+		this.images[i] = new Image;
+		this.images[i].src = tempCanvas.toDataURL();
+	}
+	resetCanvas();
 }
-bush.update = function(){
+bush.draw = function(){
+	background();
 	stroke(this.stroke);
 	fill(this.fill);
-	pEllipse(this.xPos, this.yPos, this.width, this.height, 180, 360);
+	pEllipse(this.width/2, this.height, this.width-2, this.height, 180, 360);
+}
+bush.update = function(){
+	this.loop++;
+	if(this.loop>=3) this.loop = 0; 
+	c.drawImage(this.images[this.loop], this.xPos, this.yPos-this.height);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////// ROCK 
@@ -318,6 +339,9 @@ rock.setup = function(x, y){
 	this.xPos = x; 
 	this.yPos = y;
 	this.fill = "#8B408F";
+	this.loop = 0;
+	this.width = random(100, 300);
+	this.height = random(100, 150);
 
 	this.sectionCount = random(2,5);
 	this.sectionXOffsets = [];
@@ -325,18 +349,34 @@ rock.setup = function(x, y){
 	this.sectionHeights = [];
 	this.sectionWidths = [];
 	for(var i=0; i<this.sectionCount; i++){
-		this.sectionXOffsets[i] = random(10,100);
-		this.sectionHeights[i] = random(30,100);
 		this.sectionWidths[i] = random(40,100);
+		this.sectionHeights[i] = random(30,150);
+		var offsetRange = this.width - this.sectionWidths[i];
+		this.sectionXOffsets[i] = random(offsetRange, this.width-offsetRange);
 	}
+
+	this.images = [];
+	tempCanvas.width = this.width;
+	tempCanvas.height = this.height;
+	setCanvas(tempC);
+	for(var i=0; i<3; i++){
+		this.draw();
+		this.images[i] = new Image;
+		this.images[i].src = tempCanvas.toDataURL();
+	}
+	resetCanvas();
 }
-rock.update = function(){
+rock.draw = function(){
 	stroke('purple');
 	fill(this.fill);
 	for(var i=0; i<this.sectionCount; i++){
-		// console.log(this.sectionXOffsets[i], this.sectionYPoss[i], this.sectionWidths[i], this.sectionHeights[i]);
-		pEllipse(this.xPos+this.sectionXOffsets[i], this.yPos, this.sectionWidths[i], this.sectionHeights[i], 180, 360);
+		pEllipse(this.sectionXOffsets[i], this.height, this.sectionWidths[i], this.sectionHeights[i], 180, 360);
 	}
+}
+rock.update = function(){
+	this.loop++;
+	if(this.loop>=3) this.loop = 0; 
+	c.drawImage(this.images[0], this.xPos, this.yPos-this.height);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////// READ/WRITE OBJECTS
@@ -430,6 +470,7 @@ xmlObjects.onreadystatechange = function() {
 				tempGrass.setup(random(0, w, false), myData[i].yPos);
 				jsonObjects.push( tempGrass );
 			}else if(myData[i].type=="bush"){
+				// console.log(myData[i]);
 				var tempBush = Object.create(bush);
 				tempBush.setup(random(0, w, false), myData[i].yPos);
 				jsonObjects.push( tempBush );

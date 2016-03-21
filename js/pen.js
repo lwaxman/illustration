@@ -17,14 +17,19 @@ var h = window.innerHeight;
 c.strokeStyle = "black";
 c.fillStyle = "white";
 c.lineCap = "round";
+c.lineJoin = "round";
 c.lineWidth = 1;
 
 var width = canvas.width; 
 var height = canvas.height; 
 var fillShape = false;
 
-var background = function(){
-	c.clearRect(0, 0, width, height);
+var resetCanvas = function(){
+	c = canvas.getContext("2d");
+}
+
+var setCanvas = function(context){
+	c = context;
 }
 
 var random = function(min, max, r){
@@ -54,6 +59,10 @@ var getLength = function(a, b){
 	var a2 = (a[1]-a[0])*(a[1]-a[0]) ;
 	var b2 = (b[1]-b[0])*(b[1]-b[0]) ;
 	return Math.sqrt( a2 + b2 );
+}
+
+var background = function(){
+	c.clearRect(0, 0, width, height);
 }
 
 var blendMode = function(m){
