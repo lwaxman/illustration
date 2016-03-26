@@ -24,7 +24,7 @@
 * - auto-screen-grabs.
 *
 * - only save deebs to json. generate plants each run based on point tally.
-* - 
+* - load certain number of deebs based on tally. 
 *
 * local server: 
 * php -S 0.0.0.0:8000 -t .
@@ -48,26 +48,19 @@ deeb.init = function(x, y){
 	this.type = "deeb";
 	this.xPos = x; 
 	this.yPos = y;
-
 	this.name = "debby";
-
 	this.bodyWidth = random(100, 150); 
 	this.bodyHeight = 130+random(-10, 20);
-
 	this.points = random(0, this.bodyWidth*0.2);
-
 	this.scared = false;
 	this.scaredCount = 0;
-
 	this.fill = dFills[0];
 	this.bFill = dFills[1];
 	this.stroke = dStroke;
-
 	this.speed = random(3, 5, false);
 	if(random(0,1)<1){
 		this.speed=-this.speed;
 	}
-
 	this.eyeSize = random(20,30, false);
 	this.mouthWidth = random(5,15);
 	this.startHeight = this.bodyHeight;
@@ -77,33 +70,20 @@ deeb.init = function(x, y){
 }
 deeb.setup = function(x, y, n, p, bw, bh, s){
 	this.type = "deeb";
-
 	this.points = p; 
-	console.log(this.points);
-
 	this.xPos = x; 
 	this.yPos = y;
-
 	this.name = n; 
-
-	// console.log("b", this.points, bw);
 	this.bodyWidth = bw + map(points, 0, 200, -75, 50); 
 	// console.log("a", this.points, this.bodyWidth);
-
 	this.bodyHeight = bh;
-
 	this.scared = false;
 	this.scaredCount = 0;
-
 	this.fill = dFills[0];
 	this.bFill = dFills[1];
 	this.stroke = dStroke;
-
 	this.speed = random(3, 5, false);
-	if(random(0,1)<1){
-		this.speed=-this.speed;
-	}
-
+	if(random(0,1)<1){ this.speed=-this.speed; }
 	this.eyeSize = random(20,30, false);
 	this.mouthWidth = random(5,15);
 	this.startHeight = this.bodyHeight;
@@ -124,17 +104,18 @@ deeb.update = function(){
 	this.drawBody(this.xPos, this.yPos);
 }
 deeb.drawBody = function(x, y){
+	//round
 	fill(this.bFill);
 	stroke(this.stroke);
 	pEllipse(x, y-this.bodyHeight+(this.bodyWidth/2), this.bodyWidth, this.bodyWidth, 179, 360);
 	fill(this.fill);
 	fEllipse(x, y-this.bodyHeight+(this.bodyWidth/2), this.bodyWidth*0.8, this.bodyWidth*0.9, 179, 360);
-	
+	//main body
 	fill(this.bFill);
 	fRect(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, this.bodyWidth, this.bodyHeight-(this.bodyWidth/2));
 	fill(this.fill);
 	fRect(x-(this.bodyWidth*0.8/2), y-this.bodyHeight+(this.bodyWidth/2)-2, this.bodyWidth*0.8, this.bodyHeight-(this.bodyWidth/2));
-
+	//outline
 	pLine(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x-(this.bodyWidth/2), y-2);
 	pLine(x+(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x+(this.bodyWidth/2), y-2);
 	pLine(x-(this.bodyWidth/2), y-2, x+(this.bodyWidth/2), y-2);
@@ -370,9 +351,9 @@ rock.update = function(){
 ////////////////////////////////////////////////////////////////////////////////////////// NEW CREATURES
 
 var newCreatures = function(){	
-	var active = 200; 
+	var total = 200; 
 	var objects = [];
-	for(var oCount=0; oCount<active; oCount++){
+	for(var oCount=0; oCount<total; oCount++){
 		var chooseLife = random(0,1,false);
 		if(chooseLife<0.12){
 			var tempDeeb = Object.create(deeb);
@@ -429,8 +410,8 @@ document.onmouseleave = function(e){
 
 ///////////////////////////////////////////////////////////////////////////////////////// READ JSON
 
-var jsonObjects = [];
-var myData; 
+var jsonObjects = []; //array of deebs
+var myData; //deebs from file
 var xmlObjects = new XMLHttpRequest();
 xmlObjects.open('GET', 'assets/creatures.json');
 xmlObjects.onreadystatechange = function() {
@@ -454,7 +435,6 @@ xmlObjects.onreadystatechange = function() {
 				tempGrass.setup(random(0, w, false), myData[i].yPos);
 				jsonObjects.push( tempGrass );
 			}else if(myData[i].type=="bush"){
-				// console.log(myData[i]);
 				var tempBush = Object.create(bush);
 				tempBush.setup(random(0, w, false), myData[i].yPos);
 				jsonObjects.push( tempBush );

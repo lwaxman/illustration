@@ -12,8 +12,15 @@ else if(points<0){ points=0; }
 
 var today = new Date();
 
-var life = [];
-life[0] = today; 
-life[1] = points;
+var system = [];
+system[0] = today; 
+system[1] = points;
 
-var lifeObject = JSON.stringify(life);
+var system = {};
+system.points = 100;
+system.deebsAlive = 100; 
+system.deebsDead = 0; 
+system.visitors = 0; 
+system.lastVisit = today; 
+
+var lifeObject = JSON.stringify(system);
