@@ -14,6 +14,7 @@ canvas.height = window.innerHeight;
 var w = window.innerWidth;
 var h = window.innerHeight;
 
+
 c.strokeStyle = "black";
 c.fillStyle = "white";
 c.lineCap = "round";

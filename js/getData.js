@@ -1,11 +1,12 @@
 /*
-* 
-*  
+* Laurie Waxman
+* Thesis 
+* 06.03.16
 *
-*
+* reads 
 */
 
-var points = 100;
+var points = 200;
 
 if(points>200){ points=200; }
 else if(points<0){ points=0; }
