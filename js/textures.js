@@ -89,26 +89,22 @@ var deadDeebBack = deadDeebBack_c.getContext("2d");
 deadDeebBack_c.width = window.innerWidth;
 deadDeebBack_c.height = window.innerHeight;
 
-var getDeadDeebStroke = function(){
-	return "hsla(180,10%,80%,0.2)";
-}
-
 var getDeadDeebFills = function(){
 
-	deadDeebFront.fillStyle = "hsla(180,10%,80%,1)";
+	deadDeebFront.fillStyle = "hsla(180,10%,70%,1)";
 	deadDeebFront.fillRect(0, 0, deadDeebFront_c.width, deadDeebFront_c.height);
 
-	deadDeebBack.fillStyle =  "hsla(180,10%,60%,1)";
+	deadDeebBack.fillStyle =  "hsla(180,10%,80%,1)";
 	deadDeebBack.fillRect(0, 0, deadDeebFront_c.width, deadDeebFront_c.height);
 
 	for(var i=0; i<10000; i++){
-		deadDeebFront.fillStyle = "hsla(180,"+dbSaturation+"%,"+random(dbLightness,dbLightness+10)+"%,0.2)";
+		deadDeebFront.fillStyle = "hsla(180,10%,"+random(70,80)+"%,0.2)";
 		deadDeebFront.beginPath();
 		deadDeebFront.arc(random(0,w), random(0,h), random(2,3) ,0, 2*Math.PI);
 		deadDeebFront.fill();
 		deadDeebFront.closePath();
 
-		deadDeebBack.fillStyle = "hsla(180,"+dbSaturation+"%,"+random(dbLightness,dbLightness+10)+"%,0.2)";
+		deadDeebBack.fillStyle = "hsla(180,10%,"+random(70,80)+"%,0.2)";
 		deadDeebBack.beginPath();
 		deadDeebBack.arc(random(0,w), random(0,h), random(2,3), 0, 2*Math.PI);
 		deadDeebBack.fill();

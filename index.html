@@ -22,6 +22,13 @@
                 position: absolute;
                 top: 50px;
             }
+            #deeb{
+                opacity: 0.5;
+            }
+            #deeb p{
+               background: #4D4257;
+               /*color: black;*/
+            }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
     </head>
@@ -29,17 +36,17 @@
     	<canvas id="main"></canvas>
         <p>Flandill</p>
         <div id="stats">
-            <div id="general">
-                
-                <p>system health: <span id="general_points">100</span></p>
-                <p>health gained: <span id="general_gain">100</span></p>
-                <p>health lost: <span id="general_lost">100</span></p>
-                <p>deebs total: <span id="general_count">100</span></p>
-                <p>deebs dead: <span id="general_dead">0</span></p>
-                <p>visitors: <span id="general_visitors">0</span></p>
+            <div id="system"> 
+                <p>system health: <span id="system_health">100</span></p>
+                <p>health gained: <span id="system_gain">100</span></p>
+                <p>health lost: <span id="system_lost">100</span></p>
+                <p>deebs total: <span id="system_count">100</span></p>
+                <p>deebs dead: <span id="system_dead">0</span></p>
+                <p>visitors: <span id="system_visitors">0</span></p>
             </div>
             <div id="deeb">
-                <p>name: "<span id="deeb_name">BLAHHHH</span>"</p>
+                <p>name: "<span id="deeb_name">debra</span>"</p>
+                <p>health: <span id="deeb_health">100</span></p>
                 <!-- <p>speed: "<span id="deeb_speed">3</span>"</p> -->
                 <!-- <p>visitors: <span id="deeb_name">0</span></p> -->
             </div>

@@ -14,7 +14,7 @@
 * - flies?
 * + rocks
 * + grass bits
-* ~ save & read from json
+* + save & read from json
 * - lemming sounds on death?
 * - get days ellapsed
 * - add days to realcount
@@ -24,14 +24,24 @@
 * - auto-screen-grabs.
 *
 * + only save deebs to json. generate plants each run based on point tally.
-* + load certain number of deebs based on tally. 
+* - load certain number of deebs based on tally. 
 *
-* - if a deeb dies, keep it dead. no deeb revival. dead deebs even when system is healthy. 
+* + if a deeb dies, keep it dead. no deeb revival. dead deebs even when system is healthy. 
 *
 * local server: 
 * php -S 0.0.0.0:8000 -t .
 *
 */
+
+
+
+var thisDeebInfo = document.getElementById('deeb');
+var thisDeebName = document.getElementById('deeb_name');
+var thisDeebHealth = document.getElementById('deeb_health');
+
+var systemHealth = document.getElementById("system_health");
+systemHealth.innerHTML = points;
+// console.log(thisDeebSpeed.innerHTML); //= "xander";
 
 //#############################################################################################################
 //################################################################       ###      ##      ##      ####     ####
@@ -44,6 +54,9 @@
 
 var dFills = getDeebFills(points);
 var dStroke = getDeebStroke(points);
+
+var ddFills = getDeadDeebFills();
+var ddStroke = "hsla(180,10%,80%,0.2)";
 
 var deeb = {};
 deeb.init = function(x, y, c){
@@ -72,22 +85,23 @@ deeb.init = function(x, y, c){
 	this.slugPeriod = random(40,70);
 	this.drawBody(x, y);
 }
-deeb.setup = function(x, y, n, p, bw, bh, s, sp){
+deeb.setup = function(x, y, n, p, bw, bh, s, sp, c){
 	this.type = "deeb";
-	this.points = p; 
+	this.points = p;
+	this.index = c; 
 	this.xPos = x; 
 	this.yPos = y;
 	this.name = n;
-	console.log(this.name);
 	this.state = s;
-	this.bodyWidth = bw;//+ map(points, 0, 200, -75, 50); 
+	this.bodyWidth = bw;
 	this.bodyHeight = bh;
 	this.scared = false;
 	this.scaredCount = 0;
 	this.fill = dFills[0];
 	this.bFill = dFills[1];
 	this.stroke = dStroke;
-	this.speed = random(3, 4.5, false);
+	// map(points, 0, 200, 1, 4);
+	this.speed = random(map(points, 0, 200, 1, 3), map(points, 0, 200, 1, 3)+1, false);
 	if(random(0,1)<1){ this.speed=-this.speed; }
 	if(points<=this.points || this.state == 0){ 
 		this.state = 0; 
@@ -100,11 +114,37 @@ deeb.setup = function(x, y, n, p, bw, bh, s, sp){
 	this.drawBody(x, y);
 }
 deeb.update = function(){
+	if( mouseX > this.xPos-this.bodyWidth/2 && mouseX < this.xPos+this.bodyWidth/2 && mouseY < this.yPos && mouseY > this.yPos-this.bodyHeight){	
+		this.scared = true;
+		thisDeebInfo.style.opacity = '1';
+		thisDeebName.innerHTML = this.name;
+		if(this.state == 0){
+			thisDeebHealth.innerHTML = "deceased"; 
+		}else if( (points-this.points)>100 ){
+			thisDeebHealth.innerHTML = "100%";
+		}else{
+			thisDeebHealth.innerHTML = (points-this.points) +"%";
+		}
+	}
 	if(this.state == 0){
 		this.speed=0;
+		this.fill = ddFills[0];
+		this.bFill = ddFills[1];
 	}else{
-		this.slugCount++;
 		this.xPos+=this.speed;
+		if(this.speed>0){
+			if(this.xPos > w+this.bodyWidth){
+				this.xPos = -100; 
+				this.yPos = random(100, h-100); 
+			}
+		}else{
+			if(this.xPos < -100){
+				this.xPos = w+100; 
+				this.yPos = random(100, h-100); 
+			}
+		}
+
+		this.slugCount++;
 		var amplitude = 7;
 		var y = Math.sin( (this.slugCount/this.slugPeriod*2*Math.PI)+Math.PI ) * amplitude;
 		this.bodyHeight = this.startHeight+y;
@@ -112,24 +152,29 @@ deeb.update = function(){
 	this.drawBody(this.xPos, this.yPos);
 }
 deeb.drawBody = function(x, y){
+	var bodyW = this.bodyWidth + map(points, 0, 200, -75, 50);
+	if(this.state==0) bodyW = this.bodyWidth + map(this.points, 0, 200, -75, 50); 
 	//round
 	fill(this.bFill);
 	stroke(this.stroke);
-	pEllipse(x, y-this.bodyHeight+(this.bodyWidth/2), this.bodyWidth, this.bodyWidth, 179, 360);
+	pEllipse(x, y-this.bodyHeight+(bodyW/2), bodyW, bodyW, 179, 360);
 	fill(this.fill);
-	fEllipse(x, y-this.bodyHeight+(this.bodyWidth/2), this.bodyWidth*0.8, this.bodyWidth*0.9, 179, 360);
+	fEllipse(x, y-this.bodyHeight+(bodyW/2), bodyW*0.8, bodyW*0.9, 179, 360);
 	//main body
 	fill(this.bFill);
-	fRect(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, this.bodyWidth, this.bodyHeight-(this.bodyWidth/2));
+	fRect(x-(bodyW/2), y-this.bodyHeight+(bodyW/2)-1, bodyW, this.bodyHeight-(bodyW/2));
 	fill(this.fill);
-	fRect(x-(this.bodyWidth*0.8/2), y-this.bodyHeight+(this.bodyWidth/2)-2, this.bodyWidth*0.8, this.bodyHeight-(this.bodyWidth/2));
+	fRect(x-(bodyW*0.8/2), y-this.bodyHeight+(bodyW/2)-2, bodyW*0.8, this.bodyHeight-(bodyW/2));
 	//outline
-	pLine(x-(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x-(this.bodyWidth/2), y-2);
-	pLine(x+(this.bodyWidth/2), y-this.bodyHeight+(this.bodyWidth/2)-2, x+(this.bodyWidth/2), y-2);
-	pLine(x-(this.bodyWidth/2), y-2, x+(this.bodyWidth/2), y-2);
+	pLine(x-(bodyW/2), y-this.bodyHeight+(bodyW/2)-2, x-(bodyW/2), y-2);
+	pLine(x+(bodyW/2), y-this.bodyHeight+(bodyW/2)-2, x+(bodyW/2), y-2);
+	pLine(x-(bodyW/2), y-2, x+(bodyW/2), y-2);
 	this.face();
 }
 deeb.face = function(){
+
+	this.pupilSize = 2;
+
 	var eyeSize = map(points, 0, 150, this.eyeSize*0.6, this.eyeSize);
 	var eyeMinH = this.bodyHeight*0.75; 
 	var eyeMaxH = this.bodyHeight*0.95;
@@ -164,8 +209,7 @@ deeb.face = function(){
 	//mouth
 	noFill();
 	stroke('grey');
-	if(this.state!=0){
-	
+	if(this.state!=0){	
 		if(mouthOpen>-5 && mouthOpen<5){
 			pLine(this.xPos-this.mouthWidth, this.yPos-eyeHeight+20, this.xPos+this.mouthWidth, this.yPos-eyeHeight+20);
 		}else{
@@ -365,30 +409,9 @@ var newCreatures = function(){
 	var total = 200; 
 	var objects = [];
 	for(var oCount=0; oCount<total; oCount++){
-		// var chooseLife = random(0,1,false);
-		// if(chooseLife<0.12){
 		var tempDeeb = Object.create(deeb);
 		tempDeeb.init(random(-100,w, false), random(100,h,false), oCount);
 		objects.push( tempDeeb );
-		// }else if(chooseLife>=0.12 && chooseLife<0.95){
-		// 	var tempFlora; 
-		// 	var chooseFlora = random(0,1,false);
-		// 	if(chooseFlora<0.25){
-		// 		tempFlora = Object.create(flower);
-		// 	}else if(chooseFlora>=0.25 && chooseFlora<0.4){
-		// 		tempFlora = Object.create(plant);
-		// 	}else if(chooseFlora>=0.4 && chooseFlora<0.45){
-		// 		tempFlora = Object.create(bush);
-		// 	}else{
-		// 		tempFlora = Object.create(grass);
-		// 	}
-		// 	tempFlora.setup(random(-100,w), random(0,h,false));
-		// 	objects.push( tempFlora );
-		// }else if(chooseLife>=0.95){
-		// 	var tempRock = Object.create(rock);
-		// 	tempRock.setup(random(-100,w), random(0,h,false));
-		// 	objects.push( tempRock );
-		// }
 	}
 
 	var jsonObject = JSON.stringify(objects);
@@ -425,7 +448,7 @@ document.onmouseleave = function(e){
 var density = (w*h/22500);
 
 var countDeebs = function(){
-	return density*0.5; 
+	return density*map(points, 0, 200, 0.2, 0.6); 
 }
 
 var countFlowers_yellow = function(){
@@ -436,11 +459,13 @@ var countFlowers_red = function(){
 
 }
 
+var bushCount = density*map(points, 0, 200, 0.3, 0.6);
+
 ///////////////////////////////////////////////////////////////////////////////////////// READ JSON
 
 var deebsActive = countDeebs();
+var critterArray = [];
 
-var d = [];
 var deebs = [];
 var jsonObjects = []; //array of deebs
 var myData; //deebs from file
@@ -450,11 +475,9 @@ xmlObjects.onreadystatechange = function() {
 	if(xmlObjects.readyState==4){ //4 == ready
 		myData = JSON.parse(xmlObjects.responseText);
 		for(var i=0; i<myData.length; i++){
-			// if(myData[i].type=="deeb"){
-				var tempDeeb = Object.create(deeb);
-				tempDeeb.setup(random(0, w, false), random(100, h, false), myData[i].name, myData[i].points, myData[i].bodyWidth, myData[i].bodyHeight, myData[i].state, myData[i].speed);
-				// console.log("json", myData[i].state);
-				jsonObjects.push( tempDeeb );
+			var tempDeeb = Object.create(deeb);
+			tempDeeb.setup(random(0, w, false), random(100, h, false), myData[i].name, myData[i].points, myData[i].bodyWidth, myData[i].bodyHeight, myData[i].state, myData[i].speed, myData[i].index);
+			jsonObjects.push( tempDeeb );
 			// }else if(myData[i].type=="flower"){
 			// 	var tempFlower = Object.create(flower);
 			// 	tempFlower.setup(random(0, w, false), myData[i].yPos);
@@ -480,11 +503,22 @@ xmlObjects.onreadystatechange = function() {
 		for(var j=0; j<deebsActive; j++){
 			var rand = random(0, jsonObjects.length-1); 
 			// console.log( jsonObjects[rand] );
-			deebs.push( jsonObjects[rand] );
+			critterArray.push( jsonObjects[rand] );
 		}
+		for(var a=0; a<bushCount; a++){
+			tempBush = Object.create(bush);
+			// console.log(w, h);
+			tempBush.setup(random(0, w, false), random(0, h, false));
+			critterArray.push( tempBush );
+		}
+		// console.log(critterArray);
+		// critterArray.sort(function(obj1, obj2){
+		// 	return obj1.yPos - obj2.yPos;
+		// });
 	}
 }
 xmlObjects.send();
+
 
 //#############################################################################################################
 //#############################################  ###  ##      ###      ###       ##        ##      ###     ####
@@ -495,42 +529,15 @@ xmlObjects.send();
 //#############################################################################################################
 // update loop. where animation happens (sort of).
 
-var thisDeebName = document.getElementById('deeb_name');
-// console.log(thisDeebName.innerHTML); //= "xander";
-
-var thisDeebSpeed = document.getElementById('deeb_speed');
-// console.log(thisDeebSpeed.innerHTML); //= "xander";
 
 setInterval(function(){
 	fill(bgPattern);
 	fRect(0, 0, w, h);
-	deebs.sort(function(obj1, obj2){
+	critterArray.sort(function(obj1, obj2){
 		return obj1.yPos - obj2.yPos;
 	});
-	for(var i=0; i<deebsActive; i++){
-		if(deebs[i].type == "deeb"){
-			//hover over deeb
-			if( mouseX > deebs[i].xPos-deebs[i].bodyWidth/2 && mouseX < deebs[i].xPos+deebs[i].bodyWidth/2){
-				if(mouseY < deebs[i].yPos && mouseY > deebs[i].yPos-deebs[i].bodyHeight){		
-					deebs[i].scared = true;
-					thisDeebName.innerHTML = deebs[i].name;
-				}
-			}
-			//reset positions
-			if(deebs[i].speed>0){
-				if(deebs[i].xPos > width+deebs[i].bodyWidth){
-					deebs[i].xPos = -100; 
-					deebs[i].yPos = random(100, h-100); 
-				}
-			}else{
-				if(deebs[i].xPos < -100){
-					deebs[i].xPos = w+100; 
-					deebs[i].yPos = random(100, h-100); 
-				}
-			}
-			deebs[i].pupilSize = 2;
-		}
-		deebs[i].update();
+	for(var i=0; i<critterArray.length; i++){
+		critterArray[i].update();
 	}
 	if(points == 0){
 		for(var i=0; i<jsonObjects.length; i++){
@@ -543,14 +550,15 @@ setInterval(function(){
 ///////////////////////////////////////////////////////////////////////////////////////// SAVE STATE
 
 window.onbeforeunload = function(){
-	for(var q=0; q<deebs.length; q++){
-		var thisIndex = deebs[q].index;
-		jsonObjects[ thisIndex ] = deebs[q];
+	for(var q=0; q<critterArray.length; q++){
+		if(critterArray[q].type == "deeb"){
+			var thisIndex = critterArray[q].index;
+			jsonObjects[ thisIndex ] = critterArray[q];
+		}
 	}
 	for(var i=0; i<jsonObjects.length; i++){
 		jsonObjects[i].speed = 0; 
 	}
-   	// var newObject = JSON.stringify(jsonObjects);
 	$.ajax({
 	    dataType : 'json', 
 	    async : false,
