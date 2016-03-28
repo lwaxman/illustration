@@ -7,13 +7,13 @@
 *
 */
 
+
 var canvas = document.getElementById("main");
 var c = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var w = window.innerWidth;
 var h = window.innerHeight;
-
 
 c.strokeStyle = "black";
 c.fillStyle = "white";

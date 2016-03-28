@@ -2,7 +2,7 @@
 * 
 * Laurie Waxman
 * Thesis 
-* 06.03.16
+* 28.03.16
 * 
 * The land of Flandill. 
 * 
@@ -22,10 +22,8 @@
 * + deeb.points = random_whatever. stage at which it dies, so they don't all die at once
 * - landing page w/ choice - yea or nay? <<< hgdeasdfghjkl;;.
 * - auto-screen-grabs.
-*
 * + only save deebs to json. generate plants each run based on point tally.
-* - load certain number of deebs based on tally. 
-*
+* + load certain number of deebs based on tally. 
 * + if a deeb dies, keep it dead. no deeb revival. dead deebs even when system is healthy. 
 *
 * local server: 
@@ -33,15 +31,10 @@
 *
 */
 
-
-
-var thisDeebInfo = document.getElementById('deeb');
-var thisDeebName = document.getElementById('deeb_name');
-var thisDeebHealth = document.getElementById('deeb_health');
-
-var systemHealth = document.getElementById("system_health");
-systemHealth.innerHTML = points;
-// console.log(thisDeebSpeed.innerHTML); //= "xander";
+// var thisDeebInfo = document.getElementById('deeb');
+// var thisDeebName = document.getElementById('deeb_name');
+// var thisDeebHealth = document.getElementById('deeb_health');
+// var systemHealth = document.getElementById("system_health");
 
 //#############################################################################################################
 //################################################################       ###      ##      ##      ####     ####
@@ -405,7 +398,7 @@ rock.update = function(){
 
 ////////////////////////////////////////////////////////////////////////////////////////// NEW CREATURES
 
-var newCreatures = function(){	
+var newData = function(){	
 	var total = 200; 
 	var objects = [];
 	for(var oCount=0; oCount<total; oCount++){
@@ -414,19 +407,32 @@ var newCreatures = function(){
 		objects.push( tempDeeb );
 	}
 
-	var jsonObject = JSON.stringify(objects);
+	var today = new Date();
+
+	var system = {};
+	system.points = 100;
+	system.deebsAlive = 200; 
+	system.deebsDead = 0; 
+	system.visitors = 0; 
+	system.lastVisit = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
+
+	var fullFile = {};
+	fullFile.info = system; 
+	fullFile.critters = objects; 
+
+	var jsonObject = JSON.stringify(fullFile);
 
 	$.ajax({
-	    dataType : 'json', 
-	    url : 'save.php',
-	    type : 'POST',
-	    success: function(r){
-	    	console.log(r);
-	    },
-	    data : { json:jsonObject }
+		dataType : 'json', 
+		url : 'save.php',
+		type : 'POST',
+		success: function(r){
+			console.log(r);
+		},
+		data : { json:jsonObject }
 	});
 }
-// newCreatures();
+// newData();
 
 
 ///////////////////////////////////////////////////////////////////////////////////////// MOUSE POSITIONS
@@ -443,78 +449,59 @@ document.onmouseleave = function(e){
 	mouseY = h+200;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////// COUNT OBJECTS
-
-var density = (w*h/22500);
-
-var countDeebs = function(){
-	return density*map(points, 0, 200, 0.2, 0.6); 
-}
-
-var countFlowers_yellow = function(){
-
-}
-
-var countFlowers_red = function(){
-
-}
-
-var bushCount = density*map(points, 0, 200, 0.3, 0.6);
-
 ///////////////////////////////////////////////////////////////////////////////////////// READ JSON
 
-var deebsActive = countDeebs();
-var critterArray = [];
+var jsonObjects = []; //array of all deebs from file
+var deebs = []; //array of deebs to draw
+var critterArray = []; //array of all critters to draw
 
-var deebs = [];
-var jsonObjects = []; //array of deebs
-var myData; //deebs from file
+
 var xmlObjects = new XMLHttpRequest();
 xmlObjects.open('GET', 'assets/creatures.json');
 xmlObjects.onreadystatechange = function() {
 	if(xmlObjects.readyState==4){ //4 == ready
-		myData = JSON.parse(xmlObjects.responseText);
-		for(var i=0; i<myData.length; i++){
+
+		var density = Math.round( (w*h/22500) );
+		var rockCount = Math.round( density*0.2 );  
+		var flowerCount = Math.round( density*map(points, 0, 200, 0.3, 0.8) );
+		var plantCount = Math.round( flowerCount*0.8 );  
+		var bushCount = Math.round( density*map(points, 0, 200, 0.2, 0.4) );
+		var deebCount = Math.round( density*map(points, 0, 200, 0.2, 0.6) );  
+
+		var myData = JSON.parse(xmlObjects.responseText);
+		var myDeebs = myData.critters; 
+		// systemInfo = myData.info;
+		// points = systemInfo.points;
+
+		for(var i=0; i<myDeebs.length; i++){
 			var tempDeeb = Object.create(deeb);
-			tempDeeb.setup(random(0, w, false), random(100, h, false), myData[i].name, myData[i].points, myData[i].bodyWidth, myData[i].bodyHeight, myData[i].state, myData[i].speed, myData[i].index);
+			tempDeeb.setup(random(0, w, false), random(100, h, false), myDeebs[i].name, myDeebs[i].points, myDeebs[i].bodyWidth, myDeebs[i].bodyHeight, myDeebs[i].state, myDeebs[i].speed, myDeebs[i].index);
 			jsonObjects.push( tempDeeb );
-			// }else if(myData[i].type=="flower"){
-			// 	var tempFlower = Object.create(flower);
-			// 	tempFlower.setup(random(0, w, false), myData[i].yPos);
-			// 	jsonObjects.push( tempFlower );
-			// }else if(myData[i].type=="plant"){
-			// 	var tempPlant = Object.create(plant);
-			// 	tempPlant.setup(random(0, w, false), myData[i].yPos);
-			// 	jsonObjects.push( tempPlant );
-			// }else if(myData[i].type=="grass"){
-			// 	var tempGrass = Object.create(grass);
-			// 	tempGrass.setup(random(0, w, false), myData[i].yPos);
-			// 	jsonObjects.push( tempGrass );
-			// }else if(myData[i].type=="bush"){
-			// 	var tempBush = Object.create(bush);
-			// 	tempBush.setup(random(0, w, false), myData[i].yPos);
-			// 	jsonObjects.push( tempBush );
-			// }else if(myData[i].type=="rock"){
-			// 	var tempRock = Object.create(rock);
-			// 	tempRock.setup(random(0, w, false), myData[i].yPos);
-			// 	jsonObjects.push( tempRock );
-			// }
 		}
-		for(var j=0; j<deebsActive; j++){
+		for(var j=0; j<deebCount; j++){
 			var rand = random(0, jsonObjects.length-1); 
-			// console.log( jsonObjects[rand] );
 			critterArray.push( jsonObjects[rand] );
 		}
-		for(var a=0; a<bushCount; a++){
+		for(var b=0; b<bushCount; b++){
 			tempBush = Object.create(bush);
-			// console.log(w, h);
 			tempBush.setup(random(0, w, false), random(0, h, false));
 			critterArray.push( tempBush );
 		}
-		// console.log(critterArray);
-		// critterArray.sort(function(obj1, obj2){
-		// 	return obj1.yPos - obj2.yPos;
-		// });
+		for(var f=0; f<flowerCount; f++){
+			var tempFlower = Object.create(flower);
+			tempFlower.setup(random(0, w, false), random(0, h, false));
+			critterArray.push( tempFlower );
+		}
+		for(var p=0; p<plantCount; p++){
+			var tempPlant = Object.create(plant);
+			tempPlant.setup(random(0, w, false), random(0, h, false));
+			critterArray.push( tempPlant );
+		}
+		for(var r=0; r<rockCount; r++){
+			var tempRock = Object.create(rock);
+			tempRock.setup(random(0, w, false), random(0, h, false));
+			critterArray.push( tempRock );
+		}
 	}
 }
 xmlObjects.send();
@@ -528,7 +515,7 @@ xmlObjects.send();
 //##############################################     ###  #######      ###  ###  #####  #####      ##     #####
 //#############################################################################################################
 // update loop. where animation happens (sort of).
-
+// draws background, sorts to draw order & draws. 
 
 setInterval(function(){
 	fill(bgPattern);
@@ -539,26 +526,30 @@ setInterval(function(){
 	for(var i=0; i<critterArray.length; i++){
 		critterArray[i].update();
 	}
+}, 33);
+
+///////////////////////////////////////////////////////////////////////////////////////// SAVE STATE
+// copies deebs back to their index in the full deeb array. 
+// if system is dead, kill all deebs, not just those active.
+// saves to server.
+
+window.onbeforeunload = function(){
 	if(points == 0){
 		for(var i=0; i<jsonObjects.length; i++){
 			jsonObjects[i].state = 0; 
 		}
 	}
-}, 33);
-
-
-///////////////////////////////////////////////////////////////////////////////////////// SAVE STATE
-
-window.onbeforeunload = function(){
 	for(var q=0; q<critterArray.length; q++){
 		if(critterArray[q].type == "deeb"){
 			var thisIndex = critterArray[q].index;
 			jsonObjects[ thisIndex ] = critterArray[q];
 		}
 	}
-	for(var i=0; i<jsonObjects.length; i++){
-		jsonObjects[i].speed = 0; 
-	}
+
+	var fullFile = {};
+	fullFile.info = systemInfo; 
+	fullFile.critters = jsonObjects; 
+
 	$.ajax({
 	    dataType : 'json', 
 	    async : false,
@@ -567,7 +558,7 @@ window.onbeforeunload = function(){
 	    success: function(r){
 	    	console.log(r);
 	    },
-	    data : { json:JSON.stringify(jsonObjects) }
+	    data : { json:JSON.stringify(fullFile) }
 	});
-   return null;
+	return null;
 }

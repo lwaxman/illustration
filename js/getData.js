@@ -1,29 +1,39 @@
 /*
 * Laurie Waxman
 * Thesis 
-* 06.03.16
-*
-* reads 
+* 28.03.16
 */
 
-var points = 200;
 
-if(points>200){ points=200; }
-else if(points<0){ points=0; }
+var systemHealth = document.getElementById("system_health");
+var systemVisitors = document.getElementById("system_visitors");
+var systemLastVisited = document.getElementById("system_date");
 
-var today = new Date();
+var thisDeebInfo = document.getElementById('deeb');
+var thisDeebName = document.getElementById('deeb_name');
+var thisDeebHealth = document.getElementById('deeb_health');
 
-var system = [];
-system[0] = today; 
-system[1] = points;
+var systemInfo; 
+var points = 100;
 
-var system = {};
-system.points = 100;
-system.deebsAlive = 100; 
-system.deebsDead = 0; 
-system.visitors = 0; 
-system.lastVisit = today; 
+var xmlGetSystemInfo = new XMLHttpRequest();
+xmlGetSystemInfo.open('GET', 'assets/creatures.json');
+xmlGetSystemInfo.onreadystatechange = function() {
+	if(xmlGetSystemInfo.readyState==4){
+		var myData = JSON.parse(xmlGetSystemInfo.responseText);
+		systemInfo = myData.info;
+		systemInfo.visitors += 1; 
+		systemInfo.points -= 0.5;
 
-var lifeObject = JSON.stringify(system);
+		console.log(systemInfo);
 
+		systemHealth.innerText = systemInfo.points; 
+		systemVisitors.innerText = systemInfo.visitors; 
+		systemLastVisited.innerText = systemInfo.lastVisit; 
 
+		points = systemInfo.points;
+		if(points<0) points = 0; 
+		else if(points>200) points = 200; 
+	}
+}
+xmlGetSystemInfo.send();
