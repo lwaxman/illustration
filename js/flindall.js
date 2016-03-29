@@ -16,15 +16,14 @@
 * + grass bits
 * + save & read from json
 * - lemming sounds on death?
-* - get days ellapsed
-* - add days to realcount
-* - compare realcount to cappedcount
+* + get days ellapsed
 * + deeb.points = random_whatever. stage at which it dies, so they don't all die at once
-* - landing page w/ choice - yea or nay? <<< hgdeasdfghjkl;;.
+* - landing page
 * - auto-screen-grabs.
 * + only save deebs to json. generate plants each run based on point tally.
 * + load certain number of deebs based on tally. 
 * + if a deeb dies, keep it dead. no deeb revival. dead deebs even when system is healthy. 
+* + spawn new deebs
 *
 * local server: 
 * php -S 0.0.0.0:8000 -t .
@@ -45,11 +44,10 @@
 //#############################################################################################################
 // ^ so I can see this shit in the thumbnail.
 
-var dFills = getDeebFills(points);
-var dStroke = getDeebStroke(points);
-
-var ddFills = getDeadDeebFills();
-var ddStroke = "hsla(180,10%,80%,0.2)";
+var dFills = [];
+var dStroke;
+var ddFills = [];
+var ddStroke;
 
 var deeb = {};
 deeb.init = function(x, y, c){
@@ -61,7 +59,7 @@ deeb.init = function(x, y, c){
 	this.name = "debby";
 	this.bodyWidth = random(100, 150); 
 	this.bodyHeight = 130+random(-10, 20);
-	this.points = random(0, this.bodyWidth*0.2);
+	this.points = random(0, this.bodyWidth*0.4);
 	this.scared = false;
 	this.scaredCount = 0;
 	this.fill = dFills[0];
@@ -93,11 +91,10 @@ deeb.setup = function(x, y, n, p, bw, bh, s, sp, c){
 	this.fill = dFills[0];
 	this.bFill = dFills[1];
 	this.stroke = dStroke;
-	// map(points, 0, 200, 1, 4);
-	this.speed = random(map(points, 0, 200, 1, 3), map(points, 0, 200, 1, 3)+1, false);
+	this.speed = random(map(points, 400, 0, 1, 3), map(points, 400, 0, 1, 5)+1, false);
 	if(random(0,1)<1){ this.speed=-this.speed; }
-	if(points<=this.points || this.state == 0){ 
-		this.state = 0; 
+	if((400-points)<=this.points || this.state == 0){ 
+		this.state = 0;
 	}
 	this.eyeSize = random(20,30, false);
 	this.mouthWidth = random(5,15);
@@ -107,16 +104,18 @@ deeb.setup = function(x, y, n, p, bw, bh, s, sp, c){
 	this.drawBody(x, y);
 }
 deeb.update = function(){
-	if( mouseX > this.xPos-this.bodyWidth/2 && mouseX < this.xPos+this.bodyWidth/2 && mouseY < this.yPos && mouseY > this.yPos-this.bodyHeight){	
-		this.scared = true;
+	var bodyW = this.bodyWidth + map(points, 400, 0, -75, 50);
+	if(this.state==0) bodyW = this.bodyWidth + map(this.points, 0, 200, -75, 50);
+	if( mouseX > this.xPos-bodyW/2 && mouseX < this.xPos+bodyW/2 && mouseY < this.yPos && mouseY > this.yPos-this.bodyHeight){	
 		thisDeebInfo.style.opacity = '1';
 		thisDeebName.innerHTML = this.name;
+		this.scared = true;
 		if(this.state == 0){
-			thisDeebHealth.innerHTML = "deceased"; 
-		}else if( (points-this.points)>100 ){
+			thisDeebHealth.innerHTML = "R.I.P."; 
+		}else if( (points-this.points)<=200 ){
 			thisDeebHealth.innerHTML = "100%";
 		}else{
-			thisDeebHealth.innerHTML = (points-this.points) +"%";
+			thisDeebHealth.innerHTML = this.points/4+"%";
 		}
 	}
 	if(this.state == 0){
@@ -136,7 +135,6 @@ deeb.update = function(){
 				this.yPos = random(100, h-100); 
 			}
 		}
-
 		this.slugCount++;
 		var amplitude = 7;
 		var y = Math.sin( (this.slugCount/this.slugPeriod*2*Math.PI)+Math.PI ) * amplitude;
@@ -145,7 +143,7 @@ deeb.update = function(){
 	this.drawBody(this.xPos, this.yPos);
 }
 deeb.drawBody = function(x, y){
-	var bodyW = this.bodyWidth + map(points, 0, 200, -75, 50);
+	var bodyW = this.bodyWidth + map(points, 400, 0, -75, 50);
 	if(this.state==0) bodyW = this.bodyWidth + map(this.points, 0, 200, -75, 50); 
 	//round
 	fill(this.bFill);
@@ -168,11 +166,11 @@ deeb.face = function(){
 
 	this.pupilSize = 2;
 
-	var eyeSize = map(points, 0, 150, this.eyeSize*0.6, this.eyeSize);
+	var eyeSize = map(points, 400, 100, this.eyeSize*0.6, this.eyeSize);
 	var eyeMinH = this.bodyHeight*0.75; 
 	var eyeMaxH = this.bodyHeight*0.95;
-	var eyeHeight = Math.max(eyeMinH, Math.min(map(points, 0, 100, eyeMinH, eyeMaxH), eyeMaxH));
-	var mouthOpen = map(points, 0, 200, -20, 20);
+	var eyeHeight = Math.max(eyeMinH, Math.min(map(points, 400, 200, eyeMinH, eyeMaxH), eyeMaxH));
+	var mouthOpen = map(points, 400, 0, -20, 20);
 	if(this.scared == true){
 		this.pupilSize = eyeSize*0.25;
 		this.scaredCount++;
@@ -182,6 +180,9 @@ deeb.face = function(){
 		if(this.scaredCount>6){
 			this.scared = false;
 			this.scaredCount = 0;
+			setTimeout(function(){
+				thisDeebInfo.style.opacity = '0';
+			}, 3000);
 		}
 	}
 	//eyes
@@ -194,6 +195,7 @@ deeb.face = function(){
 		for(var i=-2; i<3; i+=4){
 			pEx(this.xPos+(10*i), this.yPos-eyeHeight, 5, 5);
 		}
+		eyeSize = this.eyeSize*0.6;
 	}else{
 		for(var i=-2; i<3; i+=4){
 			ellipse(this.xPos+(10*i), this.yPos-eyeHeight, this.pupilSize);
@@ -251,25 +253,6 @@ flower.drawStem = function(x1, y1, x2, y2, r){
 	pEllipse(x2, y2, r, r);
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////// GRASS 
-var grass = {};
-grass.setup = function(x, y){
-	this.type = "grass";
-	this.xPos = x; 
-	this.yPos = y;
-	this.bladeCount = random(2,5);
-	this.bladeLengths = [];
-	for(var i=0; i<this.bladeCount; i++){
-		this.bladeLengths[i] = random(5,20) ;
-	}
-}
-grass.update = function(){
-	stroke('purple');
-	for(var i=0; i<this.bladeCount; i++){
-		pLine(this.xPos-(i*7), this.yPos, this.xPos-(i*7), this.yPos-this.bladeLengths[i]);
-	}
-}
-
 //////////////////////////////////////////////////////////////////////////////////////////// PLANT 
 var plant = {};
 plant.setup = function(x, y){
@@ -278,14 +261,14 @@ plant.setup = function(x, y){
 	this.yPos = y;
 	this.fill = "yellow";
 	this.width = 30; 
-	this.height = 135;
+	this.height = random(75, 135);
 	this.loop = 0; 
-
 	this.images = [];
+	
 	tempCanvas.width = this.width;
 	tempCanvas.height = this.height;
 	setCanvas(tempC);
-	for(var i=0; i<1; i++){
+	for(var i=0; i<3; i++){
 		this.draw();
 		this.images[i] = new Image;
 		this.images[i].src = tempCanvas.toDataURL();
@@ -296,13 +279,13 @@ plant.draw = function(){
 	stroke('#FFE305');
 	fill(this.fill);
 	pLine(this.width/2, this.height, this.width/2, this.height-100);
-	pEllipse(this.width/2, this.height-100, 30, 30);
-	pEllipse(this.width/2, this.height-115, 20, 20);
-	pEllipse(this.width/2, this.height-125, 10, 10);
+	pEllipse(this.width/2, this.height-(this.height-35), 30, 30);
+	pEllipse(this.width/2, this.height-(this.height-20), 20, 20);
+	pEllipse(this.width/2, this.height-(this.height-8), 10, 10);
 }
 plant.update = function(){
 	this.loop++;
-	if(this.loop>=1) this.loop = 0; 
+	if(this.loop>=3) this.loop = 0; 
 	c.drawImage(this.images[this.loop], this.xPos, this.yPos-this.height);
 }
 //////////////////////////////////////////////////////////////////////////////////////////// ROCK 
@@ -339,6 +322,25 @@ bush.update = function(){
 	this.loop++;
 	if(this.loop>=3) this.loop = 0; 
 	c.drawImage(this.images[this.loop], this.xPos, this.yPos-this.height);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////// GRASS 
+var grass = {};
+grass.setup = function(x, y){
+	this.type = "grass";
+	this.xPos = x; 
+	this.yPos = y;
+	this.bladeCount = random(2,5);
+	this.bladeLengths = [];
+	for(var i=0; i<this.bladeCount; i++){
+		this.bladeLengths[i] = random(5,20);
+	}
+}
+grass.update = function(){
+	stroke('purple');
+	for(var i=0; i<this.bladeCount; i++){
+		pLine(this.xPos-(i*7), this.yPos, this.xPos-(i*7), this.yPos-this.bladeLengths[i]);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////// ROCK 
@@ -389,11 +391,11 @@ rock.update = function(){
 }
 
 //#############################################################################################################
-//###############################################    ####      ####     ###      ###     ##        ###     ####
-//#############################################  ####  ##  ###   #####  ###  ######  #########  ####   ########
-//#############################################  ####  ##      #######  ###      ##  #########  #####     #####
-//#############################################  ####  ##  ###   #####  ###  ######  #########  #########   ###
-//##############################################     ####      ###     ####      ##      #####  #####     #####
+//##########  ####  ##      ##  #######  ########    ####      ####     ###      ###     ##        ###     ####
+//##########    ##  ##  ######  ##   ##  ######  ####  ##  ###   #####  ###  ######  #########  ####   ########
+//##########  #  #  ##      ##  #  #  #  ######  ####  ##      #######  ###      ##  #########  #####     #####
+//##########  ##    ##  ######    ###    ######  ####  ##  ###   #####  ###  ######  #########  #########   ###
+//##########  ####  ##      ##  #######  #######     ####      ###     ####      ##      #####  #####     #####
 //#############################################################################################################
 
 ////////////////////////////////////////////////////////////////////////////////////////// NEW CREATURES
@@ -449,62 +451,106 @@ document.onmouseleave = function(e){
 	mouseY = h+200;
 }
 
+//#############################################################################################################
+//###########################################################################  ####     ####     ###  ####  ###
+//###########################################################################  ##   #######  ###  ##    ##  ###
+//###########################################################################  ###     ####  ###  ##  #  #  ###
+//######################################################################  ###  #######   ##  ###  ##  ##    ###
+//#######################################################################     ####     #####     ###  ####  ###
+//#############################################################################################################
+
 ///////////////////////////////////////////////////////////////////////////////////////// READ JSON
 
 var jsonObjects = []; //array of all deebs from file
 var deebs = []; //array of deebs to draw
 var critterArray = []; //array of all critters to draw
 
+var readJSON = function(){
+	var xmlObjects = new XMLHttpRequest();
+	xmlObjects.open('GET', 'assets/creatures.json');
+	xmlObjects.onreadystatechange = function() {
+		if(xmlObjects.readyState==4){ //4 == ready
 
-var xmlObjects = new XMLHttpRequest();
-xmlObjects.open('GET', 'assets/creatures.json');
-xmlObjects.onreadystatechange = function() {
-	if(xmlObjects.readyState==4){ //4 == ready
+			dFills = getDeebFills(systemInfo.points);
+			dStroke = getDeebStroke(systemInfo.points);
 
-		var density = Math.round( (w*h/22500) );
-		var rockCount = Math.round( density*0.2 );  
-		var flowerCount = Math.round( density*map(points, 0, 200, 0.3, 0.8) );
-		var plantCount = Math.round( flowerCount*0.8 );  
-		var bushCount = Math.round( density*map(points, 0, 200, 0.2, 0.4) );
-		var deebCount = Math.round( density*map(points, 0, 200, 0.2, 0.6) );  
+			ddFills = getDeadDeebFills();
+			ddStroke = "hsla(180,10%,80%,0.2)";
 
-		var myData = JSON.parse(xmlObjects.responseText);
-		var myDeebs = myData.critters; 
-		// systemInfo = myData.info;
-		// points = systemInfo.points;
+			bgPattern = backgroundPattern();
 
-		for(var i=0; i<myDeebs.length; i++){
-			var tempDeeb = Object.create(deeb);
-			tempDeeb.setup(random(0, w, false), random(100, h, false), myDeebs[i].name, myDeebs[i].points, myDeebs[i].bodyWidth, myDeebs[i].bodyHeight, myDeebs[i].state, myDeebs[i].speed, myDeebs[i].index);
-			jsonObjects.push( tempDeeb );
-		}
-		for(var j=0; j<deebCount; j++){
-			var rand = random(0, jsonObjects.length-1); 
-			critterArray.push( jsonObjects[rand] );
-		}
-		for(var b=0; b<bushCount; b++){
-			tempBush = Object.create(bush);
-			tempBush.setup(random(0, w, false), random(0, h, false));
-			critterArray.push( tempBush );
-		}
-		for(var f=0; f<flowerCount; f++){
-			var tempFlower = Object.create(flower);
-			tempFlower.setup(random(0, w, false), random(0, h, false));
-			critterArray.push( tempFlower );
-		}
-		for(var p=0; p<plantCount; p++){
-			var tempPlant = Object.create(plant);
-			tempPlant.setup(random(0, w, false), random(0, h, false));
-			critterArray.push( tempPlant );
-		}
-		for(var r=0; r<rockCount; r++){
-			var tempRock = Object.create(rock);
-			tempRock.setup(random(0, w, false), random(0, h, false));
-			critterArray.push( tempRock );
+			var density = Math.round( (w*h/22500) );
+			var rockCount = Math.round( density*0.2 );  
+			var grassCount = Math.round( density*0.8 );  
+			var flowerCount = Math.round( density*map(points, 400, 0, 0.3, 1.5) );
+			var plantCount = Math.round( flowerCount*0.8 );  
+			var bushCount = Math.round( density*map(points, 400, 0, 0.2, 0.6) );
+			var deebCount = Math.round( density*map(points, 400, 0, 0.2, 0.6) );  
+
+			var myData = JSON.parse(xmlObjects.responseText);
+			var myDeebs = myData.critters; 
+
+			var deadCount = 0; 
+			for(var i=0; i<myDeebs.length; i++){
+				var tempDeeb = Object.create(deeb);
+				tempDeeb.setup(random(0, w, false), random(100, h, false), myDeebs[i].name, myDeebs[i].points, myDeebs[i].bodyWidth, myDeebs[i].bodyHeight, myDeebs[i].state, myDeebs[i].speed, myDeebs[i].index);
+				if(tempDeeb.state == 0){
+					deadCount++;
+				}
+				jsonObjects.push( tempDeeb );
+			}
+			for(var j=0; j<deebCount; j++){
+				var rand = random(0, jsonObjects.length-1); 
+				critterArray.push( jsonObjects[rand] );
+			}
+			for(var b=0; b<bushCount; b++){
+				tempBush = Object.create(bush);
+				tempBush.setup(random(0, w, false), random(0, h, false));
+				critterArray.push( tempBush );
+			}
+			for(var f=0; f<flowerCount; f++){
+				var tempFlower = Object.create(flower);
+				tempFlower.setup(random(0, w, false), random(0, h, false));
+				critterArray.push( tempFlower );
+			}
+			for(var p=0; p<plantCount; p++){
+				var tempPlant = Object.create(plant);
+				tempPlant.setup(random(0, w, false), random(0, h, false));
+				critterArray.push( tempPlant );
+			}
+			for(var r=0; r<rockCount; r++){
+				var tempRock = Object.create(rock);
+				tempRock.setup(random(0, w, false), random(0, h, false));
+				critterArray.push( tempRock );
+			}
+			for(var g=0; g<grassCount; g++){
+				var tempGrass = Object.create(grass);
+				tempGrass.setup(random(0, w, false), random(0, h, false));
+				critterArray.push( tempGrass );
+			}
+
+			systemDeadDeebs.innerHTML = deadCount;
+			systemYourFault.innerHTML = deadCount - systemInfo.deebsDead; 
+
+			//update dead
+			systemInfo.deebsDead = deadCount;
+
 		}
 	}
+	xmlObjects.send();
 }
-xmlObjects.send();
+readJSON();
+
+window.onresize = function(){
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	w = window.innerWidth;
+	h = window.innerHeight;
+	jsonObjects = []; 
+	deebs = [];
+	critterArray = []; 
+	readJSON();
+}
 
 
 //#############################################################################################################
@@ -518,6 +564,7 @@ xmlObjects.send();
 // draws background, sorts to draw order & draws. 
 
 setInterval(function(){
+	// console.log("b", systemInfo);
 	fill(bgPattern);
 	fRect(0, 0, w, h);
 	critterArray.sort(function(obj1, obj2){
@@ -526,6 +573,8 @@ setInterval(function(){
 	for(var i=0; i<critterArray.length; i++){
 		critterArray[i].update();
 	}
+	// console.log("a", systemInfo);
+
 }, 33);
 
 ///////////////////////////////////////////////////////////////////////////////////////// SAVE STATE
@@ -534,7 +583,7 @@ setInterval(function(){
 // saves to server.
 
 window.onbeforeunload = function(){
-	if(points == 0){
+	if(points >= 400){
 		for(var i=0; i<jsonObjects.length; i++){
 			jsonObjects[i].state = 0; 
 		}
@@ -544,21 +593,19 @@ window.onbeforeunload = function(){
 			var thisIndex = critterArray[q].index;
 			jsonObjects[ thisIndex ] = critterArray[q];
 		}
-	}
-
+	}	
 	var fullFile = {};
 	fullFile.info = systemInfo; 
 	fullFile.critters = jsonObjects; 
-
 	$.ajax({
-	    dataType : 'json', 
-	    async : false,
-	    url : 'save.php',
-	    type : 'POST',
-	    success: function(r){
-	    	console.log(r);
-	    },
-	    data : { json:JSON.stringify(fullFile) }
+		dataType : 'json', 
+		async : false,
+		url : 'save.php',
+		type : 'POST',
+		success: function(r){
+			console.log(r);
+		},
+		data : { json:JSON.stringify(fullFile) }
 	});
 	return null;
 }
