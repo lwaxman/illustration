@@ -435,7 +435,7 @@ var newData = function(){
 		data : { json:jsonObject }
 	});
 }
-newData();
+// newData();
 
 //#############################################################################################################
 //###########################################################################  ####     ####     ###  ####  ###
@@ -504,6 +504,8 @@ var readJSON = function(){
 readJSON();
 
 
+///////////////////////////////////////////////////////////////////////////// DRAW IMAGES FOR ARCHIVE
+
 var makeArchive = function(l, p){
 	canvas.width = 800; 
 	canvas.height = 800; 
@@ -536,16 +538,23 @@ var makeArchive = function(l, p){
 	}
 }
 
+
+///////////////////////////////////////////////////////////////////////////// SAVE IMAGES TO FILE
+
 var saveImages = function(imgs){
+	console.log(imgs);
+	var tempString = "";
+	for(var i=0; i<imgs.length; i++){
+		tempString += imgs[i]+"> ";
+	}
 	$.ajax({
-		dataType : 'json', 
-		async : false,
+		dataType : 'text', 
 		url : 'saveImages.php',
 		type : 'POST',
 		success: function(r){
 			console.log(r);
 		},
-		data : { urls:JSON.stringify(myImages) }
+		data : { urls:tempString }
 	});
 }
 
