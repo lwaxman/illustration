@@ -421,7 +421,6 @@ var newData = function(){
 	var fullFile = {};
 	fullFile.info = system; 
 	fullFile.critters = objects; 
-	// fullFile.images = [];
 
 	var jsonObject = JSON.stringify(fullFile);
 
@@ -470,7 +469,7 @@ var readJSON = function(){
 			systemVisitors.innerText = systemInfo.visitors; 
 			systemLastVisited.innerText = days;
 			
-			days = 0;
+			days = 1;
 			if(runCount == 0){
 				makeArchive(0, systemInfo.points);				
 				runCount++;
@@ -482,11 +481,15 @@ var readJSON = function(){
 			w = window.innerWidth;
 			h = window.innerHeight;
 
-			createObjectArray(points, myDeebs);
 
+			console.log("b", systemInfo.points);
 			systemInfo.visitors += 1; 
 			systemInfo.points += 1;
-			systemInfo.points += days*2;
+			systemInfo.points += days*50;
+			console.log("a", systemInfo.points);
+			createObjectArray(points, myDeebs);
+
+			// systemInfo.points += days*2;
 			systemInfo.lastVisit = visited;
 			systemInfo.deebsDead = deadCount;
 			systemDeadDeebs.innerHTML = deadCount;
@@ -504,15 +507,18 @@ var readJSON = function(){
 readJSON();
 
 
-///////////////////////////////////////////////////////////////////////////// DRAW IMAGES FOR ARCHIVE
+///////////////////////////////////////////////////////////////////////////// DRAW IMAGES
 
 var makeArchive = function(l, p){
+	console.log("marking archive")
 	canvas.width = 800; 
 	canvas.height = 800; 
 	w = 800; 
 	h = 800; 
 	if(l<days+1){
-		p += 2;
+		console.log("day",l);
+		p += 50;
+		// p += 2;
 		dFills = getDeebFills(p);
 		dStroke = getDeebStroke(p);
 		ddFills = getDeadDeebFills();
@@ -523,7 +529,6 @@ var makeArchive = function(l, p){
 		var dataURL = canvas.toDataURL();
 		var tempImg = new Image();
 		tempImg.onload = function(){
-			archive.appendChild(tempImg);
 			myImages.push( tempImg.src );
 			if(l>=days+1){
 				saveImages(myImages);
@@ -672,7 +677,6 @@ window.onbeforeunload = function(){
 		}
 	}	
 	var fullFile = {};
-	// fullFile.images = myImages; 
 	fullFile.info = systemInfo; 
 	fullFile.critters = jsonObjects; 
 	$.ajax({

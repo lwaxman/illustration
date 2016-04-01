@@ -27,13 +27,11 @@ var thisDeebHealth = document.getElementById('deeb_health');
 
 var archive = document.getElementById('archive');
 
-
 var jsonObjects = []; //array of all deebs from file
 var deebs = []; //array of deebs to draw
 var critterArray = []; //array of all critters to draw
 var runCount = 0; 
 var archiveImages = [];
-
 
 var myImages = []; 
 var myDeebs; 
