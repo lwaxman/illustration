@@ -19,22 +19,21 @@ var tempC = tempCanvas.getContext("2d");
 ////////////////////////////////////////////////////////////////////////////////////// BACKGROUND // self explanatory title
 
 var bgPattern; 
-var backgroundPattern = function(){
-
+var backgroundPattern = function(p){
 	var textureMarker = document.createElement("canvas");
 	var txMarker = textureMarker.getContext("2d");
-	textureMarker.width = window.innerWidth;
-	textureMarker.height = window.innerHeight;
+	textureMarker.width = canvas.width;
+	textureMarker.height = canvas.height;
 
 	var txHue;
 	var txSaturation;
-	if(systemInfo.points > 400){
-		txHue = map(systemInfo.points, 400, 800, -70, 80)
-		txSaturation = map(systemInfo.points, 0, 400, 10, 60);
+	if(p > 400){
+		txHue = map(p, 400, 800, -70, 80)
+		txSaturation = map(p, 0, 400, 10, 60);
 	}else{
 		// console.log()
 		txHue = 290; 
-		txSaturation = map(systemInfo.points, 400, 0, 10, 60);
+		txSaturation = map(p, 400, 0, 10, 60);
 	}
 
 	txMarker.fillStyle = "hsla("+txHue+","+txSaturation+"%,50%,1)";
@@ -55,15 +54,6 @@ var backgroundPattern = function(){
 // deeb fills. front and back done in one loop for efficiency (?)
 // deebs have different fills based on their health
 
-var deebFront_c = document.createElement("canvas");
-var deebFront = deebFront_c.getContext("2d");
-deebFront_c.width = window.innerWidth;
-deebFront_c.height = window.innerHeight;
-
-var deebBack_c = document.createElement("canvas");
-var deebBack = deebBack_c.getContext("2d");
-deebBack_c.width = window.innerWidth;
-deebBack_c.height = window.innerHeight;
 
 var getDeebStroke = function(p){
 	var dbSaturation = map(p, 400, 0, 10, 60);
@@ -73,6 +63,15 @@ var getDeebStroke = function(p){
 }
 
 var getDeebFills = function(p){
+	var deebFront_c = document.createElement("canvas");
+	var deebFront = deebFront_c.getContext("2d");
+	deebFront_c.width = canvas.width;
+	deebFront_c.height = canvas.height;
+
+	var deebBack_c = document.createElement("canvas");
+	var deebBack = deebBack_c.getContext("2d");
+	deebBack_c.width = canvas.width;
+	deebBack_c.height = canvas.height;
 
 	var dbSaturation = map(p, 400, 0, 10, 60);
 	var dbLightness = map(p, 400, 0, 70, 50);
@@ -104,17 +103,17 @@ var getDeebFills = function(p){
 	return [frontFill, backFill];
 }
 
-var deadDeebFront_c = document.createElement("canvas");
-var deadDeebFront = deadDeebFront_c.getContext("2d");
-deadDeebFront_c.width = window.innerWidth;
-deadDeebFront_c.height = window.innerHeight;
-
-var deadDeebBack_c = document.createElement("canvas");
-var deadDeebBack = deadDeebBack_c.getContext("2d");
-deadDeebBack_c.width = window.innerWidth;
-deadDeebBack_c.height = window.innerHeight;
 
 var getDeadDeebFills = function(){
+	var deadDeebFront_c = document.createElement("canvas");
+	var deadDeebFront = deadDeebFront_c.getContext("2d");
+	deadDeebFront_c.width = canvas.width;
+	deadDeebFront_c.height = canvas.height;
+
+	var deadDeebBack_c = document.createElement("canvas");
+	var deadDeebBack = deadDeebBack_c.getContext("2d");
+	deadDeebBack_c.width = canvas.width;
+	deadDeebBack_c.height = canvas.height;
 
 	deadDeebFront.fillStyle = "hsla(180,0%,50%,1)";
 	deadDeebFront.fillRect(0, 0, deadDeebFront_c.width, deadDeebFront_c.height);

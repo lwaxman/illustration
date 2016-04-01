@@ -8,6 +8,13 @@
 *
 */
 
+var canvas = document.getElementById("main");
+var c = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+var w = window.innerWidth;
+var h = window.innerHeight;
+
 var systemHealth = document.getElementById("system_health");
 var systemVisitors = document.getElementById("system_visitors");
 var systemLastVisited = document.getElementById("system_date");
@@ -18,8 +25,21 @@ var thisDeebInfo = document.getElementById('deeb');
 var thisDeebName = document.getElementById('deeb_name');
 var thisDeebHealth = document.getElementById('deeb_health');
 
+var archive = document.getElementById('archive');
+
+
+var jsonObjects = []; //array of all deebs from file
+var deebs = []; //array of deebs to draw
+var critterArray = []; //array of all critters to draw
+var runCount = 0; 
+var archiveImages = [];
+
+
+var myImages = []; 
+var myDeebs; 
 var systemInfo; 
 var points = 100;
+var days = 0; 
 
 function parseDate(str) {
     var mdy = str.split('/')
@@ -30,44 +50,8 @@ function daysEllapsed(first, second) {
     return Math.abs( Math.round((second-first)/(1000*60*60*24)) );
 }
 
-
-
-var xmlGetSystemInfo = new XMLHttpRequest();
-xmlGetSystemInfo.open('GET', 'assets/creatures.json');
-xmlGetSystemInfo.onreadystatechange = function() {
-	if(xmlGetSystemInfo.readyState==4){
-
-		var myData = JSON.parse(xmlGetSystemInfo.responseText);
-
-		systemInfo = myData.info;
-
-		// console.log("original:", systemInfo);
-		systemInfo.visitors += 1; 
-		systemInfo.points += 30;
-
-		var today = new Date();
-		var visited = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
-		var lastVisited = systemInfo.lastVisit;
-
-		points = systemInfo.points;
-		if(points<0) points = 0; 
-		else if(points>400) points = 400; 
-
-		systemHealth.innerText = systemInfo.points; 
-		systemVisitors.innerText = systemInfo.visitors; 
-		systemLastVisited.innerText = daysEllapsed( parseDate(visited), parseDate(lastVisited)); 
-
-		systemInfo.points -= daysEllapsed( parseDate(visited), parseDate(lastVisited))*2;
-		systemInfo.lastVisit = visited;
-
-		// console.log("updated:", systemInfo);
-	}
-}
-xmlGetSystemInfo.send();
-
 var infoToggle = document.getElementById("infoToggle");
 var info = document.getElementById("info");
-info.style.left = "-"+info.clientWidth+"px";
 
 infoToggle.onclick = function(){
 	if(info.offsetLeft < 0){
@@ -78,5 +62,21 @@ infoToggle.onclick = function(){
 		info.style.left = "-"+info.clientWidth+"px";
 	}
 }
+
+///////////////////////////////////////////////////////////////////////////////////////// MOUSE POSITIONS
+
+//save mouse position to variables
+var mouseX = w+200;
+var mouseY = h+200;
+document.onmousemove = function(e){
+	mouseX = e.clientX;
+	mouseY = e.clientY;
+}
+document.onmouseleave = function(e){
+	mouseX = w+200;
+	mouseY = h+200;
+}
+
+
 
 
