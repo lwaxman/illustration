@@ -7,23 +7,20 @@
 * The land of Flandill. 
 * 
 * TO DO:
-* - new creature?
-* - new creature?
 * + new plant : bush
-* - new plant : spindly thing
-* - flies?
 * + rocks
 * + grass bits
 * + save & read from json
-* - lemming sounds on death?
 * + get days ellapsed
 * + deeb.points = random_whatever. stage at which it dies, so they don't all die at once
-* - landing page
-* - auto-screen-grabs.
+* + landing page
+* + auto-screen-grabs.
 * + only save deebs to json. generate plants each run based on point tally.
 * + load certain number of deebs based on tally. 
 * + if a deeb dies, keep it dead. no deeb revival. dead deebs even when system is healthy. 
-* + spawn new deebs
+* - new plant : spindly thing
+* - lemming sounds on death?
+* - spawn new deebs
 *
 * local server: 
 * php -S 0.0.0.0:8000 -t .
@@ -416,6 +413,7 @@ var newData = function(){
 	system.deebsAlive = 200; 
 	system.deebsDead = 0; 
 	system.visitors = 0; 
+	system.lastArchive = 0; 
 	system.lastVisit = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
 
 	var fullFile = {};
@@ -459,46 +457,43 @@ var readJSON = function(){
 			var today = new Date();
 			var visited = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
 			var lastVisited = systemInfo.lastVisit;
-			days = daysEllapsed( parseDate(visited), parseDate(lastVisited)); 
+			var days = daysEllapsed( parseDate(visited), parseDate(lastVisited))+1; 
+			// days = 1;
 
+			systemInfo.lastArchive += days; 
 			points = systemInfo.points;
 			if(points<0) points = 0; 
 			else if(points>400) points = 400; 
-
-			systemHealth.innerText = systemInfo.points; 
-			systemVisitors.innerText = systemInfo.visitors; 
-			systemLastVisited.innerText = days;
 			
-			days = 1;
 			if(runCount == 0){
-				makeArchive(0, systemInfo.points);				
+				makeArchive(days, systemInfo.points, systemInfo.lastArchive);				
 				runCount++;
-			}else{
-				console.log("no more");
 			}
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
 			w = window.innerWidth;
 			h = window.innerHeight;
 
-
-			console.log("b", systemInfo.points);
 			systemInfo.visitors += 1; 
 			systemInfo.points += 1;
-			systemInfo.points += days*50;
-			console.log("a", systemInfo.points);
-			createObjectArray(points, myDeebs);
+			systemInfo.points -= days*2;
 
-			// systemInfo.points += days*2;
+			createObjectArray(systemInfo.points, myDeebs);
+
 			systemInfo.lastVisit = visited;
 			systemInfo.deebsDead = deadCount;
+
 			systemDeadDeebs.innerHTML = deadCount;
 			systemYourFault.innerHTML = deadCount - systemInfo.deebsDead; 
+			systemHealth.innerText = systemInfo.points; 
+			systemVisitors.innerText = systemInfo.visitors; 
+			systemLastVisited.innerText = days;
 
 			dFills = getDeebFills(systemInfo.points);
 			dStroke = getDeebStroke(systemInfo.points);
 			ddFills = getDeadDeebFills();
 			ddStroke = "hsla(180,10%,80%,0.2)";
+			console.log("today");
 			bgPattern = backgroundPattern(systemInfo.points);
 		}
 	}
@@ -509,37 +504,42 @@ readJSON();
 
 ///////////////////////////////////////////////////////////////////////////// DRAW IMAGES
 
-var makeArchive = function(l, p){
-	console.log("marking archive")
+var l=0;
+var makeArchive = function(days, p, la){
+	// console.log("marking archive")
 	canvas.width = 800; 
 	canvas.height = 800; 
 	w = 800; 
-	h = 800; 
-	if(l<days+1){
-		console.log("day",l);
-		p += 50;
-		// p += 2;
-		dFills = getDeebFills(p);
-		dStroke = getDeebStroke(p);
-		ddFills = getDeadDeebFills();
-		ddStroke = "hsla(180,10%,80%,0.2)";
-		bgPattern = backgroundPattern(p);
-		createObjectArray(p, myDeebs);
-		drawCanvas();
-		var dataURL = canvas.toDataURL();
-		var tempImg = new Image();
-		tempImg.onload = function(){
-			myImages.push( tempImg.src );
-			if(l>=days+1){
-				saveImages(myImages);
+	h = 800;
+	if(l<days){
+	// if(la/10 > 1){
+		// if(la%10 == 0){
+			console.log(l, p);
+			p -= 2;
+			dFills = getDeebFills(p);
+			dStroke = getDeebStroke(p);
+			ddFills = getDeadDeebFills();
+			ddStroke = "hsla(180,10%,80%,0.2)";
+			bgPattern = backgroundPattern(p);
+			createObjectArray(p, myDeebs);
+			drawCanvas();
+			var dataURL = canvas.toDataURL();
+			var tempImg = new Image();
+			tempImg.onload = function(){
+				myImages.push( tempImg.src );
+				if(l>=days){
+					saveImages(myImages);
+				}
 			}
-		}
-		tempImg.src = dataURL;
-		jsonObjects = []; 
-		deebs = [];
-		critterArray = []; 
-		l++;
-		makeArchive(l, p);	
+			tempImg.src = dataURL;
+			jsonObjects = []; 
+			deebs = [];
+			critterArray = []; 
+			l++;
+			makeArchive(l, p, la);	
+			systemInfo.lastArchive = 0; 
+			console.log(systemInfo.lastArchive);
+		// } 
 	}
 }
 
@@ -560,6 +560,8 @@ var saveImages = function(imgs){
 			console.log(r);
 		},
 		data : { urls:tempString }
+	}).done(function(){
+		console.log("images saved");
 	});
 }
 

@@ -29,7 +29,7 @@ var backgroundPattern = function(p){
 	var txSaturation;
 	if(p > 400){
 		txHue = map(p, 400, 800, -70, 80)
-		txSaturation = map(p, 0, 400, 10, 60);
+		txSaturation = map(p, 400, 800, 10, 60);
 	}else{
 		// console.log()
 		txHue = 290; 
@@ -40,10 +40,11 @@ var backgroundPattern = function(p){
 	txMarker.fillStyle = "hsla("+txHue+","+txSaturation+"%,50%,1)";
 	txMarker.fillRect(0, 0, textureMarker.width, textureMarker.height);
 
-	for(var i=0; i<10000; i++){
-		txMarker.fillStyle = "hsla("+txHue+","+txSaturation+"%,"+random(40,60)+"%,0.2)";
+	var count = w*h/200;
+	for(var i=0; i<count; i++){
+		txMarker.fillStyle = "hsla("+txHue+","+txSaturation+"%,"+random(40,60)+"%,0.3)";
 		txMarker.beginPath();
-		txMarker.ellipse(random(0,w), random(0,h), random(5,10), random(5,10), deg(random(0,360)), 0, 2*Math.PI);
+		txMarker.arc(random(0,w), random(0,h), random(5,10), random(5,10), 0, 2*Math.PI);
 		txMarker.fill();
 		txMarker.closePath();
 	}
@@ -87,13 +88,13 @@ var getDeebFills = function(p){
 	for(var i=0; i<count; i++){
 		deebFront.fillStyle = "hsla(180,"+dbSaturation+"%,"+random(dbLightness,dbLightness+10)+"%,0.2)";
 		deebFront.beginPath();
-		deebFront.arc(random(0,w), random(0,h), random(2,3) ,0, 2*Math.PI);
+		deebFront.arc(random(0,w), random(0,h), random(2,5) ,0, 2*Math.PI);
 		deebFront.fill();
 		deebFront.closePath();
 
 		deebBack.fillStyle = "hsla(180,"+dbSaturation+"%,"+random(dbLightness,dbLightness+10)+"%,0.2)";
 		deebBack.beginPath();
-		deebBack.arc(random(0,w), random(0,h), random(2,3), 0, 2*Math.PI);
+		deebBack.arc(random(0,w), random(0,h), random(2,5), 0, 2*Math.PI);
 		deebBack.fill();
 		deebBack.closePath();
 	}

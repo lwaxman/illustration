@@ -15,6 +15,7 @@ canvas.height = window.innerHeight;
 var w = window.innerWidth;
 var h = window.innerHeight;
 
+// var info = document.getElementById(id)
 var systemHealth = document.getElementById("system_health");
 var systemVisitors = document.getElementById("system_visitors");
 var systemLastVisited = document.getElementById("system_date");
@@ -37,7 +38,7 @@ var myImages = [];
 var myDeebs; 
 var systemInfo; 
 var points = 100;
-var days = 0; 
+// var days = 0; 
 
 function parseDate(str) {
     var mdy = str.split('/')
@@ -59,6 +60,11 @@ infoToggle.onclick = function(){
 		infoToggle.innerHTML = "i";
 		info.style.left = "-"+info.clientWidth+"px";
 	}
+}
+
+var visit = document.getElementById("visitFlandill");
+visit.onclick = function(){
+	// info
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////// MOUSE POSITIONS
