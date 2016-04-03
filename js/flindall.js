@@ -18,6 +18,7 @@
 * + only save deebs to json. generate plants each run based on point tally.
 * + load certain number of deebs based on tally. 
 * + if a deeb dies, keep it dead. no deeb revival. dead deebs even when system is healthy. 
+* + only save every few images so as not to totaly kill my server space/make the 
 * - new plant : spindly thing
 * - lemming sounds on death?
 * - spawn new deebs
@@ -256,7 +257,13 @@ plant.setup = function(x, y){
 	this.type = "plant";
 	this.xPos = x; 
 	this.yPos = y;
-	this.fill = "yellow";
+	var bri = map(points, 200, 400, 60, 40);
+	var sat = map(points, 200, 400, 100, 80);
+	var hue = map(points, 200, 400, 60, 40);
+	if(points<=200){ bri = 60; sat = 100; hue = 60; }
+	else if(points>=400){ bri = 40; sat = 80; hue = 40; }
+	this.fill = "hsla("+hue+", 100%, "+bri+"%, 1)";
+	this.stroke =  "hsla("+(hue-5)+", 100%, "+bri+"%, 1)";
 	this.width = 30; 
 	this.height = random(75, 135);
 	this.loop = 0; 
@@ -273,7 +280,7 @@ plant.setup = function(x, y){
 	resetCanvas();
 }
 plant.draw = function(){
-	stroke('#FFE305');
+	stroke(this.stroke);
 	fill(this.fill);
 	pLine(this.width/2, this.height, this.width/2, this.height-100);
 	pEllipse(this.width/2, this.height-(this.height-35), 30, 30);
@@ -295,6 +302,14 @@ bush.setup = function(x, y){
 	this.loop = 0; 
 	this.fill = "#FF3047";
 	this.stroke = "#FF8C8F";//"#CF1734";
+
+	var bri = map(points, 200, 400, 60, 20);
+	var sat = map(points, 200, 400, 100, 80);
+	if(points<=200){ bri = 60; sat = 100; }
+	else if(points>=400){ bri = 20; sat = 80; }
+	this.fill = "hsla(353, "+sat+"%, "+bri+"%, 1)";
+	this.stroke =  "hsla(358, "+sat+"%, "+(bri+10)+"%, 1)";
+
 	this.width = random(100,150);
 	this.height = random(100, 150);
 	this.images = [];
@@ -347,6 +362,15 @@ rock.setup = function(x, y){
 	this.xPos = x; 
 	this.yPos = y;
 	this.fill = "#8B408F";
+
+	var sat = map(points, 200, 400, 65, 10);
+	var bri = map(points, 200, 400, 45, 45);
+	if(points<=200){ sat = 65; bri = 45; }
+	else if(points>=400){ sat = 10; bri = 45; }
+	console.log(sat, bri);
+	this.fill = "hsla(290, "+sat+"%, "+bri+"%, 1)";
+	this.stroke = "hsla(290, "+sat+"%, "+(bri-10)+"%, 1)";
+
 	this.loop = 0;
 	this.width = random(100, 300);
 	this.height = random(100, 150);
@@ -375,7 +399,7 @@ rock.setup = function(x, y){
 	resetCanvas();
 }
 rock.draw = function(){
-	stroke('purple');
+	stroke(this.stroke);
 	fill(this.fill);
 	for(var i=0; i<this.sectionCount; i++){
 		pEllipse(this.sectionXOffsets[i], this.height, this.sectionWidths[i], this.sectionHeights[i], 180, 360);
@@ -457,16 +481,22 @@ var readJSON = function(){
 			var today = new Date();
 			var visited = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
 			var lastVisited = systemInfo.lastVisit;
-			var days = daysEllapsed( parseDate(visited), parseDate(lastVisited))+1; 
-			// days = 1;
+			var days = daysEllapsed( parseDate(visited), parseDate(lastVisited)); 
+			console.log(systemInfo.lastArchive);
 
-			systemInfo.lastArchive += days; 
+			systemInfo.points = 100; 
+
+			// days = 30;
+			systemInfo.lastArchive += days+1; 
+
 			points = systemInfo.points;
 			if(points<0) points = 0; 
 			else if(points>400) points = 400; 
-			
+
+
 			if(runCount == 0){
-				makeArchive(days, systemInfo.points, systemInfo.lastArchive);				
+				var archCount = Math.floor(systemInfo.lastArchive/10);
+				makeArchive(archCount, systemInfo.points);				
 				runCount++;
 			}
 			canvas.width = window.innerWidth;
@@ -475,16 +505,7 @@ var readJSON = function(){
 			h = window.innerHeight;
 
 			systemInfo.visitors += 1; 
-			systemInfo.points += 1;
-			systemInfo.points -= days*2;
-
-			createObjectArray(systemInfo.points, myDeebs);
-
-			systemInfo.lastVisit = visited;
-			systemInfo.deebsDead = deadCount;
-
-			systemDeadDeebs.innerHTML = deadCount;
-			systemYourFault.innerHTML = deadCount - systemInfo.deebsDead; 
+			systemInfo.points += days*2;
 			systemHealth.innerText = systemInfo.points; 
 			systemVisitors.innerText = systemInfo.visitors; 
 			systemLastVisited.innerText = days;
@@ -493,8 +514,16 @@ var readJSON = function(){
 			dStroke = getDeebStroke(systemInfo.points);
 			ddFills = getDeadDeebFills();
 			ddStroke = "hsla(180,10%,80%,0.2)";
-			console.log("today");
 			bgPattern = backgroundPattern(systemInfo.points);
+			
+			if(systemInfo.points<=0) systemInfo.points=0; 
+			
+			createObjectArray(systemInfo.points, myDeebs);
+
+			systemInfo.lastVisit = visited;
+			systemInfo.deebsDead = deadCount;
+			systemDeadDeebs.innerHTML = deadCount;
+			systemYourFault.innerHTML = deadCount - systemInfo.deebsDead; 
 		}
 	}
 	xmlObjects.send();
@@ -505,41 +534,39 @@ readJSON();
 ///////////////////////////////////////////////////////////////////////////// DRAW IMAGES
 
 var l=0;
-var makeArchive = function(days, p, la){
-	// console.log("marking archive")
+var makeArchive = function(arcCount, p){
 	canvas.width = 800; 
 	canvas.height = 800; 
 	w = 800; 
 	h = 800;
-	if(l<days){
-	// if(la/10 > 1){
-		// if(la%10 == 0){
-			console.log(l, p);
-			p -= 2;
-			dFills = getDeebFills(p);
-			dStroke = getDeebStroke(p);
-			ddFills = getDeadDeebFills();
-			ddStroke = "hsla(180,10%,80%,0.2)";
-			bgPattern = backgroundPattern(p);
-			createObjectArray(p, myDeebs);
-			drawCanvas();
-			var dataURL = canvas.toDataURL();
-			var tempImg = new Image();
-			tempImg.onload = function(){
-				myImages.push( tempImg.src );
-				if(l>=days){
-					saveImages(myImages);
-				}
+	if(l<arcCount){
+		console.log("archiving", l, "of", arcCount);
+		p -= 20;
+		// systemInfo.points -= 20; 
+		// console.log(systemInfo.points);
+		dFills = getDeebFills(p);
+		dStroke = getDeebStroke(p);
+		ddFills = getDeadDeebFills();
+		ddStroke = "hsla(180,10%,80%,0.2)";
+		bgPattern = backgroundPattern(p);
+		createObjectArray(p, myDeebs);
+		drawCanvas();
+		var dataURL = canvas.toDataURL();
+		var tempImg = new Image();
+		tempImg.onload = function(){
+			myImages.push( tempImg.src );
+			if(myImages.length>=arcCount){
+				saveImages(myImages);
 			}
-			tempImg.src = dataURL;
-			jsonObjects = []; 
-			deebs = [];
-			critterArray = []; 
-			l++;
-			makeArchive(l, p, la);	
-			systemInfo.lastArchive = 0; 
-			console.log(systemInfo.lastArchive);
-		// } 
+		}
+		tempImg.src = dataURL;
+		jsonObjects = []; 
+		deebs = [];
+		critterArray = []; 
+		l++;
+		systemInfo.lastArchive -= 10; 
+		if(systemInfo.lastArchive <= 0) systemInfo.lastArchive = 0; 
+		makeArchive(arcCount, p);	
 	}
 }
 
@@ -667,29 +694,29 @@ setInterval(function(){
 // saves to server.
 
 window.onbeforeunload = function(){
-	if(points >= 400){
-		for(var i=0; i<jsonObjects.length; i++){
-			jsonObjects[i].state = 0; 
-		}
-	}
-	for(var q=0; q<critterArray.length; q++){
-		if(critterArray[q].type == "deeb"){
-			var thisIndex = critterArray[q].index;
-			jsonObjects[ thisIndex ] = critterArray[q];
-		}
-	}	
-	var fullFile = {};
-	fullFile.info = systemInfo; 
-	fullFile.critters = jsonObjects; 
-	$.ajax({
-		dataType : 'json', 
-		async : false,
-		url : 'save.php',
-		type : 'POST',
-		success: function(r){
-			console.log(r);
-		},
-		data : { json:JSON.stringify(fullFile) }
-	});
-	return null;
+	// if(points >= 400){
+	// 	for(var i=0; i<jsonObjects.length; i++){
+	// 		jsonObjects[i].state = 0; 
+	// 	}
+	// }
+	// for(var q=0; q<critterArray.length; q++){
+	// 	if(critterArray[q].type == "deeb"){
+	// 		var thisIndex = critterArray[q].index;
+	// 		jsonObjects[ thisIndex ] = critterArray[q];
+	// 	}
+	// }	
+	// var fullFile = {};
+	// fullFile.info = systemInfo; 
+	// fullFile.critters = jsonObjects; 
+	// $.ajax({
+	// 	dataType : 'json', 
+	// 	async : false,
+	// 	url : 'save.php',
+	// 	type : 'POST',
+	// 	success: function(r){
+	// 		console.log(r);
+	// 	},
+	// 	data : { json:JSON.stringify(fullFile) }
+	// });
+	// return null;
 }
