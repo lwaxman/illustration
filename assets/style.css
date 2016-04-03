@@ -1,8 +1,14 @@
-*{ margin: 0; }
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,300italic,700,700italic);
+*{ 
+	margin: 0; 
+}
 body{  
 	background: black; 
-	font-family: "monaco", "menlo", monospace;
-	color: white;
+	// font-family: "helvetica", "monaco", "menlo", monospace;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+	color: #deebee;
+	// color: white;
 	font-size: 10pt;
 }
 a{
@@ -19,6 +25,7 @@ canvas#main{
 	width: 100%;
 	height: 200%;
 	font-size: 1rem;
+	text-align: center;
 }
 #info #infoContent{
 	width: 100%;
@@ -39,7 +46,12 @@ canvas#main{
 #info #infoPadding p{
 	width: 100%;
 	position: relative;
+	font-size: 1.4rem;
 	margin-bottom: 30px;
+}
+#info #introText{
+	opacity: 0;
+	transition: opacity 1s;
 }
 
 #info #archLink{
@@ -50,8 +62,25 @@ canvas#main{
 	cursor: pointer;
 	color: #FF4936;
 }
-#info .emphasis{
-	color: red;
+#info .italic{
+	font-style: italic;
+}
+#info .bold{
+	font-style: italic;
+	font-weight: 600; 
+}
+#info a{
+	text-decoration: none;
+}
+#info #scroll{
+	color: #74EDED;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	margin: 0 auto;
+	line-height: 50px;
+	font-size: 50px;
+	transform: rotate(-0.25turn);
 }
 
 #alert{
@@ -62,6 +91,7 @@ canvas#main{
 	margin: 0 auto;
 }
 #alert #alertBox{
+	font-size: 1.2em;
 	background: black;
 	padding: 5px 10px; 
 	display: inline-block;

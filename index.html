@@ -8,19 +8,23 @@
 	</head>
 	<body>
 		<canvas id="main"></canvas>
+		<div id="alert"><p id="alertBox">...</p></div>
 		<div id="info">
 			<div id="infoContent">
 				<div id="infoPadding">	
 					<img src="assets/title.svg" alt="welcome to flandill">
-					<p>Your visit here has emit 2<a target="_blank" href="https://en.wikipedia.org/wiki/Air_pollutant_concentrations">ppm</a> of toxic pollutants into the atmosphere, resulting in the death of <span id="system_yourFault">0</span> deebs. If the pollutants reach 400ppm, Flindall will not resemble the planet it once was.</p>
-					<p>Remember, anything you do here is permanent, so please be <span class="emphasis">very careful</span>.</p>
-					<p>Thanks so much for helping turn this lucious land into a desert. Please don't visit again.</p>
-					<p id="visitFlandill">visit Flandill</p>
-					<a id="archLink" target="_blank" href="archive.php"><p>view image archive</p></a>
+					<div id="introText">
+						<p>Flandill is a digital ecosystem, home to the creatures known as deebs. Once pure, human interaction has begun to degrade Flandill's environment. </p>
+
+						<p>By visiting today, you (yes, <span class="italic">you!</span>) have emit 2<a target="_blank" href="https://en.wikipedia.org/wiki/Air_pollutant_concentrations">ppm</a> of pollutants toxic to the deebs into its atmosphere, bringing the total pollution levels to <span id="system_health">100</span>ppm<span id="system_yourFault"></span>. If these levels rise above 400ppm, the deebs risk extinction. Everything you do here is permanent, so please be <span class="italic">very</span> careful.</p>
+
+						<p>Thank you kindly for stopping by, and if you have <span class="italic">any</span> heart, <span class="bold italic">don't come back</span>.</p>
+ 						<!-- <a id="archLink" target="_blank" href="archive.php"><p>View Flindall's history.</p></a> -->
+						<div id="scroll">&#10094;</div>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div id="alert"><p id="alertBox">...</p></div>
 		<script src="assets/creatures.json"></script>
 		<script src="js/getData.js"></script>
 		<script src="js/pen.js"></script>
@@ -28,3 +32,4 @@
 		<script src="js/flindall.js"></script>
 	</body>
 </html>
+
