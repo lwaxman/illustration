@@ -8,31 +8,19 @@
 	</head>
 	<body>
 		<canvas id="main"></canvas>
-		<div id="info" class="full">
+		<div id="info">
 			<div id="infoContent">
 				<div id="infoPadding">	
 					<img src="assets/title.svg" alt="welcome to flandill">
-					<p>Your visit here has emit 2<a target="_blank" href="https://en.wikipedia.org/wiki/Air_pollutant_concentrations">ppm</a> of toxic pollutants into the atmosphere, resulting in the death of <span id="system_yourFault">0</span> deebs. If the pollutants reach 400ppm, Flindall will not resemble the planet it once was. Thanks so much for helping turn this lucious land into a desert. Please don't visit again.</p>
+					<p>Your visit here has emit 2<a target="_blank" href="https://en.wikipedia.org/wiki/Air_pollutant_concentrations">ppm</a> of toxic pollutants into the atmosphere, resulting in the death of <span id="system_yourFault">0</span> deebs. If the pollutants reach 400ppm, Flindall will not resemble the planet it once was.</p>
+					<p>Remember, anything you do here is permanent, so please be <span class="emphasis">very careful</span>.</p>
+					<p>Thanks so much for helping turn this lucious land into a desert. Please don't visit again.</p>
 					<p id="visitFlandill">visit Flandill</p>
 					<a id="archLink" target="_blank" href="archive.php"><p>view image archive</p></a>
 				</div>
 			</div>
-			<div id="infoToggle">i</div>
 		</div>
-		<div id="stats">
-			<div id="system"> 
-				<p>pollutants in air: <span id="system_health">100</span>ppm</p>
-				<p>deebs at start: <span id="system_count">200</span></p>
-				<p>deebs dead: <span id="system_dead">0</span></p>
-				<p>deebs you killed: <span id="system_yourFault">0</span></p>
-				<p>total visitors: <span id="system_visitors">0</span></p>
-				<p>days since last visit: <span id="system_date">0</span></p>
-			</div>
-			<div id="deeb">
-				<p>name: "<span id="deeb_name">debra</span>"</p>
-				<p>health: <span id="deeb_health">100</span></p>
-			</div>
-		</div>
+		<div id="alert"><p id="alertBox">...</p></div>
 		<script src="assets/creatures.json"></script>
 		<script src="js/getData.js"></script>
 		<script src="js/pen.js"></script>

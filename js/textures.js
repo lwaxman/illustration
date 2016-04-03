@@ -35,7 +35,6 @@ var backgroundPattern = function(p){
 		txHue = 290; 
 		txSaturation = map(p, 400, 0, 10, 60);
 	}
-	// console.log("bg", p, txSaturation);
 
 	txMarker.fillStyle = "hsla("+txHue+","+txSaturation+"%,50%,1)";
 	txMarker.fillRect(0, 0, textureMarker.width, textureMarker.height);

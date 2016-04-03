@@ -15,16 +15,12 @@ canvas.height = window.innerHeight;
 var w = window.innerWidth;
 var h = window.innerHeight;
 
-// var info = document.getElementById(id)
+var info = document.getElementById("infoContent");
 var systemHealth = document.getElementById("system_health");
-var systemVisitors = document.getElementById("system_visitors");
-var systemLastVisited = document.getElementById("system_date");
 var systemDeadDeebs = document.getElementById("system_dead");
 var systemYourFault = document.getElementById("system_yourFault");
 
-var thisDeebInfo = document.getElementById('deeb');
-var thisDeebName = document.getElementById('deeb_name');
-var thisDeebHealth = document.getElementById('deeb_health');
+var alertBox = document.getElementById('alertBox');
 
 var archive = document.getElementById('archive');
 
@@ -49,23 +45,7 @@ function daysEllapsed(first, second) {
     return Math.abs( Math.round((second-first)/(1000*60*60*24)) );
 }
 
-var infoToggle = document.getElementById("infoToggle");
-var info = document.getElementById("info");
-
-infoToggle.onclick = function(){
-	if(info.offsetLeft < 0){
-		infoToggle.innerHTML = "x";
-		info.style.left = "0px";
-	}else{
-		infoToggle.innerHTML = "i";
-		info.style.left = "-"+info.clientWidth+"px";
-	}
-}
-
-var visit = document.getElementById("visitFlandill");
-visit.onclick = function(){
-	// info
-}
+var flowerWarnings = ["Please don't pick the flowers!", "Leave the flowers alone."];
 
 ///////////////////////////////////////////////////////////////////////////////////////// MOUSE POSITIONS
 
@@ -80,7 +60,4 @@ document.onmouseleave = function(e){
 	mouseX = w+200;
 	mouseY = h+200;
 }
-
-
-
 

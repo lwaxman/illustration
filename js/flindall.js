@@ -48,13 +48,13 @@ var ddFills = [];
 var ddStroke;
 
 var deeb = {};
-deeb.init = function(x, y, c){
+deeb.init = function(x, y, c, n){
 	this.type = "deeb";
 	this.index = c; 
 	this.xPos = x; 
 	this.yPos = y;
 	this.state = 1;
-	this.name = "debby";
+	this.name = n;
 	this.bodyWidth = random(100, 150); 
 	this.bodyHeight = 130+random(-10, 20);
 	this.points = random(0, this.bodyWidth*0.4);
@@ -81,6 +81,7 @@ deeb.setup = function(x, y, n, p, bw, bh, s, sp, c){
 	this.xPos = x; 
 	this.yPos = y;
 	this.name = n;
+	this.hover = false;
 	this.state = s;
 	this.bodyWidth = bw;
 	this.bodyHeight = bh;
@@ -91,9 +92,6 @@ deeb.setup = function(x, y, n, p, bw, bh, s, sp, c){
 	this.stroke = dStroke;
 	this.speed = random(map(points, 400, 0, 1, 3), map(points, 400, 0, 1, 5)+1, false);
 	if(random(0,1)<1){ this.speed=-this.speed; }
-	if((400-points)<=this.points || this.state == 0){ 
-		this.state = 0;
-	}
 	this.eyeSize = random(20,30, false);
 	this.mouthWidth = random(5,15);
 	this.startHeight = this.bodyHeight;
@@ -103,17 +101,31 @@ deeb.setup = function(x, y, n, p, bw, bh, s, sp, c){
 }
 deeb.update = function(){
 	var bodyW = this.bodyWidth + map(points, 400, 0, -75, 50);
+
 	if(this.state==0) bodyW = this.bodyWidth + map(this.points, 0, 200, -75, 50);
-	if( mouseX > this.xPos-bodyW/2 && mouseX < this.xPos+bodyW/2 && mouseY < this.yPos && mouseY > this.yPos-this.bodyHeight){	
-		thisDeebInfo.style.opacity = '1';
-		thisDeebName.innerHTML = this.name;
+	//deeb hover
+	if( this.hover ){	
+		
+		this.points += 0.05;
 		this.scared = true;
-		if(this.state == 0){
-			thisDeebHealth.innerHTML = "R.I.P."; 
-		}else if( (points-this.points)<=200 ){
-			thisDeebHealth.innerHTML = "100%";
+		if((400-points)<=this.points && this.state != 0){ 
+			this.state = 0; 
+			var deathSound = new Audio('../assets/sounds/bell.wav');
+			deathSound.play();
+			alertBox.innerHTML = "STOP";
+			setTimeout(function(){
+				alertBox.innerHTML = "...";
+	 		}, 2000);
+		}else if((400-points)<=this.points && this.state == 0){
+			alertBox.innerHTML = "R.I.P. " + this.name;
+			setTimeout(function(){
+				alertBox.innerHTML = "...";
+	 		}, 2000); 
 		}else{
-			thisDeebHealth.innerHTML = this.points/4+"%";
+			alertBox.innerHTML = "Stop scaring "+ this.name +"!";
+			setTimeout(function(){
+				alertBox.innerHTML = "...";
+	 		}, 2000);
 		}
 	}
 	if(this.state == 0){
@@ -178,9 +190,6 @@ deeb.face = function(){
 		if(this.scaredCount>6){
 			this.scared = false;
 			this.scaredCount = 0;
-			setTimeout(function(){
-				thisDeebInfo.style.opacity = '0';
-			}, 3000);
 		}
 	}
 	//eyes
@@ -191,6 +200,7 @@ deeb.face = function(){
 	fill("black");
 	if(this.state==0){
 		for(var i=-2; i<3; i+=4){
+			stroke('grey');
 			pEx(this.xPos+(10*i), this.yPos-eyeHeight, 5, 5);
 		}
 		eyeSize = this.eyeSize*0.6;
@@ -226,9 +236,18 @@ flower.setup = function(x, y){
 	this.type = "flower";
 	this.xPos = x; 
 	this.yPos = y;
-	this.hue = 360+random(-20,20);
-	this.brightness = random(50, 80);
-	this.fill = "hsla("+ this.hue +", 100%, "+this.brightness+"%, 1.0)";
+	this.hover = false;
+
+	var hue = 27+random(-20,20);
+	var sat = map(points, 200, 400, 100, 40);
+	var bri = map(points, 200, 400, 70, 50) + random(-10, 10);
+
+	if(points<=200){ bri = 60; sat = 100; }
+	else if(points>=400){ bri = 40; sat = 40; }
+
+	this.fill = "hsla("+hue+", "+sat+"%, "+bri+"%, 1)";
+	this.stroke =  "hsla(358, "+sat+"%, "+(bri+10)+"%, 1)";
+
 	this.flowerCount = random(3,5);
 	this.stemLengths = [];
 	this.stemOffsets = [];
@@ -240,11 +259,19 @@ flower.setup = function(x, y){
 	}
 }
 flower.update = function(){
-	stroke('#FF707A');
+	stroke(this.stroke);
 	fill(this.fill);
 	for(var i=0; i<this.flowerCount; i++){
 		this.drawStem(this.xPos, this.yPos, this.xPos+this.stemOffsets[i], this.yPos-this.stemLengths[i], this.flowerSizes[i]);
 	}
+	if( this.hover ){
+		alertBox.innerHTML = "Please, don't pick the flowers!";
+		setTimeout(function(){
+			alertBox.innerHTML = "...";
+		}, 2000);
+	}
+
+
 }
 flower.drawStem = function(x1, y1, x2, y2, r){
 	pLine(x1, y1, x2, y2);
@@ -257,6 +284,7 @@ plant.setup = function(x, y){
 	this.type = "plant";
 	this.xPos = x; 
 	this.yPos = y;
+	this.hover = false;
 	var bri = map(points, 200, 400, 60, 40);
 	var sat = map(points, 200, 400, 100, 80);
 	var hue = map(points, 200, 400, 60, 40);
@@ -292,23 +320,22 @@ plant.update = function(){
 	if(this.loop>=3) this.loop = 0; 
 	c.drawImage(this.images[this.loop], this.xPos, this.yPos-this.height);
 }
-//////////////////////////////////////////////////////////////////////////////////////////// ROCK 
+//////////////////////////////////////////////////////////////////////////////////////////// BUSH 
 
 var bush = {};
 bush.setup = function(x, y){
 	this.type = "bush";
 	this.xPos = x; 
 	this.yPos = y;
+	this.hover = false;
 	this.loop = 0; 
-	this.fill = "#FF3047";
-	this.stroke = "#FF8C8F";//"#CF1734";
 
-	var bri = map(points, 200, 400, 60, 20);
-	var sat = map(points, 200, 400, 100, 80);
+	var bri = map(points, 200, 400, 60, 40);
+	var sat = map(points, 200, 400, 100, 40);
 	if(points<=200){ bri = 60; sat = 100; }
-	else if(points>=400){ bri = 20; sat = 80; }
-	this.fill = "hsla(353, "+sat+"%, "+bri+"%, 1)";
-	this.stroke =  "hsla(358, "+sat+"%, "+(bri+10)+"%, 1)";
+	else if(points>=400){ bri = 40; sat = 40; }
+	this.fill = "hsla(360, "+sat+"%, "+bri+"%, 1)";
+	this.stroke =  "hsla(368, "+sat+"%, "+(bri+10)+"%, 1)";
 
 	this.width = random(100,150);
 	this.height = random(100, 150);
@@ -342,6 +369,12 @@ grass.setup = function(x, y){
 	this.type = "grass";
 	this.xPos = x; 
 	this.yPos = y;
+
+	var sat = map(points, 200, 400, 100, 10);
+	if(points<=200){ sat = 100; }
+	else if(points>=400){ sat = 10; }
+	this.stroke =  "hsla(290, "+sat+"%, 30%, 1)";
+
 	this.bladeCount = random(2,5);
 	this.bladeLengths = [];
 	for(var i=0; i<this.bladeCount; i++){
@@ -349,7 +382,7 @@ grass.setup = function(x, y){
 	}
 }
 grass.update = function(){
-	stroke('purple');
+	stroke(this.stroke);
 	for(var i=0; i<this.bladeCount; i++){
 		pLine(this.xPos-(i*7), this.yPos, this.xPos-(i*7), this.yPos-this.bladeLengths[i]);
 	}
@@ -361,13 +394,13 @@ rock.setup = function(x, y){
 	this.type = "rock";
 	this.xPos = x; 
 	this.yPos = y;
+	this.hover = false;
 	this.fill = "#8B408F";
 
 	var sat = map(points, 200, 400, 65, 10);
 	var bri = map(points, 200, 400, 45, 45);
 	if(points<=200){ sat = 65; bri = 45; }
 	else if(points>=400){ sat = 10; bri = 45; }
-	console.log(sat, bri);
 	this.fill = "hsla(290, "+sat+"%, "+bri+"%, 1)";
 	this.stroke = "hsla(290, "+sat+"%, "+(bri-10)+"%, 1)";
 
@@ -402,10 +435,16 @@ rock.draw = function(){
 	stroke(this.stroke);
 	fill(this.fill);
 	for(var i=0; i<this.sectionCount; i++){
-		pEllipse(this.sectionXOffsets[i], this.height, this.sectionWidths[i], this.sectionHeights[i], 180, 360);
+		pEllipse(this.sectionXOffsets[i]-this.sectionWidths[i]/2, this.height, this.sectionWidths[i], this.sectionHeights[i], 180, 360);
 	}
 }
 rock.update = function(){
+	if(this.hover){
+		alertBox.innerHTML = "Just a rock."
+		setTimeout(function(){
+			alertBox.innerHTML = "..."
+		}, 2000);
+	}
 	this.loop++;
 	if(this.loop>=3) this.loop = 0; 
 	c.drawImage(this.images[0], this.xPos, this.yPos-this.height);
@@ -422,11 +461,13 @@ rock.update = function(){
 ////////////////////////////////////////////////////////////////////////////////////////// NEW CREATURES
 
 var newData = function(){	
-	var total = 200; 
+	var total = 400; 
 	var objects = [];
+	var names = ["Buffy", "Willow", "Xander", "Giles", "Angel", "Spike", "Cordelia", "Oz", "Tara", "Dawn", "Anya", "Joyce", "Jonathan", "Glory", "Malcolm", "Kaylee", "Zoe", "Wash", "Jayne", "Inara", "Simon", "River", "Shepherd", "Paul", "John", "Ringo", "George", "Lorelai", "Rory", "Jess", "Dean", "Luke", "Max", "Paris", "Sookie", "Ms. Patty", "Lane", "Michel", "Kirk", "Digger", "Taylor", "Marty", "Logan", "Christopher", "Emily", "Richard", "Maxmilian", "Benji", "Jon", "Keith", "Milena", "Andre", "Little Max", "Talia", "Eric", "Melissa", "Eloise", "Mark", "Tom", "Travis", "Dan", "Phil", "Julian", "Nikolai", "Fabrizio", "Nick", "Albert", "James Tiberius", "Spock", "McCoy", "Uhura", "Scotty", "Sulu", "Chekov", "Bartlet", "Leo", "Josh", "Toby", "Donna", "Charlie", "CJ", "Mandy", "Amy", "JD", "Turk", "Elliot", "Carla", "Kelso", "Perry", "Janitor", "Laverne", "Rose", "Mickey", "Jack", "Donna", "Martha", "River Song", "Amy ", "Rory", "Clara Oswin", "The Doctor", "Ten", "Eleven", "Twelve", "Thirteen", "Frodo", "Sam", "Merry", "Pippin", "Aragorn", "Boromir", "Faramir", "Legolas", "Eowyn", "Arwen", "Gimli", "Gandalf", "Elrond", "Galadriel", "Bombadil", "Saruman", "Bilbo", "Fëanor", "Lúthien", "Eru", "Ilúvatar", "Fingolfin", "Beren", "Luthien", "Thingol", "Elendil", "Elwing", "Isildur", "Glorfindel", "Sauran", "Harry ", "Ron", "Hermione", "Neville", "Drako", "Volde", "Rachel", "Bucky", "Elizabeth", "McKibben", "Lanier", "Rushkoff", "Walden", "Mars", "Jupiter", "Pluto", "Neptune", "Uranus", "Mercury", "Saturn", "Venus", "Galifrey", "Moon Moon", "Idgy Dean", "Debbie", "Black", "Biersack", "Tommy", "Joey", "Dee Dee", "Marky", "Johnny", "Richie", "Clem", "Jack", "Meg", "Mercer", "Brian", "Brandon", "Win", "Will", "Billy", "Regine", "Pink", "Ariel", "Mayberry", "Clif", "Colin", "Bowie", "Donnie", "Zach", "Elton", "Marshall", "Stevie", "Fleetwood", "Monty", "Zilla", "Zubin", "Muska", "Lee", "Wolfgang", "Lesley", "Jesusita", "Layne", "Efren", "Daron", "Jennell", "Sheridan", "Letisha", "Demetria", "Etha", "Eva", "Hee", "Annett", "Janella", "Tynisha", "Cathrine", "Terisa", "Jesusa", "Jeane", "Yvone", "Carmelina", "Isaias", "Gertude", "April", "Lisabeth", "Sook", "Kayce", "Edythe", "Otto", "Lelah", "Latrina", "Klara", "Anderson", "Signe", "Kathrin", "Leoma", "Raul", "Katherina", "Andree", "Nelida", "Maryann", "Kamilah", "Celine", "Cathern", "Nohemi", "Ethelyn", "Manie", "Donovan", "Elayne", "Kathlyn", "Laima", "Elena", "Linnea", "Kanisha", "Vita", "Ruthann", "Thaddeus", "Joanna", "Glennis", "Zena", "Dagny", "Rosita", "Jadwiga", "Debi", "Terence", "Willy", "Kymberly", "Jacinto", "Raelene", "Renata", "Rebekah", "Myrtice", "Delmer", "Lakenya", "Martina", "Leighann", "Elinor", "Nan", "Anastasia", "Kiley", "Akilah", "Hugh", "Lincoln", "Jestine", "Cristopher", "Darrell", "Vicenta", "Dustin", "Candra", "Shea", "Agatha", "Cordia", "Henriette", "Jade", "Alberto", "Dotty", "Effie", "Macie", "Timmy", "Roxanna", "Karl", "Chana", "Mana", "Bette", "Hosea", "Ona", "Kitty", "Marnie", "Abby", "Greg", "Senaida", "Matha", "Laree", "Desiree", "Roderick", "Loyce", "Rossie", "Thersa", "Karoline", "Annie", "Socorro", "Weldon", "Antoinette", "Freeman", "Harvey", "Pamula", "Pura", "Lucrecia", "Corina", "Jaye", "Lashay", "Kyle", "Alyssa", "Dawn", "Dedra", "Syble", "Ashlyn", "Sarah", "Judy", "Pok", "Geth", "Ismael", "Vern", "Werner", "Elvira", "Charline", "Jarvis", "Becky", "Carlo", "Hiedi", "Vance", "Juliette", "Marylin", "Rosena", "Tinisha", "Camilla", "Aiko", "Jacquie", "Jone", "Roonie", "Leatrice", "Emilie", "Spring", "Teodoro", "Tai", "Normand", "Cristin", "Euna", "Lester", "Ashanti", "Booker", "Margo", "Lyman", "Yetta", "Audrey", "Kellee", "Daria", "Pennie", "Bryanna", "Lulu", "Marcelo", "Kelley", "Gerda", "Ricky", "Nenita", "Kathlene", "Geoffrey", "Laureen", "Kit", "Maxie", "Hollis", "Weston", "Janey", "Randy", "Pat", "Lisha", "Ginette", "Dane", "Temple", "Hermina", "Sherill", "Chris", "Shannon", "Bluvband"];
+
 	for(var oCount=0; oCount<total; oCount++){
 		var tempDeeb = Object.create(deeb);
-		tempDeeb.init(random(-100,w, false), random(100,h,false), oCount);
+		tempDeeb.init(random(-100,w, false), random(100,h,false), oCount, names[oCount]);
 		objects.push( tempDeeb );
 	}
 
@@ -434,7 +475,7 @@ var newData = function(){
 
 	var system = {};
 	system.points = 100;
-	system.deebsAlive = 200; 
+	system.deebsAlive = 400; 
 	system.deebsDead = 0; 
 	system.visitors = 0; 
 	system.lastArchive = 0; 
@@ -484,9 +525,8 @@ var readJSON = function(){
 			var days = daysEllapsed( parseDate(visited), parseDate(lastVisited)); 
 			console.log(systemInfo.lastArchive);
 
-			systemInfo.points = 100; 
+			// systemInfo.points = 100; 
 
-			// days = 30;
 			systemInfo.lastArchive += days+1; 
 
 			points = systemInfo.points;
@@ -506,9 +546,6 @@ var readJSON = function(){
 
 			systemInfo.visitors += 1; 
 			systemInfo.points += days*2;
-			systemHealth.innerText = systemInfo.points; 
-			systemVisitors.innerText = systemInfo.visitors; 
-			systemLastVisited.innerText = days;
 
 			dFills = getDeebFills(systemInfo.points);
 			dStroke = getDeebStroke(systemInfo.points);
@@ -522,8 +559,6 @@ var readJSON = function(){
 
 			systemInfo.lastVisit = visited;
 			systemInfo.deebsDead = deadCount;
-			systemDeadDeebs.innerHTML = deadCount;
-			systemYourFault.innerHTML = deadCount - systemInfo.deebsDead; 
 		}
 	}
 	xmlObjects.send();
@@ -542,8 +577,6 @@ var makeArchive = function(arcCount, p){
 	if(l<arcCount){
 		console.log("archiving", l, "of", arcCount);
 		p -= 20;
-		// systemInfo.points -= 20; 
-		// console.log(systemInfo.points);
 		dFills = getDeebFills(p);
 		dStroke = getDeebStroke(p);
 		ddFills = getDeadDeebFills();
@@ -574,7 +607,6 @@ var makeArchive = function(arcCount, p){
 ///////////////////////////////////////////////////////////////////////////// SAVE IMAGES TO FILE
 
 var saveImages = function(imgs){
-	console.log(imgs);
 	var tempString = "";
 	for(var i=0; i<imgs.length; i++){
 		tempString += imgs[i]+"> ";
@@ -588,7 +620,7 @@ var saveImages = function(imgs){
 		},
 		data : { urls:tempString }
 	}).done(function(){
-		console.log("images saved");
+		console.log("archived");
 	});
 }
 
@@ -598,7 +630,7 @@ var deadCount;
 var createObjectArray = function(p, dbs){
 	var density = Math.round( (w*h/22500) );
 	var rockCount = Math.round( density*0.2 );  
-	var grassCount = Math.round( density*0.8 );  
+	var grassCount = Math.round( density );  
 	var flowerCount = Math.round( density*map(p, 400, 0, 0.3, 1.5) );
 	var plantCount = Math.round( flowerCount*0.8 );  
 	var bushCount = Math.round( density*map(p, 400, 0, 0.2, 0.6) );
@@ -672,14 +704,54 @@ window.onresize = function(){
 // update loop. where animation happens (sort of).
 // draws background, sorts to draw order & draws. 
 
+var hoverCount = 0; 
 var drawCanvas = function(){
-	// console.log("draw",critterArray);
 	fill(bgPattern);
 	fRect(0, 0, w, h);
 	critterArray.sort(function(obj1, obj2){
 		return obj1.yPos - obj2.yPos;
 	});
 	for(var i=0; i<critterArray.length; i++){
+		if( critterArray[i].type == "deeb"){
+			if( mouseX > critterArray[i].xPos-critterArray[i].bodyWidth/2 && mouseX < critterArray[i].xPos+critterArray[i].bodyWidth/2 && mouseY < critterArray[i].yPos && mouseY > critterArray[i].yPos-critterArray[i].bodyHeight ){
+				if(hoverCount < 1){
+					critterArray[i].hover = true;
+					hoverCount++;
+				}else{
+					hoverCount = 0; 
+					critterArray[i].hover = false;
+				}
+			}else{
+				hoverCount = 0; 
+				critterArray[i].hover = false;
+			}
+		}else if( critterArray[i].type == "flower"){
+			if( mouseX > critterArray[i].xPos-15 && mouseX < critterArray[i].xPos+15 && mouseY < critterArray[i].yPos && mouseY > critterArray[i].yPos-30 ){
+				if(hoverCount < 1){
+					critterArray[i].hover = true;
+					hoverCount++;
+				}else{
+					hoverCount = 0; 
+					critterArray[i].hover = false;
+				}
+			}else{
+				hoverCount = 0; 
+				critterArray[i].hover = false;
+			}
+		}else if( critterArray[i].type == "rock"){
+			if( mouseX > critterArray[i].xPos-critterArray[i].width/2 && mouseX < critterArray[i].xPos+critterArray[i].width/2 && mouseY < critterArray[i].yPos && mouseY > critterArray[i].yPos-critterArray[i].height ){
+				if(hoverCount < 1){
+					critterArray[i].hover = true;
+					hoverCount++;
+				}else{
+					hoverCount = 0; 
+					critterArray[i].hover = false;
+				}
+			}else{
+				hoverCount = 0; 
+				critterArray[i].hover = false;
+			}
+		}
 		critterArray[i].update();
 	}
 }

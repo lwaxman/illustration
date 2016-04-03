@@ -36,6 +36,12 @@ canvas#main{
 	position: relative;
 	margin-bottom: 30px;
 }
+#info #infoPadding p{
+	width: 100%;
+	position: relative;
+	margin-bottom: 30px;
+}
+
 #info #archLink{
 	text-decoration: none;
 	color: #C603FF;
@@ -44,7 +50,22 @@ canvas#main{
 	cursor: pointer;
 	color: #FF4936;
 }
+#info .emphasis{
+	color: red;
+}
 
+#alert{
+	position: fixed; 
+	width: 100%;
+	top: 90%;
+	text-align: center;
+	margin: 0 auto;
+}
+#alert #alertBox{
+	background: black;
+	padding: 5px 10px; 
+	display: inline-block;
+}
 
 #stats p{
 	padding: 2px 5px 2px 50px;
