@@ -46,16 +46,16 @@ var newData = function(){
 
 	var today = new Date();
 
-	var system = {};
-	system.points = 100;
-	system.deebsAlive = 400; 
-	system.deebsDead = 0; 
-	system.visitors = 0; 
-	system.lastArchive = 0; 
-	system.lastVisit = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
+	var systemInfo = {};
+	systemInfo.points = 100;
+	systemInfo.deebsAlive = 400; 
+	systemInfo.deebsDead = 0; 
+	systemInfo.visitors = 0; 
+	systemInfo.lastArchive = 0; 
+	systemInfo.lastVisit = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
 
 	var fullFile = {};
-	fullFile.info = system; 
+	fullFile.info = systemInfo; 
 	fullFile.critters = objects; 
 
 	var jsonObject = JSON.stringify(fullFile);
@@ -96,11 +96,11 @@ var readJSON = function(){
 			var visited = today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear();
 			var lastVisited = systemInfo.lastVisit;
 			var days = daysEllapsed( parseDate(visited), parseDate(lastVisited)); 
-			console.log(systemInfo.lastArchive);
-
 			var deadAtStart = systemInfo.deebsDead; 
+			days = 9; 
 
 			systemInfo.lastArchive += days+1; 
+			console.log("last arch", systemInfo.lastArchive);
 
 			points = systemInfo.points;
 			if(points<0) points = 0; 
@@ -168,7 +168,8 @@ var makeArchive = function(arcCount, p){
 		ddFills = getDeadDeebFills();
 		ddStroke = "hsla(180,10%,80%,0.2)";
 		bgPattern = backgroundPattern(p);
-		createObjectArray(p, myDeebs);
+		// createObjectArray(p, myDeebs);
+		createArchiveArray(p, myDeebs);
 		drawCanvas();
 		var dataURL = canvas.toDataURL();
 		var tempImg = new Image();
@@ -211,6 +212,67 @@ var saveImages = function(imgs){
 };
 
 /////////////////////////////////////////////////////////////////////////////// CREATE OBJECTS FROM ARRAY
+var positionsDeebs = [[272, 427], [771, 728], [146, 460], [474, 60], [599, 76], [643, 400], [540, 336], [207, 168], [479, 585], [108, 549], [471, 722], [509, 80], [499, 282], [478, 670], [76, 659], [340, 166], [148, 515]];
+var positionsFlowers = [[541, 647], [663, 546], [579, 334], [267, 57], [715, 413], [750, 302], [543, 581], [781, 273], [475, 501], [225, 689], [336, 627], [253, 91], [105, 343], [303, 636], [209, 211], [516, 533], [374, 192], [677, 644], [695, 297], [67, 492], [238, 674], [786, 131], [511, 275], [398, 333], [370, 446], [660, 604], [117, 738], [577, 640], [769, 97], [486, 209], [61, 290], [339, 374], [461, 766], [635, 572], [42, 568], [359, 320], [478, 650], [648, 760], [684, 555], [565, 278], [226, 299], [550, 253]];
+var positionsPlants = [[271, 19], [89, 533], [643, 71], [559, 452], [219, 404], [737, 709], [275, 88], [61, 147], [188, 562], [205, 525], [207, 122], [777, 127], [142, 77], [579, 592], [613, 631], [47, 74], [56, 521], [639, 696], [322, 669], [158, 719], [551, 290], [628, 144], [391, 543], [638, 589], [23, 585], [105, 345], [10, 52], [700, 681], [228, 755], [582, 378], [600, 41], [780, 613], [702, 733], [414, 760]];
+var positionsGrass = [[187, 64], [283, 343], [339, 47], [108, 386], [336, 234], [269, 61], [98, 180], [187, 239], [60, 254], [47, 345], [60, 148], [97, 183], [47, 247], [288, 347], [386, 32], [246, 134], [126, 300], [109, 26], [372, 341], [80, 50], [79, 324], [200, 344], [220, 173], [117, 366], [65, 83], [231, 151], [333, 54], [40, 185]];
+var positionsBushes = [[408, 150], [75, 597], [177, 154], [181, 480], [412, 369], [145, 99], [69, 777], [585, 514], [278, 435], [504, 603], [483, 177], [478, 412], [174, 256], [368, 200], [162, 333], [367, 605], [515, 575]];
+var positionsRocks = [[452, 554], [188, 768], [580, 342], [642, 570], [455, 475], [703, 535]];
+var archiveDeebs = [242, 93, 156, 240, 183, 283, 289, 274, 283, 271, 148, 239, 116, 182, 107, 346, 390];
+
+var createArchiveArray = function(p, dbs){
+	var density = 28;
+	var rockCount = Math.round( density*0.2 );  
+	var grassCount = Math.round( density );  
+	var flowerCount = Math.round( density*map(p, 400, 0, 0.3, 1.5) );
+	var plantCount = Math.round( flowerCount*0.8 );  
+	var bushCount = Math.round( density*map(p, 400, 0, 0.2, 0.6) );
+	var deebCount = Math.round( density*map(p, 400, 0, 0.2, 0.6) ); 
+	if(p>400){
+		rockCount = Math.round( density*0.2 );  
+		grassCount = Math.round( density*0.8 );  
+		flowerCount = Math.round( density*map(p, 400, 800, 0.3, 0.05) );
+		plantCount = Math.round( flowerCount*0.8 );  
+		bushCount = Math.round( density*map(p, 400, 800, 0.2, 0.05) );
+	}
+	for(var i=0; i<17; i++){
+		var tempDeeb = Object.create(deeb);
+		tempDeeb.setup(positionsDeebs[i][0], positionsDeebs[i][1], dbs[archiveDeebs[i]].name, dbs[archiveDeebs[i]].points, dbs[archiveDeebs[i]].bodyWidth, dbs[archiveDeebs[i]].bodyHeight, dbs[archiveDeebs[i]].state, dbs[archiveDeebs[i]].speed, dbs[archiveDeebs[i]].index);
+		if(tempDeeb.state == 0){
+			deadCount++;
+		}
+		jsonObjects.push( tempDeeb );
+	}
+	for(var j=0; j<deebCount; j++){
+		critterArray.push( jsonObjects[j] );
+	}
+	for(var b=0; b<bushCount; b++){
+		tempBush = Object.create(bush);
+		tempBush.setup(positionsBushes[b][0], positionsBushes[b][1]);
+		critterArray.push( tempBush );
+	}
+	for(var f=0; f<flowerCount; f++){
+		var tempFlower = Object.create(flower);
+		tempFlower.setup(positionsFlowers[f][0], positionsFlowers[f][1]);
+		critterArray.push( tempFlower );
+	}
+	for(var p=0; p<plantCount; p++){
+		var tempPlant = Object.create(plant);
+		tempPlant.setup(positionsPlants[p][0], positionsPlants[p][1]);
+		critterArray.push( tempPlant );
+	}
+	for(var r=0; r<rockCount; r++){
+		var tempRock = Object.create(rock);
+		tempRock.setup(positionsRocks[r][0], positionsRocks[r][1]);
+		critterArray.push( tempRock );
+	}
+	for(var g=0; g<grassCount; g++){
+		var tempGrass = Object.create(grass);
+		tempGrass.setup( positionsGrass[g][0], positionsGrass[g][1] );
+		critterArray.push( tempGrass );
+	}	
+}
+
 
 var deadCount;
 var createObjectArray = function(p, dbs){
@@ -300,6 +362,8 @@ var drawCanvas = function(){
 
 	if( window.scrollY > 0 ){
 		for(var i=0; i<critterArray.length; i++){
+			// console.log(critterArray);
+			// console.log(i, critterArray[i]);
 			if( critterArray[i].type == "deeb"){
 				if( mouseX > critterArray[i].xPos-critterArray[i].bodyWidth/2 && mouseX < critterArray[i].xPos+critterArray[i].bodyWidth/2 && mouseY < critterArray[i].yPos && mouseY > critterArray[i].yPos-critterArray[i].bodyHeight ){
 					if(hoverCount < 1){

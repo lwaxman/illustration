@@ -4,11 +4,9 @@
 }
 body{  
 	background: black; 
-	// font-family: "helvetica", "monaco", "menlo", monospace;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 300;
 	color: #deebee;
-	// color: white;
 	font-size: 10pt;
 }
 a{
@@ -66,8 +64,10 @@ canvas#main{
 	font-style: italic;
 }
 #info .bold{
-	font-style: italic;
 	font-weight: 600; 
+}
+#info .highlight{
+	color: #74EDED;
 }
 #info a{
 	text-decoration: none;

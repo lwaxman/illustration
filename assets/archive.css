@@ -1,0 +1,107 @@
+body{
+	margin: 0; 
+	background: black;
+	font-family: 'Helvetica', sans-serif;
+	font-weight: 200;
+	font-size: 62.5%;
+	color: white;
+}
+
+#imageContainer{
+	position: relative;
+	width: 80%;
+	top: 10em;
+	max-width: 80em;
+	margin: 0 auto;
+}
+
+#imageContainer img{
+	width: 100%;
+}
+#firstLast{
+	display: block;
+	height: auto;
+}
+#firstLast img{
+	position: absolute;
+	width: 80em;
+	height: auto;
+	max-width: 80em;
+}
+#first{
+	position: relative;
+	width: 40em;
+	height: 80em;
+	border-right: 2px solid black;
+	overflow: hidden;
+}
+#first img{
+	width: 80em;
+} 
+
+#more{
+	position: relative;
+	top: 1em;
+	width: 12em;
+	border-radius: 1em;
+	padding: 0.5em 1em;
+	margin: 0 auto;
+	text-align: center;
+	background: #74EDED;
+	font-size: 2em;
+	color: black;
+}
+#more:hover{
+	cursor: pointer;
+	background: #8FF9FF;
+}
+
+.arrow{
+	height: 80em;
+	width: 10em;
+	position: relative;
+	background: #222;
+	top:0;
+	text-align: center;
+}
+.arrow p{
+	font-size: 5em;
+	margin-top: 7em;
+	vertical-align: middle;
+}
+.arrow:hover p{
+	cursor: pointer;
+	color: #74EDED;
+	color: purple;
+}
+#left{
+	position: absolute;
+	left: -10em;
+}
+#right{
+	position: absolute;
+	right: -10em;
+}
+
+#elseContainer{
+	display: none;
+	height: 80em;
+	width: 80em;
+	overflow: scroll;
+}
+
+#everythingElse{
+	display: inline-block;
+}
+#everythingElse img{
+	width: 80em;
+}
+
+@media (max-width: 1000px) {
+	body{
+		font-size: 40%;
+	}
+	#more{
+		font-size: 3em;
+	}
+}
